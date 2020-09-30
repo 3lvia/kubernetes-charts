@@ -1,28 +1,15 @@
-{{- if .Values.autoscaling.enabled }}
-apiVersion: autoscaling/v2beta1
+{{- if .Values.autoscaling }}
+apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "elvia-deployment.fullname" . }}
-  labels:
-    {{- include "elvia-deployment.labels" . | nindent 4 }}
+  name:  {{ required "Missing .Values.name" .Values.name }}
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "elvia-deployment.fullname" . }}
+    name: {{ required "Missing .Values.name" .Values.name }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
-  metrics:
-  {{- if .Values.autoscaling.targetCPUUtilizationPercentage }}
-    - type: Resource
-      resource:
-        name: cpu
-        targetAverageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
-  {{- end }}
-  {{- if .Values.autoscaling.targetMemoryUtilizationPercentage }}
-    - type: Resource
-      resource:
-        name: memory
-        targetAverageUtilization: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}
-  {{- end }}
+  targetCPUUtilizationPercentage: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
 {{- end }}

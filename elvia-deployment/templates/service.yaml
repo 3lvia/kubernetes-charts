@@ -1,15 +1,16 @@
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
-  name: {{ include "elvia-deployment.fullname" . }}
+  name: {{ required "Missing .Values.name" .Values.name }}
+  namespace: core
   labels:
-    {{- include "elvia-deployment.labels" . | nindent 4 }}
+    app: {{ required "Missing .Values.name" .Values.name }}
 spec:
-  type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+  - name: {{ required "Missing .Values.name" .Values.name }}port
+    port: {{ required "Missing .Values.service.port" .Values.service.port }}
+    {{- if .Values.service.targetPort -}}
+    targetPort: {{ .Values.service.targetPort -}}
+    {{- end }}
   selector:
-    {{- include "elvia-deployment.selectorLabels" . | nindent 4 }}
+    app: {{ required "Missing .Values.name" .Values.name }}

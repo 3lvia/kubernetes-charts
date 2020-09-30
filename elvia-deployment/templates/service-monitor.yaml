@@ -1,0 +1,11 @@
+kind: ServiceMonitor
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  name: {{ required "Missing .Values.name" .Values.name }}
+  namespace: core
+spec:
+  endpoints:
+  - port: {{ required "Missing .Values.name" .Values.name }}port
+  selector:
+    matchLabels:
+      app: {{ required "Missing .Values.name" .Values.name }}

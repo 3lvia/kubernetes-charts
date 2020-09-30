@@ -3,60 +3,59 @@ kind: Deployment
 metadata:
   name: {{ required "Missing .Values.name" .Values.name }}
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
-  labels:
-    {{- include "elvia-deployment.labels" . | nindent 4 }}
 spec:
-{{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-{{- end }}
+  replicas: {{ required "Missing .Values.replicaCount" .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "elvia-deployment.selectorLabels" . | nindent 6 }}
+      app: {{ required "Missing .Values.name" .Values.name }}
+      microservice-type: webapi
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
-    {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
       labels:
-        {{- include "elvia-deployment.selectorLabels" . | nindent 8 }}
+        app: {{ required "Missing .Values.name" .Values.name }}
+        microservice-type: webapi
+      annotations:
+        seccomp.security.alpha.kubernetes.io/pod: runtime/default
     spec:
-      {{- with .Values.imagePullSecrets }}
+      serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      serviceAccountName: {{ include "elvia-deployment.serviceAccountName" . }}
+      - name: containerregistryelvia
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+        supplementalGroups: [1001]
       containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ required "Missing .Values.image.repository" .Values.image.repository }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      - name: {{ required "Missing .Values.name" .Values.name }}
+        {{- with .Values.env }}
+        env:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        image: "{{ required "Missing .Values.image.repository" .Values.image.repository }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}"
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+        {{- with .Values.lifecycle }}
+        lifecycle:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.readinessProbe }}
+        readinessProbe:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.readinessProbe }}
+        readinessProbe:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.livenessProbe }}
+        livenessProbe:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+

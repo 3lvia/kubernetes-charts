@@ -1,0 +1,72 @@
+# Default values for elvia-deployment.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+name: github-repository-team-adder
+namespace: core
+
+replicaCount: 2
+
+image:
+  repository: containerregistryelvia.azurecr.io/github-repository-team-adder
+  tag: "20200921.2"
+
+imagePullSecret: containerregistryelvia
+
+env: 
+- name: ASPNETCORE_URLS
+  value: http://+:8080
+- name: my_key_from_config_map
+  valueFrom:
+    configMapKeyRef:
+      key: my_key
+      name: github-repository-team-adder
+
+service:
+  port: 2112
+
+ingress:
+  host: github-repository-team-adder.dev-elvia.io
+  path: "/"
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 80
+
+lifecycle:
+  preStop:
+    exec:
+      command:
+      - sleep
+      - "15"
+
+readinessProbe:
+  failureThreshold: 3
+  httpGet:
+    path: /
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 15
+  successThreshold: 1
+  timeoutSeconds: 3
+
+livenessProbe:
+  failureThreshold: 5
+  httpGet:
+    path: /
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 15
+  successThreshold: 1
+  timeoutSeconds: 3
