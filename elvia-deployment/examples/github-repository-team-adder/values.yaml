@@ -4,6 +4,7 @@
 
 name: github-repository-team-adder
 namespace: core
+microserviceType: worker
 
 replicaCount: 2
 

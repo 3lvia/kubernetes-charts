@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: {{ required "Missing .Values.name" .Values.name }}
-      microservice-type: webapi
+      microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -18,7 +18,7 @@ spec:
     metadata:
       labels:
         app: {{ required "Missing .Values.name" .Values.name }}
-        microservice-type: webapi
+        microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
       annotations:
         seccomp.security.alpha.kubernetes.io/pod: runtime/default
     spec:
