@@ -88,6 +88,7 @@
     "required": [
         "name",
         "namespace",
+        "environment",
         "replicaCount",
         "image",
         "imagePullSecret",

@@ -60,3 +60,14 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Create the host of the ingress
+*/}}
+{{- define "ingress.host" -}}
+{{- if eq .Values.environment "prod"}}
+{{- printf "%s.elvia.io" .Values.ingress.subdomain }}
+{{- else }}
+{{- printf "%s.%s-elvia.io" .Values.ingress.subdomain .Values.environment }}
+{{- end }}
+{{- end }}

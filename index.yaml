@@ -3,12 +3,22 @@ entries:
   elvia-deployment:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-10-02T10:51:31.8473039+02:00"
+    created: "2020-10-08T11:33:51.9239543+02:00"
     description: A Helm chart for Kubernetes
-    digest: 6a0ba15f9f566248853706cdfd6fe4fc8794da1f66fec366585bf4ba5115f6a0
+    digest: b267178a0987d8def7ead8bc8d5c84c90496ae022953dd124c0cf75cc94eb9f3
+    name: elvia-deployment
+    type: application
+    urls:
+    - elvia-deployment-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-10-08T11:33:51.9230477+02:00"
+    description: A Helm chart for Kubernetes
+    digest: 849c49c79a84f88157090824ea7706b5c74b2076e0a992438d1eef8dded08ad2
     name: elvia-deployment
     type: application
     urls:
     - elvia-deployment-0.1.1.tgz
     version: 0.1.1
-generated: "2020-10-02T10:51:31.8462203+02:00"
+generated: "2020-10-08T11:33:51.9219079+02:00"

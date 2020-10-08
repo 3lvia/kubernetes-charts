@@ -4,7 +4,8 @@
 
 name: github-repository-team-adder
 namespace: core
-microserviceType: worker
+microserviceType: webapi
+#environment: dev
 
 replicaCount: 2
 
@@ -27,8 +28,9 @@ service:
   port: 2112
 
 ingress:
-  host: github-repository-team-adder.dev-elvia.io
+  subdomain: github-repository-team-adder
   path: "/"
+  port: 2112
 
 resources:
   limits:

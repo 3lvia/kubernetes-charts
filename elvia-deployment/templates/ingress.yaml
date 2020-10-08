@@ -20,11 +20,15 @@ metadata:
   {{- end }}
 spec:
   rules:
-    - host: {{ required "Missing .Values.name" .Values.ingress.host }}
+    - host: {{ include "ingress.host" . }}
       http:
         paths:
-          - path: {{ required "Missing .Values.name" .Values.ingress.path }}
+          - path: {{ required "Missing .Values.ingress.path" .Values.ingress.path }}
             backend:
               serviceName: {{ required "Missing .Values.name" .Values.name }}
+              {{- if .Values.ingress.port }}
+              servicePort: {{ .Values.ingress.port }}
+              {{- else }}
               servicePort: 80
+              {{- end}}
   {{- end }}
