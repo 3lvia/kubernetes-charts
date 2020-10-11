@@ -93,8 +93,20 @@
         "image",
         "imagePullSecret",
         "service",
-        "service.port",
         "resources"
     ],
+    "properties": {
+        "service": {
+            "type": "object",
+            "required": [
+                "port"
+            ],
+            "properties": {
+                "port": {
+                    "type": "integer"
+                }
+            }
+        }
+    },
     "additionalProperties": true
 }
