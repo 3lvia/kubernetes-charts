@@ -2,7 +2,7 @@ kind: ServiceMonitor
 apiVersion: monitoring.coreos.com/v1
 metadata:
   name: {{ required "Missing .Values.name" .Values.name }}
-  namespace: core
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
 spec:
   endpoints:
   - port: {{ required "Missing .Values.name" .Values.name }}port
