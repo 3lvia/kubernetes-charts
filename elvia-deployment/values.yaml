@@ -7,13 +7,13 @@
 # microserviceType: worker|webapi|pushreceiver
 # environment: dev|test|prod
 
-# replicaCount: 1
+replicaCount: 1
 
 # image:
 #   repository: containerregistryelvia.azurecr.io/github-repository-team-adder
 #   tag: "20200921.2"
 
-# imagePullSecret: containerregistryelvia
+imagePullSecret: containerregistryelvia
 
 # env: 
 # - name: ASPNETCORE_URLS
@@ -25,7 +25,7 @@
 #       name: github-repository-team-adder
 
 # service:
-#   port: 80
+#   port: 2112
 #   targetPort: 8080
 
 # ingress:
@@ -53,3 +53,32 @@
 #   minReplicas: 2
 #   maxReplicas: 4
 #   targetCPUUtilizationPercentage: 80
+
+# lifecycle:
+#   preStop:
+#     exec:
+#       command:
+#       - sleep
+#       - "15"
+
+# readinessProbe:
+#   failureThreshold: 3
+#   httpGet:
+#     path: /metrics
+#     port: 2112
+#     scheme: HTTP
+#   initialDelaySeconds: 15
+#   periodSeconds: 15
+#   successThreshold: 1
+#   timeoutSeconds: 3
+
+# livenessProbe:
+#   failureThreshold: 5
+#   httpGet:
+#     path: /metrics
+#     port: 2112
+#     scheme: HTTP
+#   initialDelaySeconds: 15
+#   periodSeconds: 15
+#   successThreshold: 1
+#   timeoutSeconds: 3
