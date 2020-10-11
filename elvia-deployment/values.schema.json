@@ -93,6 +93,7 @@
         "image",
         "imagePullSecret",
         "service",
+        "service.port",
         "resources"
     ],
     "additionalProperties": true
