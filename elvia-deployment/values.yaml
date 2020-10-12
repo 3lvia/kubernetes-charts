@@ -9,6 +9,10 @@
 
 replicaCount: 1
 
+#dnsConfig:
+#  options:
+#  - name: single-request-reopen
+
 # image:
 #   repository: containerregistryelvia.azurecr.io/github-repository-team-adder
 #   tag: "20200921.2"

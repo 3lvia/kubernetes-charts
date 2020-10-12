@@ -30,6 +30,9 @@ spec:
         runAsGroup: 1001
         fsGroup: 1001
         supplementalGroups: [1001]
+      {{- if .Values.dnsConfig }}
+      dnsConfig: {{- toYaml .Values.dnsConfig | nindent 8 }} 
+      {{- end}}
       containers:
       - name: {{ required "Missing .Values.name" .Values.name }}
         {{- with .Values.env }}
