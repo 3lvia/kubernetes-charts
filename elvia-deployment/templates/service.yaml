@@ -9,7 +9,7 @@ spec:
   ports:
   - name: {{ required "Missing .Values.name" .Values.name }}port
     port: {{ required "Missing .Values.service.port" .Values.service.port }}
-    {{- if .Values.service.targetPort -}}
+    {{- if .Values.service.targetPort }}
     targetPort: {{ .Values.service.targetPort -}}
     {{- end }}
   selector:
