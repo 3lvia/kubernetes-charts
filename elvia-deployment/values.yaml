@@ -13,6 +13,14 @@ replicaCount: 1
 #  options:
 #  - name: single-request-reopen
 
+#hostAliases:
+#  - ip: "10.160.4.139"
+#    hostnames:
+#      - "haarcgeoevent01.hipad.no"
+#  - ip: "172.19.253.6"
+#    hostnames:
+#      - "haarcgeoevt01t1.hipad.no"
+
 # image:
 #   repository: containerregistryelvia.azurecr.io/github-repository-team-adder
 #   tag: "20200921.2"
