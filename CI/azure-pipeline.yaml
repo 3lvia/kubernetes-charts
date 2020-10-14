@@ -7,7 +7,7 @@ pool:
 stages:
 - stage: HelmPackage
   jobs:
-    - job: Helm Package
+    - job: Package
       pool:
         vmImage: "ubuntu-latest"
       steps:
