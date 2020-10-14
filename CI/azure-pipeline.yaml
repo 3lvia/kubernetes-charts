@@ -22,6 +22,6 @@ stages:
         - script: |
             helm package elvia-deployment > CI/test.tgz
             git commit "Publish new package"
-            git push
+            git push origin trunk
           displayName: Generate kubernetes manifest from Helm chart
 
