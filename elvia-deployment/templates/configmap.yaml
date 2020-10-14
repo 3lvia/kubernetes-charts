@@ -1,5 +1,7 @@
-{{- if .Values.configmap.dev }}
+{{- if .Values.configmap}}
+
 {{- if eq .Values.environment "dev"}}
+{{- if .Values.configmap.dev }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -9,8 +11,8 @@ data: {{- toYaml .Values.configmap.dev | nindent 2 }}
 {{- end }}
 {{- end }}
 
-{{- if .Values.configmap.test }}
 {{- if eq .Values.environment "test"}}
+{{- if .Values.configmap.test }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -20,8 +22,8 @@ data: {{- toYaml .Values.configmap.test | nindent 2 }}
 {{- end }}
 {{- end }}
 
-{{- if .Values.configmap.prod }}
 {{- if eq .Values.environment "prod"}}
+{{- if .Values.configmap.prod }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -29,4 +31,6 @@ metadata:
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
 data: {{- toYaml .Values.configmap.prod | nindent 2 }} 
 {{- end }}
+{{- end }}
+
 {{- end }}
