@@ -20,9 +20,12 @@ stages:
             destination: $(Build.ArtifactStagingDirectory)
         # Generate kubernetes manifest from Helm chart
         - script: |
-            helm package elvia-deployment > CI/test.tgz
+            sh "git clone https://github.com/3lvia/kubernetes-charts.git chart-repo"
+            sh "cd chart-repo"
+            helm package elvia-deployment
+            helm repo index .
             git add .
             git commit "Publish new package"
             git push origin trunk
-          displayName: Generate kubernetes manifest from Helm chart
+          displayName: Generate new chart package
 
