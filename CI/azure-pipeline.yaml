@@ -18,4 +18,10 @@ stages:
             command: package
             chartPath: elvia-deployment
             destination: $(Build.ArtifactStagingDirectory)
+        # Generate kubernetes manifest from Helm chart
+        - script: |
+            helm package elvia-deployment > CI/test.tgz
+            git commit "Publish new package"
+            git push
+          displayName: Generate kubernetes manifest from Helm chart
 
