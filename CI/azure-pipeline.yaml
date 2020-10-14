@@ -1,0 +1,21 @@
+trigger:
+  - '*'
+
+pool:
+  vmImage: "ubuntu-latest"
+
+stages:
+- stage: Helm package
+  jobs:
+    - job: HelmPackage
+      pool:
+        vmImage: "ubuntu-latest"
+      steps:
+      
+        - task: HelmDeploy@0
+          displayName: Helm package
+          inputs:
+            command: package
+            chartPath: elvia-deployment
+            destination: $(Build.ArtifactStagingDirectory)
+
