@@ -15,7 +15,15 @@ stages:
       pool:
         vmImage: "ubuntu-20.04"
       steps:
-        
+        - script: |
+            mkdir ~/.kube
+            echo "$kubectlconfig" >> config
+            mv config ~/.kube
+            echo "kubectlconfig:           $kubectlconfig"
+            echo "containerregistry:           $(containerregistry)"
+          displayName: Print echo
+          workingDirectory: $(Build.SourcesDirectory)
+
         - script: |
             curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
             sudo apt-get install apt-transport-https --yes
