@@ -46,10 +46,7 @@ stages:
         - script: ct lint --all --config ct.yaml
           displayName: Run lint
           workingDirectory: $(Build.SourcesDirectory)
-        
-        - script: printenv
-          displayName: Print environment
-
+          
 
           
 
