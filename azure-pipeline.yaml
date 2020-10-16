@@ -18,6 +18,10 @@ stages:
           displayName: Install kubernetes cluster
         
         - script: |
+            kubectl create namespace core
+          displayName: Create namespace core
+
+        - script: |
             kubectl get namespace
           displayName: Test kubectl - List all namespaces
 
