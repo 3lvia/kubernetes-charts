@@ -2,18 +2,23 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# name: github-repository-team-adder
-# namespace: core
+# name: <name Of deployment>
+# namespace: <namespace>
 # microserviceType: worker|webapi|pushreceiver
 # environment: dev|test|prod
+name: chart-testing
+namespace: core
+microserviceType: webapi
+environment: dev
 
+# number of replicas
 replicaCount: 1
 
-#dnsConfig:
+# dnsConfig:
 #  options:
 #  - name: single-request-reopen
 
-#hostAliases:
+# hostAliases:
 #  - ip: "10.160.4.139"
 #    hostnames:
 #      - "haarcgeoevent01.hipad.no"
@@ -22,12 +27,15 @@ replicaCount: 1
 #      - "haarcgeoevt01t1.hipad.no"
 
 # image:
-#   repository: containerregistryelvia.azurecr.io/github-repository-team-adder
-#   tag: "20200921.2"
+#   repository: <UrlOfImageRepository>
+#   tag: "TobeReplaced"
+image:
+  repository: containerregistryelvia.azurecr.io/bad-realtimeunits-api
+  tag: "ToBeReplaced"
 
 imagePullSecret: containerregistryelvia
 
-# env: 
+# env:
 # - name: ASPNETCORE_URLS
 #   value: http://+:8080
 # - name: my_key_from_config_map
@@ -37,11 +45,14 @@ imagePullSecret: containerregistryelvia
 #       name: github-repository-team-adder
 
 # service:
-#   port: 2112
-#   targetPort: 8080
+#   port: <servicePort>
+#   targetPort: <targetPort>
+service:
+  port: 80
+  targetPort: 8080
 
 # ingress:
-#   annotations: 
+#   annotations:
 #     kubernetes.io/ingress.class: traefik
 #     traefik.frontend.rule.type: PathPrefixStrip
 #     # Redirect the /metrics endpoint to /
@@ -60,6 +71,7 @@ imagePullSecret: containerregistryelvia
 #   requests:
 #     cpu: 100m
 #     memory: 128Mi
+resources: {}
 
 # autoscaling:
 #   minReplicas: 2

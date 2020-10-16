@@ -4,28 +4,53 @@ trigger:
 pool:
   vmImage: "ubuntu-latest"
 
+variables:
+  containerRegistry: "ContainerRegistryElvia"
+
 stages:
-- stage: HelmPackage
+- stage: ChartTesting
   jobs:
-    - job: Package
+    - job: RunChartTesting
+      #container: quay.io/helmpack/chart-testing:latest
       pool:
-        vmImage: "ubuntu-latest"
+        vmImage: "ubuntu-20.04"
       steps:
-      
-        - task: HelmDeploy@0
-          displayName: Helm package
-          inputs:
-            command: package
-            chartPath: elvia-deployment
-            destination: $(Build.ArtifactStagingDirectory)
-        # Generate kubernetes manifest from Helm chart
+        
         - script: |
-            sh "git clone https://github.com/3lvia/kubernetes-charts.git chart-repo"
-            sh "cd chart-repo"
-            helm package elvia-deployment
-            helm repo index .
-            git add .
-            git commit "Publish new package"
-            git push origin trunk
-          displayName: Generate new chart package
+            curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
+            sudo apt-get install apt-transport-https --yes
+            echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+            sudo apt-get update
+            sudo apt-get install helm
+          displayName: Install helm 3
+        - script: sudo apt-get install yamllint
+          displayName: Install yamllint
+        - script: |
+            sudo apt-get update 
+            sudo pip3 install setuptools
+            sudo pip3 install yamale    
+          displayName: Install yamale
+        - script: |
+            curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+            chmod +x ./kubectl
+            sudo mv ./kubectl /usr/local/bin/kubectl
+          displayName: Install kubectl
+        - script: brew install chart-testing
+          displayName: Install ct
+        - script: |
+            mkdir $HOME/.ct
+            mv ct/etc/* $HOME/.ct/
+          displayName: Configure ct config
+          workingDirectory: $(Build.SourcesDirectory)
+        
+        - script: ct lint --all --config ct.yaml
+          displayName: Run lint
+          workingDirectory: $(Build.SourcesDirectory)
+        
+        - script: printenv
+          displayName: Print environment
+
+
+          
+
 
