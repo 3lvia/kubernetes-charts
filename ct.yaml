@@ -1,7 +1,4 @@
 chart-dirs:
   - .
 
-chart-repos:
-  
-
 validate-maintainers: false
