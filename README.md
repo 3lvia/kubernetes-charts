@@ -22,7 +22,7 @@ helm template github-repo -f elvia-deployment/examples/github-repository-team-ad
 
 Remote
 ```
-helm repo add elvia-deployment https://raw.githubusercontent.com/3lvia/kubernetes-charts/trunk
+helm repo add elvia-deployment https://raw.githubusercontent.com/3lvia/kubernetes-charts/master
 helm repo update
 helm template github-repository-team-adder -f elvia-deployment/examples/github-repository-team-adder/values.yaml elvia-deployment
 ```
