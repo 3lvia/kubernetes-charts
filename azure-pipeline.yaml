@@ -10,51 +10,48 @@ stages:
     - job: RunChartTesting
       steps:
         - script: |
-            curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-linux-amd64
-            chmod +x ./kind
-            sudo mv kind /usr/local/bin
-            sudo service docker restart
-            kind create cluster
-          displayName: Install kubernetes cluster
-        
-        - script: |
-            kubectl create namespace core
-          displayName: Create namespace core
-
-        - script: |
-            kubectl get namespace
-          displayName: Test kubectl - List all namespaces
-
-        - script: |
             curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
             sudo apt-get install apt-transport-https --yes
             echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
             sudo apt-get update
             sudo apt-get install helm
           displayName: Install helm 3
-        
+        - script: |
+            curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-linux-amd64
+            chmod +x ./kind
+            sudo mv kind /usr/local/bin
+            sudo service docker restart
+            kind create cluster
+          displayName: Install kubernetes cluster
+        - script: |
+            helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+            helm install prometheus prometheus-community/kube-prometheus-stack
+          displayName: Kubernetes servicemonitor
+        - script: |
+            kubectl create namespace core
+          displayName: Create namespace core
+        - script: |
+            kubectl get namespace
+            kubectl get servicemonitor --all-namespaces
+          displayName: Test kubectl
         - script: sudo apt-get install yamllint
           displayName: Install yamllint
-        
         - script: |
             sudo apt-get update 
             sudo pip3 install setuptools
             sudo pip3 install yamale    
           displayName: Install yamale
-        
         - script: brew install chart-testing
           displayName: Install ct
-        
         - script: |
             mkdir $HOME/.ct
             mv ct/etc/* $HOME/.ct/
           displayName: Configure ct config
           workingDirectory: $(Build.SourcesDirectory)
-        
+
         - script: ct lint --all --config ct.yaml
           displayName: Run ct lint
           workingDirectory: $(Build.SourcesDirectory)
-
         - script: ct install --all --config ct.yaml
           displayName: Run ct install --upgrade
           workingDirectory: $(Build.SourcesDirectory)

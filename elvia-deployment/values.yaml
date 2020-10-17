@@ -117,6 +117,3 @@ resources: {}
 #   prod:
 #     bigtable.project: "hafslund-mdm"
 #     bigtable.instanceid: "mdm-meterreadings"
-
-# Use for Chart-testing
-IsChartTesting:
