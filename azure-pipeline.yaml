@@ -1,11 +1,11 @@
 trigger:
-  - trunk
+  - master
   
 pr:
   autoCancel: 'true'
   branches:
     include:
-      - trunk
+      - master
 
 pool:
   vmImage: "ubuntu-20.04"
