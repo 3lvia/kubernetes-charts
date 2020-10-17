@@ -1,5 +1,11 @@
 trigger:
-  - '*'
+  - trunk
+  
+pr:
+  autoCancel: 'true'
+  branches:
+    include:
+      - trunk
 
 pool:
   vmImage: "ubuntu-20.04"
