@@ -1,0 +1,35 @@
+---
+name: webapi-chart-testing
+namespace: core
+microserviceType: webapi
+environment: test
+
+replicaCount: 1
+
+dnsConfig:
+  options:
+  - name: single-request-reopen
+
+hostAliases:
+  - ip: "10.160.4.139"
+    hostnames:
+      - "haarcgeoevent01.hipad.no"
+  - ip: "172.19.253.6"
+    hostnames:
+      - "haarcgeoevt01t1.hipad.no"
+
+image:
+  repository: containerregistryelvia.azurecr.io/bad-realtimeunits-api
+  tag: "20200715.2"
+
+resources:
+  requests:
+    cpu: "200m"
+    memory: "200Mi"
+  limits:
+    cpu: "500m"
+    memory: "500Mi"
+
+service:
+  port: 80
+  targetPort: 8080
