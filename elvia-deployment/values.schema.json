@@ -92,21 +92,7 @@
         "replicaCount",
         "image",
         "imagePullSecret",
-        "service",
         "resources"
     ],
-    "properties": {
-        "service": {
-            "type": "object",
-            "required": [
-                "port"
-            ],
-            "properties": {
-                "port": {
-                    "type": "integer"
-                }
-            }
-        }
-    },
     "additionalProperties": true
 }

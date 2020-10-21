@@ -2,17 +2,12 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# name: <name Of deployment>
-# namespace: <namespace>
+# name: metervalues-api
+# namespace: bad
 # microserviceType: worker|webapi|pushreceiver
 # environment: dev|test|prod
-name: chart-testing
-namespace: core
-microserviceType: webapi
-environment: dev
 
-# number of replicas
-replicaCount: 1
+# replicaCount: 1
 
 # dnsConfig:
 #  options:
@@ -27,11 +22,8 @@ replicaCount: 1
 #      - "haarcgeoevt01t1.hipad.no"
 
 # image:
-#   repository: <UrlOfImageRepository>
-#   tag: "TobeReplaced"
-image:
-  repository: containerregistryelvia.azurecr.io/bad-realtimeunits-api
-  tag: "ToBeReplaced"
+#  repository: containerregistryelvia.azurecr.io/bad-realtimeunits-api
+#  tag: "ToBeReplaced"
 
 imagePullSecret: containerregistryelvia
 
@@ -45,11 +37,8 @@ imagePullSecret: containerregistryelvia
 #       name: github-repository-team-adder
 
 # service:
-#   port: <servicePort>
-#   targetPort: <targetPort>
-service:
-  port: 80
-  targetPort: 8080
+#  port: 80
+#  targetPort: 8080
 
 # ingress:
 #   annotations:
@@ -71,7 +60,6 @@ service:
 #   requests:
 #     cpu: 100m
 #     memory: 128Mi
-resources: {}
 
 # autoscaling:
 #   minReplicas: 2
