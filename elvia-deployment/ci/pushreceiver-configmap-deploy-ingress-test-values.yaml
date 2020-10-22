@@ -81,3 +81,25 @@ configmap:
     insights.environment: Prod
     bigtable.project: "hafslund-mdm"
     bigtable.instanceid: "mdm-meterreadings"
+
+readinessProbe:
+  failureThreshold: 3
+  httpGet:
+    path: /metrics
+    port: 2112
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 15
+  successThreshold: 1
+  timeoutSeconds: 3
+
+livenessProbe:
+  failureThreshold: 5
+  httpGet:
+    path: /metrics
+    port: 2112
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 15
+  successThreshold: 1
+  timeoutSeconds: 3

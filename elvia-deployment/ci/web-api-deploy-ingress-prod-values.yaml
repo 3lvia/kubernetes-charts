@@ -33,3 +33,15 @@ resources:
 service:
   port: 80
   targetPort: 8080
+
+ingress:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: PathPrefixStrip
+    # Redirect the /metrics endpoint to /
+    # This ensures that the /metrics endpoint is not open on the internet
+    traefik.ingress.kubernetes.io/redirect-permanent: "true"
+    traefik.ingress.kubernetes.io/request-modifier: "ReplacePathRegex: ^/.*metrics(.*)$ /"
+  subdomain: badapi
+  path: "/"
+  

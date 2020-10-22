@@ -1,0 +1,50 @@
+---
+name: worker-chart-testing
+namespace: core
+microserviceType: worker
+environment: test
+
+replicaCount: 1
+
+image:
+  repository: containerregistryelvia.azurecr.io/bad-bigquery-in-amsaxmlparser-ideenova
+  tag: "ToBeReplacedInAzurePipeline"
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 512Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+env:
+  - name: StorageAccount__ContainerName
+    value: "ideenovaaxml"
+  - name: StorageAccount__AmsAxmlFinnishedProcessingContainerName
+    value: "ideenovaaxmlfinishedparsing"
+  - name: StorageAccount__StateTableName
+    value: "ideenovaaxmlparsingstate"
+  - name: BigQuery__projectId
+    valueFrom:
+      configMapKeyRef:
+        name: bigquery-in-amsaxmlparser-ideenova
+        key: google.projectid
+  - name: BigQuery__dataSet
+    value: "meterdata"
+  - name: BigQuery__voltagePhaseDataTable
+    value: "ideenovavoltagephase"
+  - name: BigQuery__frequencyPhaseDataTable
+    value: "ideenovafrequencyphase"
+  - name: RunSetting__Interval
+    value: "60"
+  - name: RunSetting__BlobExtension
+    value: "axml"
+
+configmap:
+  dev:
+    google.projectid: "hafslund-mdm-dev"
+  test:
+    google.projectid: "hafslund-mdm-test"
+  prod:
+    google.projectid: "hafslund-mdm"
