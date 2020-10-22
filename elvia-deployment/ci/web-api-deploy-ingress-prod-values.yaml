@@ -44,4 +44,3 @@ ingress:
     traefik.ingress.kubernetes.io/request-modifier: "ReplacePathRegex: ^/.*metrics(.*)$ /"
   subdomain: badapi
   path: "/"
-  
