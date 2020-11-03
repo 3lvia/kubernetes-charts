@@ -1,3 +1,4 @@
+{{- if .Values.ingress -}}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
@@ -31,3 +32,5 @@ spec:
   stripPrefix:
     prefixes:
       - {{ required "Missing .Values.ingress.path" .Values.ingress.path }}
+
+{{- end }}
