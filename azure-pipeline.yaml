@@ -34,6 +34,10 @@ stages:
             helm install prometheus prometheus-community/kube-prometheus-stack
           displayName: Kubernetes servicemonitor
         - script: |
+            helm repo add traefik https://helm.traefik.io/traefik
+            helm install traefik traefik/traefik
+          displayName: Install Traefik
+        - script: |
             kubectl create namespace core
           displayName: Create namespace core
         - script: |
