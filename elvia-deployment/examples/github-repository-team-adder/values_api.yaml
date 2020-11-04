@@ -15,6 +15,18 @@ image:
 
 imagePullSecret: containerregistryelvia
 
+dnsConfig: 
+  options:
+  - name: single-request-reopen
+
+hostAliases:
+  - ip: "10.160.4.139"
+    hostnames:
+      - "haarcgeoevent01.hipad.no"
+  - ip: "172.19.253.6"
+    hostnames:
+      - "haarcgeoevt01t1.hipad.no"
+
 resources:
   requests:
     cpu: 100m
@@ -34,6 +46,17 @@ env:
 
 service:
   port: 2112
+
+ingress:
+  subdomain: github-repository-team-adder
+  path: "/"
+  port: 2112
+
+
+autoscaling:
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 80
 
 lifecycle:
   preStop:
@@ -64,3 +87,13 @@ livenessProbe:
   successThreshold: 1
   timeoutSeconds: 3
 
+configmap:
+  dev:
+    bigtable.project: "hafslund-mdm-dev"
+    bigtable.instanceid: "mdm-meterreadings-dev"
+  test:
+    bigtable.project: "hafslund-mdm-test"
+    bigtable.instanceid: "mdm-meterreadings-test"
+  prod:
+    bigtable.project: "hafslund-mdm"
+    bigtable.instanceid: "mdm-meterreadings"

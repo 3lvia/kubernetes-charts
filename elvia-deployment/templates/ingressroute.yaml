@@ -1,0 +1,36 @@
+{{- if .Values.ingress -}}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ required "Missing .Values.name" .Values.name }}
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+spec:
+  routes:
+  - kind: Rule
+    match: Host(`{{ include "ingress.host" . }}`) && PathPrefix(`{{ required "Missing .Values.ingress.path" .Values.ingress.path }}`)
+    middlewares:
+    - name: {{ required "Missing .Values.name" .Values.name }}-stripprefix
+    - name: hsts-header
+      namespace: dns
+    - name: remove-metrics
+      namespace: dns
+    services:
+      - name: {{ required "Missing .Values.name" .Values.name }}
+        {{- if .Values.service.port }}
+        port: {{ .Values.service.port }}
+        {{- else }}
+        port: 80
+        {{- end}}
+---
+# Strip prefix
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ required "Missing .Values.name" .Values.name }}-stripprefix
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+spec:
+  stripPrefix:
+    prefixes:
+      - {{ required "Missing .Values.ingress.path" .Values.ingress.path }}
+
+{{- end }}
