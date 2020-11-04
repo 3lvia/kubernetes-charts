@@ -16,8 +16,8 @@ spec:
       namespace: dns
     services:
       - name: {{ required "Missing .Values.name" .Values.name }}
-        {{- if .Values.ingress.port }}
-        port: {{ .Values.ingress.port }}
+        {{- if .Values.service.port }}
+        port: {{ .Values.service.port }}
         {{- else }}
         port: 80
         {{- end}}
