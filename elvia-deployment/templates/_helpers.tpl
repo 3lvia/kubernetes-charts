@@ -65,6 +65,9 @@ Create the name of the service account to use
 Create the host of the ingress
 */}}
 {{- define "ingress.host" -}}
+{{- if not .Values.ingress.subdomain }}
+{{- required "Missing .Values.ingress.subdomain" ""}}
+{{- end }}
 {{- if eq .Values.environment "prod"}}
 {{- printf "%s.elvia.io" .Values.ingress.subdomain }}
 {{- else }}
