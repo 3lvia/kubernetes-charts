@@ -16,8 +16,8 @@ git push
 
 Local
 ```
-helm template github-repo -f elvia-deployment/examples/github-repository-team-adder/values.yaml elvia-deployment/  --set environment=test
-helm template github-repo -f elvia-deployment/examples/github-repository-team-adder/values.yaml elvia-deployment/  --set environment=test|kubeval --strict --ignore-missing-schemas
+helm template github-repo -f elvia-deployment/examples/github-repository-team-adder/values.yaml elvia-deployment/  --set environment=test --set image.tag=mytag
+helm template github-repo -f elvia-deployment/examples/github-repository-team-adder/values.yaml elvia-deployment/  --set environment=test --set image.tag=mytag|kubeval --strict --ignore-missing-schemas
 ```
 
 Remote

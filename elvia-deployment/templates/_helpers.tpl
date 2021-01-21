@@ -62,6 +62,17 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
+Define the image, using containerregistryelvia.azurecr.io as default container registry
+*/}}
+{{- define "image" -}}
+{{- if .Values.image.repository }}
+{{- .Values.image.repository }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}
+{{- else }} 
+{{- printf "containerregistryelvia.azurecr.io/%s-%s" .Values.namespace .Values.name }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}
+{{- end }}
+{{- end }}
+
+{{/*
 Create the host of the ingress
 */}}
 {{- define "ingress.host" -}}

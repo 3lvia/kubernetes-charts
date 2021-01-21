@@ -43,7 +43,7 @@ spec:
         env:
           {{- toYaml . | nindent 8 }}
         {{- end }}
-        image: "{{ required "Missing .Values.image.repository" .Values.image.repository }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}"
+        image: {{ include "image" . }} 
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
