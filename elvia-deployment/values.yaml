@@ -22,7 +22,7 @@
 #      - "haarcgeoevt01t1.hipad.no"
 
 # image:
-#  repository: containerregistryelvia.azurecr.io/bad-realtimeunits-api
+#  repository: containerregistryelvia.azurecr.io/bad-realtimeunits-api # defaults to containerregistryelvia.azurecr.io/$namespace-$name
 #  tag: "ToBeReplaced"
 
 imagePullSecret: containerregistryelvia
