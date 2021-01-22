@@ -9,9 +9,9 @@ microserviceType: webapi
 
 replicaCount: 2
 
-image:
-  repository: containerregistryelvia.azurecr.io/github-repository-team-adder
-  tag: "20200921.2"
+# image:
+  # repository: # uses default repo
+  #tag: # tag set in pipeline
 
 imagePullSecret: containerregistryelvia
 
