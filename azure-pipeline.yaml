@@ -51,18 +51,18 @@ stages:
             sudo pip3 install setuptools
             sudo pip3 install yamale    
           displayName: Install yamale
-        - script: brew install chart-testing
-          displayName: Install ct
+
         - script: |
             mkdir $HOME/.ct
             mv ct/etc/* $HOME/.ct/
+            chmod +x ct/bin/ct
           displayName: Configure ct config
           workingDirectory: $(Build.SourcesDirectory)
 
-        - script: ct lint --all --config ct.yaml
+        - script: ./ct/bin/ct lint --all --config ct.yaml
           displayName: Run ct lint
           workingDirectory: $(Build.SourcesDirectory)
-        - script: ct install --upgrade --all --config ct.yaml
+        - script: ./ct/bin/ct install --upgrade --all --config ct.yaml
           displayName: Run ct install --upgrade
           workingDirectory: $(Build.SourcesDirectory)
 

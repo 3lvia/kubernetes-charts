@@ -24,7 +24,11 @@ spec:
     spec:
       serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
       imagePullSecrets:
+      {{- if .Values.imagePullSecret }}
+      - name: {{ .Values.imagePullSecret }}
+      {{- else }}
       - name: containerregistryelvia
+      {{- end}}
       securityContext:
         runAsUser: 1001
         runAsGroup: 1001
