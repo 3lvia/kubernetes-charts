@@ -51,9 +51,11 @@ stages:
             sudo pip3 install setuptools
             sudo pip3 install yamale    
           displayName: Install yamale
+
         - script: |
             mkdir $HOME/.ct
             mv ct/etc/* $HOME/.ct/
+            chmod +x ct/bin/ct
           displayName: Configure ct config
           workingDirectory: $(Build.SourcesDirectory)
 
