@@ -13,7 +13,7 @@ replicaCount: 2
   # repository: # uses default repo
   #tag: # tag set in pipeline
 
-imagePullSecret: containerregistryelvia
+imagePullSecret: containerregistryprodsecret
 
 resources:
   requests:

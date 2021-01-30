@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-name: github-repository-team-adder
+name: github-repository-team-adder2
 namespace: core
 microserviceType: webapi
 #environment: dev
@@ -10,8 +10,8 @@ microserviceType: webapi
 replicaCount: 2
 
 image:
-  repository: containerregistryelvia.azurecr.io/github-repository-team-adder
-  tag: "20200921.2"
+  repository: containerregistryelvia.azurecr.io/core-github-repository-team-adder
+  tag: "20201203.3"
 
 imagePullSecret: containerregistryelvia
 
@@ -41,8 +41,13 @@ env:
 - name: my_key_from_config_map
   valueFrom:
     configMapKeyRef:
-      key: my_key
-      name: github-repository-team-adder
+      key: bigtable.project
+      name: github-repository-team-adder2
+- name: my_key_from_secret
+  valueFrom:
+    secretKeyRef:
+      key: mysecret
+      name: github-repository-team-adder2
 
 service:
   port: 2112
@@ -97,3 +102,13 @@ configmap:
   prod:
     bigtable.project: "hafslund-mdm"
     bigtable.instanceid: "mdm-meterreadings"
+
+# Always fetch secrets from Hashicorp Vault if possible
+# We support kubernetes secrets for unusual deployments
+secret:
+  dev:
+    mysecret: __SECRET_DEV__ # to be replaced in azure devops pipeline
+  test:
+    mysecret: __SECRET_TEST__ # to be replaced in azure devops pipeline
+  prod:
+    mysecret: __SECRET_PROD__ # to be replaced in azure devops pipeline
