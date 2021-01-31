@@ -6,7 +6,7 @@ pool:
 
 variables:
   containerregistry: 'ContainerRegistryElvia'
-  imagetag: $(Build.BuildNumber)
+  imagetag: "20210128.1"
   name: demo-api
   namespace: core
 
