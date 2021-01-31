@@ -1,0 +1,28 @@
+trigger:
+  - trunk
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  containerregistry: 'ContainerRegistryElvia'
+  imagetag: $(Build.BuildNumber)
+  name: demo-api
+  namespace: core
+
+resources:
+  repositories:
+  - repository: templates
+    type: github
+    name: 3lvia/core-azure-devops-templates
+    endpoint: 3lvia
+
+stages:
+- stage: DeployDev
+  dependsOn: Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/trunk'))
+  jobs:
+  - template: deploy.yaml@templates
+    parameters:
+      environment: dev
+      helmValuesFile: values.yaml
