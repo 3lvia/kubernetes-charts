@@ -42,10 +42,8 @@ stages:
       runOnce:
         deploy:
           steps:
-            - task: DownloadBuildArtifacts@0
-              inputs:
-                artifactName: "CI"
-                downloadPath: "$(System.ArtifactsDirectory)"
+            - script: |
+                ls $(System.ArtifactsDirectory)/elvia-deployment/
 
             - task: HelmDeploy@0
               displayName: Helm deploy
