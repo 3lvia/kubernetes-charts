@@ -43,7 +43,8 @@ stages:
         deploy:
           steps:
             - script: |
-                ls $(System.ArtifactsDirectory)/elvia-deployment/
+                ls $(Pipeline.Workspace)/
+                ls $(Pipeline.Workspace)/elvia-deployment/
 
             - task: HelmDeploy@0
               displayName: Helm deploy
@@ -54,9 +55,9 @@ stages:
                 command: upgrade
                 failOnStderr: false
                 arguments: --debug
-                chartName: $(System.ArtifactsDirectory)/elvia-deployment/
+                chartName: $(Pipeline.Workspace)/elvia-deployment/
                 releaseName: $(name)
-                valueFile: $(System.ArtifactsDirectory)/CI/demo-api-values.yaml
+                valueFile: $(Pipeline.Workspace)/CI/demo-api-values.yaml
 
             - task: Kubernetes@1
               displayName: kubectl rollout status deploy $(name)
