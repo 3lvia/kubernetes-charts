@@ -71,5 +71,4 @@ stages:
                 namespace: $(namespace)
                 command: rollback
                 failOnStderr: false
-                arguments: --debug
-                releaseName: $(name)
+                arguments: $(name)
