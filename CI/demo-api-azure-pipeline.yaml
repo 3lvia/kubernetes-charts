@@ -25,4 +25,4 @@ stages:
   - template: deploy.yaml@templates
     parameters:
       environment: dev
-      helmValuesFile: values.yaml
+      helmValuesFile: demo-api-values.yaml
