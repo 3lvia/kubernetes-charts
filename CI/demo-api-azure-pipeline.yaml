@@ -6,7 +6,6 @@ pool:
 
 variables:
   containerregistry: 'ContainerRegistryElvia'
-  imagetag: "20210128.1"
   name: demo-api
   namespace: core
 
@@ -27,11 +26,44 @@ stages:
       inputs:
         PathtoPublish: CI
         ArtifactName: CI
+    - task: PublishBuildArtifacts@1
+      displayName: "Publish helm chart"
+      inputs:
+        PathtoPublish: elvia-deployment
+        ArtifactName: elvia-deployment
 
 - stage: DeployDev
   dependsOn: Build
   jobs:
-  - template: deploy.yaml@templates
-    parameters:
-      environment: dev
-      helmValuesFile: demo-api-values.yaml
+  - deployment: DeployDev
+    displayName: DeployDev dev
+    environment: dev
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: DownloadBuildArtifacts@0
+              inputs:
+                artifactName: "CI"
+                downloadPath: "$(System.ArtifactsDirectory)"
+
+            - task: HelmDeploy@0
+              displayName: Helm deploy
+              inputs:
+                connectionType: Kubernetes Service Connection
+                kubernetesServiceEndpoint: RuntimeServiceKubernetesDev
+                namespace: $(namespace)
+                command: upgrade
+                failOnStderr: false
+                arguments: --debug
+                chartName: $(System.ArtifactsDirectory)/elvia-deployment/elvia-deployment/
+                releaseName: $(name)
+                valueFile: $(System.ArtifactsDirectory)/CI/demo-api-values.yaml
+
+            - task: Kubernetes@1
+              displayName: kubectl rollout status deploy $(name)
+              inputs:
+                kubernetesServiceEndpoint: RuntimeServiceKubernetesDev
+                namespace: $(namespace)
+                command: rollout
+                arguments: status deploy $(name)
