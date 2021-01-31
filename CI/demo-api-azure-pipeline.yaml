@@ -18,7 +18,18 @@ resources:
     endpoint: 3lvia
 
 stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - task: PublishBuildArtifacts@1
+      displayName: "Publish kubernetes configuration artifacts"
+      inputs:
+        PathtoPublish: CI
+        ArtifactName: CI
+
 - stage: DeployDev
+  dependsOn: Build
   jobs:
   - template: deploy.yaml@templates
     parameters:
