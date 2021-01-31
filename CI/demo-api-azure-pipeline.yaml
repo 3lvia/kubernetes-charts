@@ -42,10 +42,6 @@ stages:
       runOnce:
         deploy:
           steps:
-            - script: |
-                ls $(Pipeline.Workspace)/
-                ls $(Pipeline.Workspace)/elvia-deployment/
-
             - task: HelmDeploy@0
               displayName: Helm deploy
               inputs:
@@ -66,3 +62,14 @@ stages:
                 namespace: $(namespace)
                 command: rollout
                 arguments: status deploy $(name)
+
+            - task: HelmDeploy@0
+              displayName: Helm rollback
+              inputs:
+                connectionType: Kubernetes Service Connection
+                kubernetesServiceEndpoint: RuntimeServiceKubernetesDev
+                namespace: $(namespace)
+                command: rollback
+                failOnStderr: false
+                arguments: --debug
+                releaseName: $(name)
