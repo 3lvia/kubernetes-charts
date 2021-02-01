@@ -105,3 +105,6 @@ imagePullSecret: containerregistryelvia
 #   prod:
 #     bigtable.project: "hafslund-mdm"
 #     bigtable.instanceid: "mdm-meterreadings"
+
+# serviceMonitor:
+#   interval: 60s

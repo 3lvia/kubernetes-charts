@@ -112,3 +112,6 @@ secret:
     mysecret: __SECRET_TEST__ # to be replaced in azure devops pipeline
   prod:
     mysecret: __SECRET_PROD__ # to be replaced in azure devops pipeline
+
+serviceMonitor:
+  interval: 60s

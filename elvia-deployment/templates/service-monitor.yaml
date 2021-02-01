@@ -6,6 +6,11 @@ metadata:
 spec:
   endpoints:
   - port: {{ required "Missing .Values.name" .Values.name }}port
+    {{- if .Values.serviceMonitor }}
+    {{- if .Values.serviceMonitor.interval }}
+    interval: {{ .Values.serviceMonitor.interval -}}
+    {{- end }}
+    {{- end }}
   selector:
     matchLabels:
       app: {{ required "Missing .Values.name" .Values.name }}
