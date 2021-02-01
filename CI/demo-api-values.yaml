@@ -2,79 +2,66 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-name: github-repository-team-adder2
+name: demo-api
 namespace: core
 microserviceType: webapi
-#environment: dev
+environment: dev
 
 replicaCount: 2
 
 image:
-  repository: containerregistryelvia.azurecr.io/core-github-repository-team-adder
-  tag: "20201203.3"
+  repository: containerregistryelvia.azurecr.io/core-demo-api
+  tag: "20210128.1"
 
 imagePullSecret: containerregistryelvia
 
-dnsConfig: 
-  options:
-  - name: single-request-reopen
-
-hostAliases:
-  - ip: "10.160.4.139"
-    hostnames:
-      - "haarcgeoevent01.hipad.no"
-  - ip: "172.19.253.6"
-    hostnames:
-      - "haarcgeoevt01t1.hipad.no"
-
-resources:
-  requests:
-    cpu: 100m
-    memory: 128Mi
-  limits:
-    cpu: 100m
-    memory: 128Mi
-
-env: 
+env:
 - name: ASPNETCORE_URLS
   value: http://+:8080
 - name: my_key_from_config_map
   valueFrom:
     configMapKeyRef:
-      key: bigtable.project
-      name: github-repository-team-adder2
+      key: mykey
+      name: demo-api
 - name: my_key_from_secret
   valueFrom:
     secretKeyRef:
       key: mysecret
-      name: github-repository-team-adder2
+      name: demo-api
 
 service:
-  port: 2112
+ port: 80
+ targetPort: 8080
 
 ingress:
-  subdomain: github-repository-team-adder
-  path: "/"
-  port: 2112
+  subdomain: core
+  path: "/demo-api"
 
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
 
-autoscaling:
-  minReplicas: 2
-  maxReplicas: 4
-  targetCPUUtilizationPercentage: 80
+# autoscaling:
+#   minReplicas: 2
+#   maxReplicas: 4
+#   targetCPUUtilizationPercentage: 80
 
 lifecycle:
   preStop:
     exec:
       command:
       - sleep
-      - "15"
+      - "1"
 
 readinessProbe:
   failureThreshold: 3
   httpGet:
-    path: /metrics
-    port: 2112
+    path: /health
+    port: 8080
     scheme: HTTP
   initialDelaySeconds: 15
   periodSeconds: 15
@@ -84,8 +71,8 @@ readinessProbe:
 livenessProbe:
   failureThreshold: 5
   httpGet:
-    path: /metrics
-    port: 2112
+    path: /health
+    port: 8080
     scheme: HTTP
   initialDelaySeconds: 15
   periodSeconds: 15
@@ -94,14 +81,11 @@ livenessProbe:
 
 configmap:
   dev:
-    bigtable.project: "hafslund-mdm-dev"
-    bigtable.instanceid: "mdm-meterreadings-dev"
+    mykey: "dev-value"
   test:
-    bigtable.project: "hafslund-mdm-test"
-    bigtable.instanceid: "mdm-meterreadings-test"
+    mykey: "test-value"
   prod:
-    bigtable.project: "hafslund-mdm"
-    bigtable.instanceid: "mdm-meterreadings"
+    mykey: "prod-value"
 
 # Always fetch secrets from Hashicorp Vault if possible
 # We support kubernetes secrets for unusual deployments

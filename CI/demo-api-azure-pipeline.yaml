@@ -1,0 +1,74 @@
+trigger:
+  - master
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  containerregistry: 'ContainerRegistryElvia'
+  name: demo-api
+  namespace: core
+
+resources:
+  repositories:
+  - repository: templates
+    type: github
+    name: 3lvia/core-azure-devops-templates
+    endpoint: 3lvia
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - task: PublishBuildArtifacts@1
+      displayName: "Publish kubernetes configuration artifacts"
+      inputs:
+        PathtoPublish: CI
+        ArtifactName: CI
+    - task: PublishBuildArtifacts@1
+      displayName: "Publish helm chart"
+      inputs:
+        PathtoPublish: elvia-deployment
+        ArtifactName: elvia-deployment
+
+- stage: DeployDev
+  dependsOn: Build
+  jobs:
+  - deployment: DeployDev
+    displayName: DeployDev dev
+    environment: dev
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: HelmDeploy@0
+              displayName: Helm deploy
+              inputs:
+                connectionType: Kubernetes Service Connection
+                kubernetesServiceEndpoint: RuntimeServiceKubernetesDev
+                namespace: $(namespace)
+                command: upgrade
+                failOnStderr: false
+                arguments: --debug
+                chartName: $(Pipeline.Workspace)/elvia-deployment/
+                releaseName: $(name)
+                valueFile: $(Pipeline.Workspace)/CI/demo-api-values.yaml
+
+            - task: Kubernetes@1
+              displayName: kubectl rollout status deploy $(name)
+              inputs:
+                kubernetesServiceEndpoint: RuntimeServiceKubernetesDev
+                namespace: $(namespace)
+                command: rollout
+                arguments: status deploy $(name)
+
+            - task: HelmDeploy@0
+              displayName: Helm rollback
+              inputs:
+                connectionType: Kubernetes Service Connection
+                kubernetesServiceEndpoint: RuntimeServiceKubernetesDev
+                namespace: $(namespace)
+                command: rollback
+                failOnStderr: false
+                arguments: $(name)
