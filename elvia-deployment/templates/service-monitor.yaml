@@ -12,7 +12,7 @@ spec:
     {{- end }}
     {{- if .Values.serviceMonitor.honorLabels }}
     honorLabels: {{ .Values.serviceMonitor.honorLabels -}}
-    {{- end }}honorLabels
+    {{- end }}
     {{- end }}
   selector:
     matchLabels:
