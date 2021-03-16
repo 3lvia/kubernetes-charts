@@ -63,4 +63,3 @@ livenessProbe:
   periodSeconds: 15
   successThreshold: 1
   timeoutSeconds: 3
-
