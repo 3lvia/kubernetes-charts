@@ -24,5 +24,5 @@ Remote
 ```
 helm repo add elvia-deployment https://raw.githubusercontent.com/3lvia/kubernetes-charts/master
 helm repo update
-helm template github-repository-team-adder -f elvia-deployment/examples/github-repository-team-adder/values.yaml elvia-deployment
+helm template github-repository-team-adder -f elvia-deployment/examples/github-repository-team-adder/values.yaml elvia-deployment --set environment=test --set image.tag=mytag
 ```
