@@ -53,6 +53,13 @@ imagePullSecret: containerregistryelvia
 #   path: "/mypath"
 #   port: 80 # 80 default
 
+# ingressroute:
+#   middlewares:
+#     - name: hsts-header
+#       namespace: dns
+#     - name: remove-metrics
+#       namespace: dns
+
 # resources:
 #   limits:
 #     cpu: 100m
