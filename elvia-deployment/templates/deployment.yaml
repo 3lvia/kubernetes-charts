@@ -4,7 +4,21 @@ metadata:
   name: {{ required "Missing .Values.name" .Values.name }}
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
 spec:
+  {{- if not .Values.replicaCount }}
   replicas: {{ required "Missing .Values.replicaCount" .Values.replicaCount }}
+  {{- else if kindIs "float64" .Values.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
+  {{- else if kindIs "map" .Values.replicaCount }}
+  {{- if eq .Values.environment "dev" }}
+  replicas: {{ required "Missing .Values.replicaCount.dev" .Values.replicaCount.dev }}
+  {{- else if eq .Values.environment "test" }}
+  replicas: {{ required "Missing .Values.replicaCount.test" .Values.replicaCount.test }}
+  {{- else if eq .Values.environment "prod" }}
+  replicas: {{ required "Missing .Values.replicaCount.prod" .Values.replicaCount.prod }}
+  {{- end }}
+  {{- else }}
+  {{- fail ".Values.replicaCount must either be a number or a map" }}
+  {{- end }}
   selector:
     matchLabels:
       app: {{ required "Missing .Values.name" .Values.name }}
