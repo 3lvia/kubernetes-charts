@@ -4,7 +4,10 @@ namespace: core
 microserviceType: webapi
 environment: prod
 
-replicaCount: 1
+replicaCount:
+  dev: 1
+  test: 2
+  prod: 3
 
 dnsConfig:
   options:
