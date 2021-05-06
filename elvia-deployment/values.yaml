@@ -9,6 +9,11 @@
 
 # replicaCount: 1
 
+# replicaCount:
+  # dev: 1
+  # test: 2
+  # prod: 2
+
 # dnsConfig:
 #  options:
 #  - name: single-request-reopen
