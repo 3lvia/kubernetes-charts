@@ -6,7 +6,6 @@ pool:
 
 variables:
   containerregistry: 'ContainerRegistryElvia'
-  name: demo-api
   namespace: core
 
 resources:
@@ -31,44 +30,19 @@ stages:
       inputs:
         PathtoPublish: elvia-deployment
         ArtifactName: elvia-deployment
-
-- stage: DeployDev
+    
+- stage: DeployStable
   dependsOn: Build
   jobs:
-  - deployment: DeployDev
-    displayName: DeployDev dev
-    environment: dev
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-            - task: HelmDeploy@0
-              displayName: Helm deploy
-              inputs:
-                connectionType: Kubernetes Service Connection
-                kubernetesServiceEndpoint: RuntimeServiceKubernetesDev
-                namespace: $(namespace)
-                command: upgrade
-                failOnStderr: false
-                arguments: --debug
-                chartName: $(Pipeline.Workspace)/elvia-deployment/
-                releaseName: $(name)
-                valueFile: $(Pipeline.Workspace)/CI/demo-api-values.yaml
-
-            - task: Kubernetes@1
-              displayName: kubectl rollout status deploy $(name)
-              inputs:
-                kubernetesServiceEndpoint: RuntimeServiceKubernetesDev
-                namespace: $(namespace)
-                command: rollout
-                arguments: status deploy $(name)
-
-            - task: HelmDeploy@0
-              displayName: Helm rollback
-              inputs:
-                connectionType: Kubernetes Service Connection
-                kubernetesServiceEndpoint: RuntimeServiceKubernetesDev
-                namespace: $(namespace)
-                command: rollback
-                failOnStderr: false
-                arguments: $(name)
+  - template: templates/deploy.yaml
+    parameters:
+      name: demo-api
+      helmValuesFile: demo-api-values-stable.yaml
+    
+- stage: DeployProgressive
+  dependsOn: DeployStable
+  jobs:
+  - template: templates/deploy.yaml
+    parameters:
+      name: demo-api
+      helmValuesFile: demo-api-values-progressive.yaml
