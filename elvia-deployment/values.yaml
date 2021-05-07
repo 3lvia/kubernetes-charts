@@ -57,13 +57,13 @@ imagePullSecret: containerregistryelvia
 #   subdomain: github-repository-team-adder
 #   path: "/mypath"
 #   port: 80 # 80 default
-
-# ingressroute:
-#   middlewares:
+#   routemiddlewares:
 #     - name: hsts-header
 #       namespace: dns
 #     - name: remove-metrics
 #       namespace: dns
+#   sticky:
+#     cookie: {}
 
 # resources:
 #   limits:

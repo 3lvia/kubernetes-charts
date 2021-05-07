@@ -8,10 +8,8 @@ spec:
   routes:
   - kind: Rule
     match: Host(`{{ include "ingress.host" . }}`) && PathPrefix(`{{ required "Missing .Values.ingress.path" .Values.ingress.path }}`)
-    {{- if .Values.ingressroute }}
-      {{- if .Values.ingressroute.middlewares }}
-    middlewares: {{- toYaml .Values.ingressroute.middlewares | nindent 4 }}
-      {{- end }}
+    {{- if .Values.ingress.routemiddlewares }}
+    middlewares: {{- toYaml .Values.ingress.routemiddlewares | nindent 4 }}
     {{- else }}
     middlewares:
     - name: {{ required "Missing .Values.name" .Values.name }}-stripprefix
@@ -27,7 +25,10 @@ spec:
         {{- else }}
         port: 80
         {{- end}}
----
+        {{- if .Values.ingress.sticky }}
+        sticky: {{- toYaml .Values.ingress.sticky | nindent 10 }}
+        {{- end}}
+
 # Strip prefix
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware

@@ -44,10 +44,3 @@ ingress:
     traefik.ingress.kubernetes.io/request-modifier: "ReplacePathRegex: ^/.*metrics(.*)$ /"
   subdomain: badapi
   path: "/"
-
-ingressroute:
-  middlewares:
-    - name: hsts-header
-      namespace: dns
-    - name: remove-metrics
-      namespace: dns
