@@ -28,7 +28,7 @@ spec:
         {{- if .Values.ingress.sticky }}
         sticky: {{- toYaml .Values.ingress.sticky | nindent 10 }}
         {{- end}}
-
+---
 # Strip prefix
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
