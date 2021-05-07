@@ -51,4 +51,3 @@ ingress:
       namespace: dns
   sticky:
     cookie: {}
-  
