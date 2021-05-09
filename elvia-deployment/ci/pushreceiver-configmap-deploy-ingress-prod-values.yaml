@@ -66,7 +66,7 @@ ingress:
       namespace: dns
     - name: remove-metrics
       namespace: dns
-  sticky:
+  stickysession:
     cookie: {}
 
 configmap:
