@@ -25,8 +25,8 @@ spec:
         {{- else }}
         port: 80
         {{- end}}
-        {{- if .Values.ingress.sticky }}
-        sticky: {{- toYaml .Values.ingress.sticky | nindent 10 }}
+        {{- if .Values.ingress.stickysession }}
+        sticky: {{- toYaml .Values.ingress.stickysession | nindent 10 }}
         {{- end}}
 ---
 # Strip prefix

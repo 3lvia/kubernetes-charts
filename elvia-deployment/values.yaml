@@ -62,7 +62,7 @@ imagePullSecret: containerregistryelvia
 #       namespace: dns
 #     - name: remove-metrics
 #       namespace: dns
-#   sticky:
+#   stickysession:
 #     cookie: {}
 
 # resources:
