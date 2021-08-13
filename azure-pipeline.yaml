@@ -31,8 +31,13 @@ stages:
           displayName: Install kubernetes cluster
         - script: |
             helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+            helm repo update
             helm install prometheus prometheus-community/kube-prometheus-stack
-          displayName: Kubernetes servicemonitor
+          displayName: Helm Install kube-prometheus-stack
+        - script: |
+            kubectl get events --sort-by='{.lastTimestamp}'
+          displayName: kubectl get events
+          condition: failed()
         - script: |
             helm repo add traefik https://helm.traefik.io/traefik
             helm install traefik traefik/traefik
