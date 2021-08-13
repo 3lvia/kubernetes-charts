@@ -18,6 +18,8 @@ image:
 
 imagePullSecret: containerregistryelvia
 
+progressDeadlineSeconds: 60
+
 dnsConfig: 
   options:
   - name: single-request-reopen

@@ -14,7 +14,7 @@
   # test: 2
   # prod: 2
 
-# progressDeadlineSeconds: 60
+# progressDeadlineSeconds: 600
 
 # dnsConfig:
 #  options:
