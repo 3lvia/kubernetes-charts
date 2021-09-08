@@ -32,6 +32,15 @@ env:
       key: my_key
       name: github-repository-team-adder
 
+volumes:
+- configMap:
+    name: github-repository-team-adder
+  name: my_volume
+
+volumeMounts:
+- mountPath: /usr/share/nginx/html/assets/
+  name: my_volume
+
 service:
   port: 2112
 

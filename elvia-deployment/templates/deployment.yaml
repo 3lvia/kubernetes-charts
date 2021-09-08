@@ -58,6 +58,10 @@ spec:
       hostAliases: 
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 6 }}
+      {{- end }}
       containers:
       - name: {{ required "Missing .Values.name" .Values.name }}
         {{- with .Values.env }}
@@ -85,5 +89,9 @@ spec:
         {{- with .Values.startupProbe }}
         startupProbe:
           {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.volumeMounts }}
+        volumesMounts:
+          {{- toYaml . | nindent 8 }}
         {{- end }}
 
