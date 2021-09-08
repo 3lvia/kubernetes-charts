@@ -41,6 +41,15 @@ env:
   - name: RunSetting__BlobExtension
     value: "axml"
 
+volumes:
+- configMap:
+    name: worker-chart-testing
+  name: my_volume
+
+volumeMounts:
+- mountPath: /myfolder
+  name: my_volume
+
 configmap:
   dev:
     google.projectid: "hafslund-mdm-dev"
