@@ -44,11 +44,11 @@ env:
 volumes:
 - configMap:
     name: worker-chart-testing
-  name: my_volume
+  name: my-volume
 
 volumeMounts:
 - mountPath: /myfolder
-  name: my_volume
+  name: my-volume
 
 configmap:
   dev:
