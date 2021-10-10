@@ -70,6 +70,7 @@ ingress:
   subdomain: github-repository-team-adder
   path: "/"
   port: 2112
+  enforceApiManagement: true
 
 
 autoscaling:
