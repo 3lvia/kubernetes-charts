@@ -39,6 +39,7 @@ service:
 ingress:
   subdomain: core
   path: "/demo-api"
+  enforceApiManagement: true
 
 resources:
   limits:

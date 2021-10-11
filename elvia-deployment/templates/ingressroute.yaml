@@ -28,6 +28,12 @@ spec:
         {{- if .Values.ingress.stickysession }}
         sticky: {{- toYaml .Values.ingress.stickysession | nindent 10 }}
         {{- end}}
+  {{- if .Values.ingress.enforceApiManagement}}
+  tls:
+    options:
+      name: pki
+      namespace: vault
+  {{- end }}
 ---
 # Strip prefix
 apiVersion: traefik.containo.us/v1alpha1
