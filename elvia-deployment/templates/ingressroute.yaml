@@ -29,6 +29,9 @@ spec:
         sticky: {{- toYaml .Values.ingress.stickysession | nindent 10 }}
         {{- end}}
   {{- if .Values.ingress.enforceApiManagement}}
+  {{- if ne .Values.ingress.subdomain "api"}}
+  {{- fail "If ingress.enforceApiManagement is enabled, the subdomain must be api." }}
+  {{- end }}
   tls:
     options:
       name: pki

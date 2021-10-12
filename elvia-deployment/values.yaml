@@ -59,7 +59,7 @@ imagePullSecret: containerregistryelvia
 #   subdomain: github-repository-team-adder
 #   path: "/mypath"
 #   port: 80 # 80 default
-#   enforceApiManagement: true # default false - set to true to only allow calls coming from Api Management
+#   enforceApiManagement: false # Enable to only allow calls coming from Api Management. If true the subdomain MUST be 'api'.
 #   routemiddlewares:
 #     - name: hsts-header
 #       namespace: dns
