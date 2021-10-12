@@ -31,7 +31,7 @@
                 }
             ],
             "ingress": {
-                "host": "github-repository-team-adder.dev-elvia.io",
+                "subdomain": "github-repository-team-adder",
                 "path": "/"
             },
             "resources": {

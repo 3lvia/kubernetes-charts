@@ -37,7 +37,7 @@ service:
  targetPort: 8080
 
 ingress:
-  subdomain: core
+  subdomain: api
   path: "/demo-api"
   enforceApiManagement: true
 
