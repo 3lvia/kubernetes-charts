@@ -94,4 +94,39 @@ spec:
         volumeMounts:
           {{- toYaml . | nindent 8 }}
         {{- end }}
+      {{- if .Values.sideCar }}
+      - name: {{ required "Missing .Values.sideCar.name" .Values.sideCar.name }}
+        {{- with .Values.env}}
+        env:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        image: {{ include "sideCarImage" . }}  
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+        resources:
+          {{- toYaml .Values.sideCar.resources | nindent 10 }}
+        {{- with .Values.lifecycle }}
+        lifecycle:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.readinessProbe }}
+        readinessProbe:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.livenessProbe }}
+        livenessProbe:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.startupProbe }}
+        startupProbe:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.volumeMounts }}
+        volumeMounts:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- end}}
+
+
 
