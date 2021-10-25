@@ -73,13 +73,17 @@ Define the image, using containerregistryelvia.azurecr.io as default container r
 {{- end }}
 
 {{/*
-Define the sideCarImage, using containerregistryelvia.azurecr.io as default container registry
+Define the sidecar.image, using containerregistryelvia.azurecr.io as default container registry
 */}}
-{{- define "sideCarImage" -}}
-{{- if .Values.sideCar.image.repository }}
-{{- .Values.sideCar.image.repository }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}
+{{- define "sidecar.image" -}}
+{{- $imagetag := .tag}}
+{{- if .sidecar.image.tag}}
+{{- $imagetag := .sidecar.image.tag}}
+{{- end}}
+{{- if .sidecar.image.repository }}
+{{- .sidecar.image.repository }}:{{ required "Missing $imagetag" $imagetag }}
 {{- else }} 
-{{- printf "containerregistryelvia.azurecr.io/%s-%s" .Values.namespace .Values.sideCar.name }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}
+{{- printf "containerregistryelvia.azurecr.io/%s-%s" .namespace .sidecar.name }}:{{ required "Missing $imagetag" $imagetag }}
 {{- end }}
 {{- end }}
 

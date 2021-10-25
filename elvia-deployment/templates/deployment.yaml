@@ -94,37 +94,28 @@ spec:
         volumeMounts:
           {{- toYaml . | nindent 8 }}
         {{- end }}
-      {{- if .Values.sideCar }}
-      - name: {{ required "Missing .Values.sideCar.name" .Values.sideCar.name }}
-        {{- with .Values.env}}
+      {{- if .Values.sidecars }}
+      {{- range $sidecarKey, $sidecarValue := .Values.sidecars }}
+      {{- $data := dict "sidecar" $sidecarValue "tag" $.Values.image.tag "namespace" $.Values.namespace}}  
+      - name: {{ required "Missing $sidecarValue.name" $sidecarValue.name }}
+        {{- with $.Values.env}}
         env:
           {{- toYaml . | nindent 8 }}
         {{- end }}
-        image: {{ include "sideCarImage" . }}  
+        image: {{ include "sidecar.image" dict "sidecar" $sidecarValue "tag" $.Values.image.tag "namespace" $.Values.namespace }}  
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
-        resources:
-          {{- toYaml .Values.sideCar.resources | nindent 10 }}
-        {{- with .Values.lifecycle }}
+        resources: {{ required "Missing $sidecarValue.resources" $sidecarValue.resources }}
+          {{- toYaml $sidecarValue.resources | nindent 10 }}
+        {{- with $.Values.lifecycle }}
         lifecycle:
           {{- toYaml . | nindent 10 }}
         {{- end }}
-        {{- with .Values.readinessProbe }}
-        readinessProbe:
-          {{- toYaml . | nindent 10 }}
-        {{- end }}
-        {{- with .Values.livenessProbe }}
-        livenessProbe:
-          {{- toYaml . | nindent 10 }}
-        {{- end }}
-        {{- with .Values.startupProbe }}
-        startupProbe:
-          {{- toYaml . | nindent 10 }}
-        {{- end }}
-        {{- with .Values.volumeMounts }}
+        {{- with $.Values.volumeMounts }}
         volumeMounts:
           {{- toYaml . | nindent 8 }}
+        {{- end }}
         {{- end }}
       {{- end}}
 
