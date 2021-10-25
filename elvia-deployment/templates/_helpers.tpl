@@ -73,6 +73,21 @@ Define the image, using containerregistryelvia.azurecr.io as default container r
 {{- end }}
 
 {{/*
+Define the sidecar.image, using containerregistryelvia.azurecr.io as default container registry
+*/}}
+{{- define "sidecar.image" -}}
+{{- $imagetag := .tag}}
+{{- if .sidecar.image.tag}}
+{{- $imagetag := .sidecar.image.tag}}
+{{- end}}
+{{- if .sidecar.image.repository }}
+{{- .sidecar.image.repository }}:{{ required "Missing $imagetag" $imagetag }}
+{{- else }} 
+{{- printf "containerregistryelvia.azurecr.io/%s-%s" .namespace .sidecar.name }}:{{ required "Missing $imagetag" $imagetag }}
+{{- end }}
+{{- end }}
+
+{{/*
 Create the host of the ingress
 */}}
 {{- define "ingress.host" -}}
