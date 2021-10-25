@@ -106,8 +106,12 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
-        resources: {{ required "Missing $sidecarValue.resources" $sidecarValue.resources }}
+        resources:
+         {{- if $sidecarValue.resources}}
           {{- toYaml $sidecarValue.resources | nindent 10 }}
+         {{else}}
+          {{ required "Missing .sidecar.resources" $sidecarValue.resources }}
+         {{end}}
         {{- with $.Values.lifecycle }}
         lifecycle:
           {{- toYaml . | nindent 10 }}
