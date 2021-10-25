@@ -1,17 +1,4 @@
 ---
-# Source: elvia-deployment/templates/service-monitor.yaml
-kind: ServiceMonitor
-apiVersion: monitoring.coreos.com/v1
-metadata:
-  name: ingress-volumereadings
-  namespace: mdmx
-spec:
-  endpoints:
-  - port: ingress-volumereadingsport
-  selector:
-    matchLabels:
-      app: ingress-volumereadings
----
 # Source: elvia-deployment/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -72,7 +59,7 @@ spec:
             memory: 512Mi
           requests:
             cpu: 100m
-            memory: 512Mi
+            memory: 512Mi  
       - name: gs2parser
         env:
         - name: VolumeReading__Url
@@ -116,6 +103,19 @@ data:
   mdmxapi.readings.endpoint: readings
   mdmxapi.readings.url: https://mdmx.dev-elvia.io/api
 
+---
+# Source: elvia-deployment/templates/service-monitor.yaml
+kind: ServiceMonitor
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  name: ingress-volumereadings
+  namespace: mdmx
+spec:
+  endpoints:
+  - port: ingress-volumereadingsport
+  selector:
+    matchLabels:
+      app: ingress-volumereadings
 ---
 # Source: elvia-deployment/templates/service.yaml
 kind: Service
