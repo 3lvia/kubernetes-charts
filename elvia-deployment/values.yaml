@@ -32,7 +32,20 @@
 #  repository: containerregistryelvia.azurecr.io/bad-realtimeunits-api # defaults to containerregistryelvia.azurecr.io/$namespace-$name
 #  tag: "ToBeReplaced"
 
-imagePullSecret: containerregistryelvia
+# imagePullSecret: containerregistryelvia
+
+# sidecars:
+#   sidecar:
+#     name: gs2parser
+#     resources:
+#       requests:
+#         cpu: 10m
+#         memory: 50Mi
+#       limits:
+#         cpu: 10m
+#         memory: 50Mi
+#     image:
+#       repository: containerregistryelvia.azurecr.io/mdmx-gs2parser
 
 # env:
 # - name: ASPNETCORE_URLS
