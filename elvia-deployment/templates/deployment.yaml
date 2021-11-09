@@ -67,7 +67,7 @@ spec:
         {{- if .Values.envFrom}}
         envFrom:
         {{- range $envFromKey, $envFromValue := .Values.envFrom }}
-        - configMapRefKey:
+        - configMapRef:
             name: {{ required "Missing $envFromValue.name" $envFromValue.name }}
         {{- end }}
         {{- end }}
