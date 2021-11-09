@@ -21,7 +21,7 @@ imagePullSecret: containerregistryelvia
 #expect configMap for each to exist for common configmap
 envFrom:
   - configMapRef:
-    name: vee-common-config
+    name: demo-api
 
 env:
 - name: ASPNETCORE_URLS
