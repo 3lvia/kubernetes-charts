@@ -50,8 +50,6 @@
 # envFrom:
 #   - configMapRef:
 #     name: vee-common-config
-#   - configMapRef:
-#     name: vee-environment-config
 
 # env:
 # - name: ASPNETCORE_URLS
