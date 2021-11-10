@@ -64,6 +64,13 @@ spec:
       {{- end }}
       containers:
       - name: {{ required "Missing .Values.name" .Values.name }}
+        {{- if .Values.envFrom}}
+        envFrom:
+        {{- range $envFromKey, $envFromValue := .Values.envFrom }}
+        - configMapRef:
+            name: {{ required "Missing $envFromValue.name" $envFromValue.name }}
+        {{- end }}
+        {{- end }}
         {{- with .Values.env }}
         env:
           {{- toYaml . | nindent 8 }}

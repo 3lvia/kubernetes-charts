@@ -47,6 +47,10 @@
 #     image:
 #       repository: containerregistryelvia.azurecr.io/mdmx-gs2parser
 
+# envFrom:
+#   - configMapRef:
+#     name: demo-api
+
 # env:
 # - name: ASPNETCORE_URLS
 #   value: http://+:8080
