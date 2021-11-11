@@ -1,0 +1,34 @@
+{{- if .Values.ingress -}}
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ required "Missing .Values.name" .Values.name }}
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+  {{- if .Values.ingress.annotations }}
+  annotations: 
+    {{- range $key, $value := .Values.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+  {{- else }}
+  annotations:
+    traefik.frontend.rule.type: PathPrefixStrip
+    kubernetes.io/ingress.class: traefik
+    # Redirect the /metrics endpoint to /
+    # This ensures that the /metrics endpoint is not open on the internet
+    traefik.ingress.kubernetes.io/redirect-permanent: "true"
+    traefik.ingress.kubernetes.io/request-modifier: "ReplacePathRegex: ^/metrics(.*) /"
+  {{- end }}
+spec:
+  rules:
+    - host: {{ include "ingress.host" . }}
+      http:
+        paths:
+          - path: {{ required "Missing .Values.ingress.path" .Values.ingress.path }}
+            backend:
+              serviceName: {{ required "Missing .Values.name" .Values.name }}
+              {{- if .Values.ingress.port }}
+              servicePort: {{ .Values.ingress.port }}
+              {{- else }}
+              servicePort: 80
+              {{- end}}
+  {{- end }}

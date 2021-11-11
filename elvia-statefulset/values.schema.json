@@ -1,0 +1,108 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "name": "github-repository-team-adder",
+            "namespace": "core",
+            "replicaCount": 2,
+            "image": {
+                "repository": "containerregistryelvia.azurecr.io/github-repository-team-adder",
+                "tag": "20200921.2"
+            },
+            "imagePullSecret": "containerregistryelvia",
+            "env": [
+                {
+                    "name": "ASPNETCORE_URLS",
+                    "value": "http://+:8080"
+                },
+                {
+                    "name": "my_key_from_config_map",
+                    "valueFrom": {
+                        "configMapKeyRef": {
+                            "key": "my_key",
+                            "name": "github-repository-team-adder"
+                        }
+                    }
+                }
+            ],
+            "ingress": {
+                "subdomain": "github-repository-team-adder",
+                "path": "/"
+            },
+            "resources": {
+                "limits": {
+                    "cpu": "100m",
+                    "memory": "128Mi"
+                },
+                "requests": {
+                    "cpu": "100m",
+                    "memory": "128Mi"
+                }
+            },
+            "autoscaling": {
+                "minReplicas": 2,
+                "maxReplicas": 4,
+                "targetCPUUtilizationPercentage": 80
+            },
+            "lifecycle": {
+                "preStop": {
+                    "exec": {
+                        "command": [
+                            "sleep",
+                            "15"
+                        ]
+                    }
+                }
+            },
+            "readinessProbe": {
+                "failureThreshold": 3,
+                "httpGet": {
+                    "path": "/",
+                    "port": 8080,
+                    "scheme": "HTTP"
+                },
+                "initialDelaySeconds": 15,
+                "periodSeconds": 15,
+                "successThreshold": 1,
+                "timeoutSeconds": 3
+            },
+            "livenessProbe": {
+                "failureThreshold": 5,
+                "httpGet": {
+                    "path": "/",
+                    "port": 8080,
+                    "scheme": "HTTP"
+                },
+                "initialDelaySeconds": 15,
+                "periodSeconds": 15,
+                "successThreshold": 1,
+                "timeoutSeconds": 3
+            },
+            "startupProbe": {
+                "failureThreshold": 5,
+                "httpGet": {
+                    "path": "/",
+                    "port": 8080,
+                    "scheme": "HTTP"
+                },
+                "initialDelaySeconds": 15,
+                "periodSeconds": 15,
+                "successThreshold": 1,
+                "timeoutSeconds": 3
+            }
+        }
+    ],
+    "required": [
+        "name",
+        "namespace",
+        "environment",
+        "replicaCount",
+        "resources"
+    ],
+    "additionalProperties": true
+}

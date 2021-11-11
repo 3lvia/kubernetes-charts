@@ -1,0 +1,33 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ required "Missing .Values.name" .Values.name }}
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+  labels:
+    app: {{ required "Missing .Values.name" .Values.name }}
+spec:
+  ports:
+  {{- range $portsKey, $portsValue := .Values.ports }}
+  - name: {{ required "Missing $portsValue.name" $portsValue.name }}
+    containerPort: {{ required "Missing $portsValue.containerPort" $portsValue.containerPort }}
+    protocol: {{ required "Missing $portsValue.protocol" $portsValue.protocol }}
+    targetPort: {{ required "Missing $portsValue" $portsValue.containerPort }}
+  {{- end}}
+  - name: {{ required "Missing .Values.name" .Values.name }}port
+    {{- if .Values.service }}
+    
+    {{- if .Values.service.port }}
+    port: {{ .Values.service.port -}}
+    {{- end }} 
+
+    {{- if .Values.service.targetPort }}
+    targetPort: {{ .Values.service.targetPort -}}
+    {{- end }}   
+      
+    {{- else }}
+    port: 2112 # Default prometheus port for worker
+    {{- end }}
+ 
+  selector:
+    app: {{ required "Missing .Values.name" .Values.name }}
+  clusterIP: None

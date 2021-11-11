@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ required "Missing .Values.name" .Values.name }}
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+spec:
+  serviceName: {{ required "Missing .Values.name" .Values.name }}
+  {{- if .Values.progressDeadlineSeconds }}
+  terminationGracePeriodSeconds: {{ .Values.progressDeadlineSeconds }}
+  {{- end}}
+  {{- if not .Values.replicaCount }}
+  replicas: {{ required "Missing .Values.replicaCount" .Values.replicaCount }}
+  {{- else if kindIs "float64" .Values.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
+  {{- else if kindIs "map" .Values.replicaCount }}
+  {{- if eq .Values.environment "dev" }}
+  replicas: {{ required "Missing .Values.replicaCount.dev" .Values.replicaCount.dev }}
+  {{- else if eq .Values.environment "test" }}
+  replicas: {{ required "Missing .Values.replicaCount.test" .Values.replicaCount.test }}
+  {{- else if eq .Values.environment "prod" }}
+  replicas: {{ required "Missing .Values.replicaCount.prod" .Values.replicaCount.prod }}
+  {{- end }}
+  {{- else }}
+  {{- fail ".Values.replicaCount must either be a number or a map" }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ required "Missing .Values.name" .Values.name }}
+      microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ required "Missing .Values.name" .Values.name }}
+        microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
+      annotations:
+        seccomp.security.alpha.kubernetes.io/pod: runtime/default
+    spec:
+      {{- if .Values.terminationGracePeriodSeconds }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      {{- end}}
+      serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
+      imagePullSecrets:
+      {{- if .Values.imagePullSecret }}
+      - name: {{ .Values.imagePullSecret }}
+      {{- else }}
+      - name: containerregistryelvia
+      {{- end}}
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+        supplementalGroups: [1001]
+      containers:
+      - name: {{ required "Missing .Values.name" .Values.name }}
+        {{- if .Values.envFrom}}
+        envFrom:
+        {{- range $envFromKey, $envFromValue := .Values.envFrom }}
+        - configMapRef:
+            name: {{ required "Missing $envFromValue.name" $envFromValue.name }}
+        {{- end }}
+        {{- end }}
+        {{- with .Values.env }}
+        env:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        image: {{ include "image" . }} 
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+        {{- if .Values.ports }}
+        ports:
+        {{- range $portsKey, $portsValue := .Values.ports }}
+          - name: {{ required "Missing $portsValue.name" $portsValue.name }}
+            containerPort: {{ required "Missing $portsValue.containerPort" $portsValue.containerPort }}
+            protocol: {{ required "Missing $portsValue.protocol" $portsValue.protocol }}
+        {{- end}}
+        {{- end}}
