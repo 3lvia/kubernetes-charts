@@ -14,6 +14,11 @@
   # test: 2
   # prod: 2
 
+# ports:
+#   name: vee-port
+#   containerPort: 8081
+#   protocol: TCP
+
 # progressDeadlineSeconds: 600
 
 # dnsConfig:

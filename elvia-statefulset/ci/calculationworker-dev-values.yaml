@@ -21,9 +21,9 @@ resources:
     memory: 4096Mi
 
 ports:
-  - name: vee-port
-    containerPort: 8081
-    protocol: TCP
+  name: vee-port
+  containerPort: 8081
+  protocol: TCP
 
 env:
   - name: Telemetry__UseTelemetry

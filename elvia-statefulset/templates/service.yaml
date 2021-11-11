@@ -7,12 +7,10 @@ metadata:
     app: {{ required "Missing .Values.name" .Values.name }}
 spec:
   ports:
-  {{- range $portsKey, $portsValue := .Values.ports }}
-  - name: {{ required "Missing $portsValue.name" $portsValue.name }}
-    containerPort: {{ required "Missing $portsValue.containerPort" $portsValue.containerPort }}
-    protocol: {{ required "Missing $portsValue.protocol" $portsValue.protocol }}
-    targetPort: {{ required "Missing $portsValue" $portsValue.containerPort }}
-  {{- end}}
+  - name: {{ required "Missing .Values.ports.name" .Values.ports.name }}
+    containerPort: {{ required "Missing .Values.ports.containerPort" .Values.ports.containerPort }}
+    protocol: {{ required "Missing .Values.ports.protocol" .Values.ports.protocol }}
+    targetPort: {{ required "Missing .Values.ports" .Values.ports.containerPort }}
   - name: {{ required "Missing .Values.name" .Values.name }}port
     {{- if .Values.service }}
     
