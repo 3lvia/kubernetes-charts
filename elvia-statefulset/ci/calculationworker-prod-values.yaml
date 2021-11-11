@@ -1,0 +1,174 @@
+---
+name: calculationworker
+namespace: core
+microserviceType: worker
+environment: prod
+
+replicaCount: 1
+terminationGracePeriodSeconds: 35
+
+image:
+  repository: containerregistryelvia.azurecr.io/mdmx-vee-worker
+
+imagePullSecret: containerregistryelvia
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 512Mi
+  limits:
+    cpu: 500m
+    memory: 4096Mi
+
+ports:
+  - name: vee-port
+    containerPort: 8081
+    protocol: TCP
+
+env:
+  - name: Telemetry__UseTelemetry
+    value: "true"
+  - name: Telemetry__MaxTelemetryItemsPerSecond
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: telemetry.maxItemsPerSecond
+  - name: Telemetry__WriteToConsole
+    value: "false"
+  - name: Database__CacheSizeMB
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: database.cacheSizeMb
+  - name: Database__MaxPoolSize
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: database.maxPoolSize
+  - name: Database__CommandTimeoutSeconds
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: database.commandTimeoutSeconds
+  - name: Calculation__ExecuteAll__UseService
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: database.commandTimeoutSeconds
+  - name: Calculation__ExecuteAll__Schedule
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: calculation.executeAllSchedule
+  - name: Calculation__ExecuteAll__BatchSize
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: calculation.executeAllBatchSize
+  - name: Calculation__ExecuteRequested__UseService
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: calculation.executeRequestedUseService
+  - name: Calculation__ExecuteRequested__Schedule
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: calculation.executeRequestedSchedule
+  - name: Calculation__ExecuteRequested__BatchSize
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: calculation.executeRequestedBatchSize
+  - name: OutboxProcessor__UseService
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: outboxprocessor.useService
+  - name: OutboxProcessor__Schedule
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: outboxprocessor.schedule
+  - name: OutboxProcessor__OperationTimeoutSeconds
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: outboxprocessor.operationTimeoutSeconds
+  - name: OutboxProcessor__BatchSize
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: outboxprocessor.batchSize
+  - name: OutboxProcessor__MinBackoffSeconds
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: outboxprocessor.minBackOffSeconds
+  - name: OutboxPorcessor__MaxBackoffSeconds
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: outboxprocessor.maxBackOffSeconds
+  - name: MeterReadingReceiver__UseService
+    valueFrom:
+      configMapKeyRef:
+        name: calculationworker
+        key: meterreadingreceiver.useService
+
+configmap:
+  dev:
+    telemetry.maxItemsPerSecond: 5
+    database.cacheSizeMb: 256
+    database.maxPoolSize: 100
+    database.commandTimeoutSeconds: 300
+    calculation.executeAllUseService: "true"
+    calculation.executeAllSchedule: "30 */1 * * *"
+    calculation.executeAllBatchSize: "10"
+    calculation.executeRequestedUseService: "true"
+    calculation.executeRequestedSchedule: "*/10 * * * * *"
+    calculation.executeRequestedBatchSize: "10"
+    outboxprocessor.useService: "true"
+    outboxprocessor.schedule: "*/10 * * * * *"
+    outboxprocessor.operationTimeoutSeconds: "300"
+    outboxprocessor.batchSize: "10"
+    outboxprocessor.minBackOffSeconds: "3"
+    outboxprocessor.maxBackOffSeconds: "30"
+    meterreadingreceiver.useService: "false"
+
+  test:
+    telemetry.maxItemsPerSecond: 5
+    database.cacheSizeMb: 256
+    database.maxPoolSize: 200
+    database.commandTimeoutSeconds: 300
+    calculation.executeAllUseService: "true"
+    calculation.executeAllSchedule: "30 */1 * * *"
+    calculation.executeAllBatchSize: "2000"
+    calculation.executeRequestedUseService: "true"
+    calculation.executeRequestedSchedule: "*/10 * * * * *"
+    calculation.executeRequestedBatchSize: "2000"
+    outboxprocessor.useService: "true"
+    outboxprocessor.schedule: "*/10 * * * * *"
+    outboxprocessor.operationTimeoutSeconds: "300"
+    outboxprocessor.batchSize: "5000"
+    outboxprocessor.minBackOffSeconds: "3"
+    outboxprocessor.maxBackOffSeconds: "30"
+    meterreadingreceiver.useService: "false"
+  prod:
+    telemetry.maxItemsPerSecond: 5
+    database.cacheSizeMb: 256
+    database.maxPoolSize: 200
+    database.commandTimeoutSeconds: 300
+    calculation.executeAllUseService: "true"
+    calculation.executeAllSchedule: "30 */1 * * *"
+    calculation.executeAllBatchSize: "2000"
+    calculation.executeRequestedUseService: "true"
+    calculation.executeRequestedSchedule: "*/10 * * * * *"
+    calculation.executeRequestedBatchSize: "2000"
+    outboxprocessor.useService: "true"
+    outboxprocessor.schedule: "*/10 * * * * *"
+    outboxprocessor.operationTimeoutSeconds: "300"
+    outboxprocessor.batchSize: "5000"
+    outboxprocessor.minBackOffSeconds: "3"
+    outboxprocessor.maxBackOffSeconds: "30"
+    meterreadingreceiver.useService: "false"

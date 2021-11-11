@@ -2,6 +2,7 @@
 name: calculationworker
 namespace: core
 microserviceType: worker
+environment: test
 
 replicaCount: 1
 terminationGracePeriodSeconds: 35
