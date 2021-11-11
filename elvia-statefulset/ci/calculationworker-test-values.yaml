@@ -1,0 +1,67 @@
+---
+name: calculationworker
+namespace: core
+microserviceType: worker
+environment: test
+
+replicaCount: 1
+terminationGracePeriodSeconds: 35
+
+image:
+  repository: containerregistryelvia.azurecr.io/mdmx-vee-worker
+  tag: "ToBeReplacedInAzurePipeline"
+
+imagePullSecret: containerregistryelvia
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 512Mi
+  limits:
+    cpu: 500m
+    memory: 4096Mi
+
+ports:
+  - name: vee-port
+    containerPort: 8081
+    protocol: TCP
+
+env:
+  - name: Telemetry__UseTelemetry
+    value: "true"
+  - name: Telemetry__MaxTelemetryItemsPerSecond
+    value: "5"
+  - name: Telemetry__WriteToConsole
+    value: "false"
+  - name: Database__CacheSizeMB
+    value: "256"
+  - name: Database__MaxPoolSize
+    value: "200"
+  - name: Database__CommandTimeoutSeconds
+    value: "300"
+  - name: Calculation__ExecuteAll__UseService
+    value: "true"
+  - name: Calculation__ExecuteAll__Schedule
+    value: "30 */1 * * *"
+  - name: Calculation__ExecuteAll__BatchSize
+    value: "2000"
+  - name: Calculation__ExecuteRequested__UseService
+    value: "true"
+  - name: Calculation__ExecuteRequested__Schedule
+    value: "*/10 * * * * *"
+  - name: Calculation__ExecuteRequested__BatchSize
+    value: "2000"
+  - name: OutboxProcessor__UseService
+    value: "true"
+  - name: OutboxProcessor__Schedule
+    value: "*/10 * * * * *"
+  - name: OutboxProcessor__OperationTimeoutSeconds
+    value: "300"
+  - name: OutboxProcessor__BatchSize
+    value: "5000"
+  - name: OutboxProcessor__MinBackoffSeconds
+    value: "3"
+  - name: OutboxPorcessor__MaxBackoffSeconds
+    value: "30"
+  - name: MeterReadingReceiver__UseService
+    value: "false"

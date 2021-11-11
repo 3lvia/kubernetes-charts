@@ -64,10 +64,10 @@ stages:
           displayName: Configure ct config
           workingDirectory: $(Build.SourcesDirectory)
 
-        - script: ./ct/bin/ct lint --all --config ct.yaml
+        - script: ./ct/bin/ct lint --config ct.yaml
           displayName: Run ct lint
           workingDirectory: $(Build.SourcesDirectory)
-        - script: ./ct/bin/ct install --upgrade --all --config ct.yaml
+        - script: ./ct/bin/ct install --upgrade --config ct.yaml
           displayName: Run ct install --upgrade
           workingDirectory: $(Build.SourcesDirectory)
 
