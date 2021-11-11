@@ -63,4 +63,4 @@ env:
   - name: OutboxPorcessor__MaxBackoffSeconds
     value: "30"
   - name: MeterReadingReceiver__UseService
-    value: "false"   
+    value: "false"
