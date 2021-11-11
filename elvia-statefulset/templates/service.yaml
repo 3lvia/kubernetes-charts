@@ -9,9 +9,9 @@ spec:
   ports:
   {{- range $portsKey, $portsValue := .Values.ports }}
   - name: {{ required "Missing $portsValue.name" $portsValue.name }}
-    containerPort: {{ required "Missing $portsValue.containerPort" $portsValue.containerPort }}
+    port: {{ required "Missing $portsValue.containerPort" $portsValue.containerPort }}
     protocol: {{ required "Missing $portsValue.protocol" $portsValue.protocol }}
-    targetPort: {{ required "Missing $portsValue" $portsValue.containerPort }}
+    targetPort: {{ required "Missing $portsValue.containerPort" $portsValue.containerPort }}
   {{- end}}
   - name: {{ required "Missing .Values.name" .Values.name }}port
     {{- if .Values.service }}
