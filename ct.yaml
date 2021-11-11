@@ -1,4 +1,6 @@
 chart-dirs:
   - .
+charts: 
+  - elvia-deployment
 
 validate-maintainers: false
