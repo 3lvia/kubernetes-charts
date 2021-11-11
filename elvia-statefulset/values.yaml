@@ -15,9 +15,9 @@
   # prod: 2
 
 # ports:
-#   name: vee-port
-#   containerPort: 8081
-#   protocol: TCP
+#   - name: vee-port
+#     containerPort: 8081
+#     protocol: TCP
 
 # progressDeadlineSeconds: 600
 

@@ -76,7 +76,9 @@ spec:
           {{- toYaml .Values.resources | nindent 10 }}
         {{- if .Values.ports }}
         ports:
-          - name: {{ required "Missing .Values.ports.name" .Values.ports.name }}
-            containerPort: {{ required "Missing .Values.ports.containerPort" .Values.ports.containerPort }}
-            protocol: {{ required "Missing .Values.ports.protocol" .Values.ports.protocol }}
+        {{- range $portsKey, $portsValue := .Values.ports }}
+          - name: {{ required "Missing $portsValue.name" $portsValue.name }}
+            containerPort: {{ required "Missing $portsValue.containerPort" $portsValue.containerPort }}
+            protocol: {{ required "Missing $portsValue.protocol" $portsValue.protocol }}
+        {{- end}}
         {{- end}}
