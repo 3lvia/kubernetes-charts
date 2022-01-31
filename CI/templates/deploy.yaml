@@ -19,7 +19,7 @@ jobs:
                 namespace: $(namespace)
                 command: upgrade
                 failOnStderr: false
-                arguments: --debug --force
+                arguments: --debug
                 chartName: $(Pipeline.Workspace)/elvia-deployment/
                 releaseName: ${{ parameters.name }}
                 valueFile: $(Pipeline.Workspace)/CI/${{ parameters.helmValuesFile }}
@@ -32,12 +32,12 @@ jobs:
                 command: rollout
                 arguments: status deploy ${{ parameters.name }}
 
-            # - task: HelmDeploy@0
-            #   displayName: Helm rollback
-            #   inputs:
-            #     connectionType: Kubernetes Service Connection
-            #     kubernetesServiceEndpoint: RuntimeServiceKubernetesDev
-            #     namespace: $(namespace)
-            #     command: rollback
-            #     failOnStderr: false
-            #     arguments: ${{ parameters.name }}
+            - task: HelmDeploy@0
+              displayName: Helm rollback
+              inputs:
+                connectionType: Kubernetes Service Connection
+                kubernetesServiceEndpoint: RuntimeServiceKubernetesDev
+                namespace: $(namespace)
+                command: rollback
+                failOnStderr: false
+                arguments: ${{ parameters.name }}
