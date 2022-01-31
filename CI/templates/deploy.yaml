@@ -19,7 +19,7 @@ jobs:
                 namespace: $(namespace)
                 command: upgrade
                 failOnStderr: false
-                arguments: --debug
+                arguments: --debug --force
                 chartName: $(Pipeline.Workspace)/elvia-deployment/
                 releaseName: ${{ parameters.name }}
                 valueFile: $(Pipeline.Workspace)/CI/${{ parameters.helmValuesFile }}
