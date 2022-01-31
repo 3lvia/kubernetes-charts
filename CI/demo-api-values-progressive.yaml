@@ -14,7 +14,7 @@ replicaCount:
 
 image:
   repository: containerregistryelvia.azurecr.io/core-demo-api
-  tag: "20210811.3"
+  tag: "20220131.1"
 
 imagePullSecret: containerregistryelvia
 
