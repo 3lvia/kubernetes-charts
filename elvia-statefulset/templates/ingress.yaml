@@ -24,11 +24,15 @@ spec:
       http:
         paths:
           - path: {{ required "Missing .Values.ingress.path" .Values.ingress.path }}
+            pathType: Exact
             backend:
-              serviceName: {{ required "Missing .Values.name" .Values.name }}
-              {{- if .Values.ingress.port }}
-              servicePort: {{ .Values.ingress.port }}
-              {{- else }}
-              servicePort: 80
-              {{- end}}
+              service: 
+                name: {{ required "Missing .Values.name" .Values.name }}
+                {{- if .Values.ingress.port }}
+                port: 
+                  number: {{ .Values.ingress.port }}
+                {{- else }}
+                port: 
+                  number: 80
+                {{- end}}
   {{- end }}
