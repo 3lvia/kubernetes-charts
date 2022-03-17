@@ -1,0 +1,21 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ required "Missing .Values.name" .Values.name }}
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+spec:
+  hosts:
+  - {{ include "ingress.host" . }}
+  gateways:
+  - istio-system/elvia-ingress-gateway-mtls
+  http:
+  - match:
+    - uri:
+        prefix: {{ required "Missing .Values.ingress.path" .Values.ingress.path }}
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        port:
+          number: 80
+        host: {{ required "Missing .Values.name" .Values.name }}.adms-extensions.svc.cluster.local

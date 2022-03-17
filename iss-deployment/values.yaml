@@ -1,0 +1,153 @@
+# Default values for elvia-deployment.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# name: metervalues-api
+# namespace: bad
+# microserviceType: worker|webapi|pushreceiver
+# environment: dev|test|prod
+
+# replicaCount: 1
+
+# replicaCount:
+  # dev: 1
+  # test: 2
+  # prod: 2
+
+# progressDeadlineSeconds: 600
+
+# dnsConfig:
+#  options:
+#  - name: single-request-reopen
+
+# hostAliases:
+#  - ip: "10.160.4.139"
+#    hostnames:
+#      - "haarcgeoevent01.hipad.no"
+#  - ip: "172.19.253.6"
+#    hostnames:
+#      - "haarcgeoevt01t1.hipad.no"
+
+# image:
+#  repository: containerregistryelvia.azurecr.io/bad-realtimeunits-api # defaults to containerregistryelvia.azurecr.io/$namespace-$name
+#  tag: "ToBeReplaced"
+
+# imagePullSecret: containerregistryelvia
+
+# sidecars:
+#   sidecar:
+#     name: gs2parser
+#     resources:
+#       requests:
+#         cpu: 10m
+#         memory: 50Mi
+#       limits:
+#         cpu: 10m
+#         memory: 50Mi
+#     image:
+#       repository: containerregistryelvia.azurecr.io/mdmx-gs2parser
+
+# envFrom:
+#   - configMapRef:
+#     name: demo-api
+
+# env:
+# - name: ASPNETCORE_URLS
+#   value: http://+:8080
+# - name: my_key_from_config_map
+#   valueFrom:
+#     configMapKeyRef:
+#       key: my_key
+#       name: github-repository-team-adder
+
+# service:
+#  port: 80
+#  targetPort: 8080
+
+# ingress:
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+#     traefik.frontend.rule.type: PathPrefixStrip
+#     # Redirect the /metrics endpoint to /
+#     # This ensures that the /metrics endpoint is not open on the internet
+#     traefik.ingress.kubernetes.io/redirect-permanent: "true"
+#     traefik.ingress.kubernetes.io/redirect-regex: ^https://kunde.test-hafslundnett.io/metrics(.*)
+#     traefik.ingress.kubernetes.io/redirect-replacement: https://kunde.test-hafslundnett.io/
+#   subdomain: github-repository-team-adder
+#   path: "/mypath"
+#   port: 80 # 80 default
+#   enforceApiManagement: false # Enable to only allow calls coming from Api Management. If true the subdomain MUST be 'api'.
+#   routemiddlewares:
+#     - name: hsts-header
+#       namespace: dns
+#     - name: remove-metrics
+#       namespace: dns
+#   stickysession:
+#     cookie: {}
+
+# resources:
+#   limits:
+#     cpu: 100m
+#     memory: 128Mi
+#   requests:
+#     cpu: 100m
+#     memory: 128Mi
+
+# autoscaling:
+#   minReplicas: 2
+#   maxReplicas: 4
+#   targetCPUUtilizationPercentage: 80
+
+# lifecycle:
+#   preStop:
+#     exec:
+#       command:
+#       - sleep
+#       - "15"
+
+# readinessProbe:
+#   failureThreshold: 3
+#   httpGet:
+#     path: /metrics
+#     port: 2112
+#     scheme: HTTP
+#   initialDelaySeconds: 15
+#   periodSeconds: 15
+#   successThreshold: 1
+#   timeoutSeconds: 3
+
+# livenessProbe:
+#   failureThreshold: 5
+#   httpGet:
+#     path: /metrics
+#     port: 2112
+#     scheme: HTTP
+#   initialDelaySeconds: 15
+#   periodSeconds: 15
+#   successThreshold: 1
+#   timeoutSeconds: 3
+
+# startupProbe:
+#   failureThreshold: 5
+#   httpGet:
+#     path: /metrics
+#     port: 2112
+#     scheme: HTTP
+#   initialDelaySeconds: 15
+#   periodSeconds: 15
+#   successThreshold: 1
+#   timeoutSeconds: 3
+
+# configmap:
+#   dev:
+#     bigtable.project: "hafslund-mdm-dev"
+#     bigtable.instanceid: "mdm-meterreadings-dev"
+#   test:
+#     bigtable.project: "hafslund-mdm-test"
+#     bigtable.instanceid: "mdm-meterreadings-test"
+#   prod:
+#     bigtable.project: "hafslund-mdm"
+#     bigtable.instanceid: "mdm-meterreadings"
+
+# serviceMonitor:
+#   interval: 60s

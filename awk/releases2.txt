@@ -1,0 +1,15 @@
+archiver                   	drops    	25      	2022-01-12 20:39:06.647756458 +0000 UTC	deployed	elvia-deployment-0.9.4	1.16.0     
+classification-worker      	drops    	3       	2022-01-31 07:21:40.537269552 +0000 UTC	deployed	elvia-deployment-0.9.4	1.16.0     
+classifiercorrelator       	drops    	20      	2022-01-12 20:38:53.884791841 +0000 UTC	deployed	elvia-deployment-0.9.4	1.16.0     
+drops-api                  	drops    	18      	2022-01-31 16:12:09.6671775 +0100 CET  	deployed	elvia-deployment-0.9.4	1.16.0     
+drops-worker               	drops    	18      	2022-01-12 12:17:11.302032056 +0000 UTC	deployed	elvia-deployment-0.9.4	1.16.0     
+in-alarms-and-events       	drops    	8       	2022-01-03 10:24:08.354364612 +0000 UTC	deployed	elvia-deployment-0.9.4	1.16.0     
+indexer                    	drops    	20      	2022-01-12 20:38:42.707217322 +0000 UTC	deployed	elvia-deployment-0.9.4	1.16.0     
+kpi-updater                	drops    	41      	2021-11-27 06:03:31.575425408 +0000 UTC	deployed	elvia-deployment-0.9.4	1.16.0     
+kpi-updater-alarmsandevents	drops    	24      	2022-01-26 14:37:17.912073654 +0000 UTC	deployed	elvia-deployment-0.9.4	1.16.0     
+kpi-updater-amidevice      	drops    	24      	2022-01-26 14:37:16.26147193 +0000 UTC 	deployed	elvia-deployment-0.9.4	1.16.0     
+kpi-updater-amisite        	drops    	24      	2022-01-26 14:37:11.76317464 +0000 UTC 	deployed	elvia-deployment-0.9.4	1.16.0     
+kpi-updater-metervalues    	drops    	24      	2022-01-26 14:37:16.843954538 +0000 UTC	deployed	elvia-deployment-0.9.4	1.16.0     
+kpi-updater-radionetwork   	drops    	24      	2022-01-26 14:37:14.042510468 +0000 UTC	deployed	elvia-deployment-0.9.4	1.16.0     
+orchestrator               	drops    	22      	2022-01-12 20:38:41.62981694 +0000 UTC 	deployed	elvia-deployment-0.9.4	1.16.0     
+worker                     	drops    	1       	2021-07-17 15:37:40.986218991 +0000 UTC	deployed	elvia-deployment-0.7.4	1.16.0     
