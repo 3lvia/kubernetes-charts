@@ -37,7 +37,10 @@ spec:
         app: {{ required "Missing .Values.name" .Values.name }}
         microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
       annotations:
-        seccomp.security.alpha.kubernetes.io/pod: runtime/default
+        seccomp.security.alpha.kubernetes.io/pod: runtime/default      
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8080" #TODO USE PORT FROM values.yaml
+        prometheus.io/scrape: "true"
     spec:
       serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
       securityContext:
