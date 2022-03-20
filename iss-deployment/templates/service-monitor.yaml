@@ -8,10 +8,10 @@ spec:
   - port: {{ required "Missing .Values.name" .Values.name }}port
     scheme: https
     tlsConfig:
-      caFile: /etc/istio-output-certs/root-cert.pem
-      certFile: /etc/istio-output-certs/cert-chain.pem
+      caFile: /etc/prom-certs/root-cert.pem
+      certFile: /etc/prom-certs/cert-chain.pem
       insecureSkipVerify: true
-      keyFile: /etc/istio-output-certs/key.pem
+      keyFile: /etc/prom-certs/key.pem
     {{- if .Values.serviceMonitor }}
     {{- if .Values.serviceMonitor.interval }}
     interval: {{ .Values.serviceMonitor.interval -}}
