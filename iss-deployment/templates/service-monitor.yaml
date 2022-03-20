@@ -5,7 +5,7 @@ metadata:
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
 spec:
   endpoints:
-  - port: {{ required "Missing .Values.name" .Values.name }}port
+  - port: http # must match port name of service
     scheme: https
     tlsConfig:
       caFile: /etc/prom-certs/root-cert.pem

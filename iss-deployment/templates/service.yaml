@@ -7,7 +7,7 @@ metadata:
     app: {{ required "Missing .Values.name" .Values.name }}
 spec:
   ports:
-  - name: {{ required "Missing .Values.name" .Values.name }}port
+  - name: http # the name is important for istio, see https://istio.io/latest/docs/ops/configuration/traffic-management/protocol-selection/
     {{- if .Values.service }}
     
     {{- if .Values.service.port }}
@@ -23,4 +23,4 @@ spec:
     {{- end }}
  
   selector:
-    app: {{ required "Missing .Values.name" .Values.name }}
+      app: {{ required "Missing .Values.name" .Values.name }}
