@@ -37,16 +37,15 @@ spec:
         app: {{ required "Missing .Values.name" .Values.name }}
         microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
       annotations:
-        seccomp.security.alpha.kubernetes.io/pod: runtime/default      
-        # prometheus.io/path: /metrics
-        # prometheus.io/port: "8080" #TODO USE PORT FROM values.yaml
-        # prometheus.io/scrape: "true"
+        traffic.sidecar.istio.io/excludeOutboundPorts: "9092"
     spec:
       serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
-      securityContext:
-        runAsUser: 1001
-        runAsGroup: 1001
+      securityContext:     
         fsGroup: 1001
+        runAsGroup: 1001
+        runAsUser: 1001
+        seccompProfile:
+          type: RuntimeDefault
         supplementalGroups: [1001]
       {{- if .Values.dnsConfig }}
       dnsConfig: {{- toYaml .Values.dnsConfig | nindent 8 }} 
