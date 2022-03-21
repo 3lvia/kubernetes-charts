@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ required "Missing .Values.name" .Values.name }}
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+spec:
+  {{- if .Values.progressDeadlineSeconds }}
+  progressDeadlineSeconds: {{ .Values.progressDeadlineSeconds }}
+  {{- end}}
+  {{- if not .Values.replicaCount }}
+  replicas: {{ required "Missing .Values.replicaCount" .Values.replicaCount }}
+  {{- else if kindIs "float64" .Values.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
+  {{- else if kindIs "map" .Values.replicaCount }}
+  {{- if eq .Values.environment "dev" }}
+  replicas: {{ required "Missing .Values.replicaCount.dev" .Values.replicaCount.dev }}
+  {{- else if eq .Values.environment "test" }}
+  replicas: {{ required "Missing .Values.replicaCount.test" .Values.replicaCount.test }}
+  {{- else if eq .Values.environment "prod" }}
+  replicas: {{ required "Missing .Values.replicaCount.prod" .Values.replicaCount.prod }}
+  {{- end }}
+  {{- else }}
+  {{- fail ".Values.replicaCount must either be a number or a map" }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ required "Missing .Values.name" .Values.name }}
+      microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ required "Missing .Values.name" .Values.name }}
+        microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
+      annotations:
+        seccomp.security.alpha.kubernetes.io/pod: runtime/default      
+        # prometheus.io/path: /metrics
+        # prometheus.io/port: "8080" #TODO USE PORT FROM values.yaml
+        # prometheus.io/scrape: "true"
+    spec:
+      serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+        supplementalGroups: [1001]
+      {{- if .Values.dnsConfig }}
+      dnsConfig: {{- toYaml .Values.dnsConfig | nindent 8 }} 
+      {{- end}}
+      {{- with .Values.hostAliases }}
+      hostAliases: 
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 6 }}
+      {{- end }}
+      containers:
+      - name: {{ required "Missing .Values.name" .Values.name }}
+        {{- if .Values.envFrom}}
+        envFrom:
+        {{- range $envFromKey, $envFromValue := .Values.envFrom }}
+        - configMapRef:
+            name: {{ required "Missing $envFromValue.name" $envFromValue.name }}
+        {{- end }}
+        {{- end }}
+        {{- with .Values.env }}
+        env:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        image: {{ include "image" . }} 
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+        {{- with .Values.lifecycle }}
+        lifecycle:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.readinessProbe }}
+        readinessProbe:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.livenessProbe }}
+        livenessProbe:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.startupProbe }}
+        startupProbe:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.volumeMounts }}
+        volumeMounts:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
