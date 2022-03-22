@@ -28,8 +28,12 @@ spec:
       microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
   strategy:
     rollingUpdate:
-      maxSurge: 2
+      maxSurge: 1
+      {{- if eq .Values.microserviceType "webapi" }}
       maxUnavailable: 0
+      {{- else }}
+      maxUnavailable: 1
+      {{- end }}
     type: RollingUpdate
   template:
     metadata:
