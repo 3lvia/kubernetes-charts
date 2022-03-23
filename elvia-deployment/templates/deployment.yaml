@@ -29,11 +29,7 @@ spec:
   strategy:
     rollingUpdate:
       maxSurge: 1
-      {{- if eq .Values.microserviceType "webapi" }}
       maxUnavailable: 0
-      {{- else }}
-      maxUnavailable: 1
-      {{- end }}
     type: RollingUpdate
   template:
     metadata:
