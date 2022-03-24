@@ -7,7 +7,7 @@ environment: dev
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: nginxinc/nginx-unprivileged
   tag: latest
 
 resources:

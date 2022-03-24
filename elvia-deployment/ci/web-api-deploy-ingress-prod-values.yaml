@@ -19,7 +19,7 @@ hostAliases:
       - "haarcgeoevt01t1.hipad.no"
 
 image:
-  repository: nginx
+  repository: nginxinc/nginx-unprivileged
   tag: latest
 
 resources:
