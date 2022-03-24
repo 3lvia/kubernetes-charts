@@ -7,8 +7,8 @@ environment: prod
 replicaCount: 1
 
 image:
-  repository: mcr.microsoft.com/dotnet/samples:aspnetapp
-  tag: latest
+  repository: mcr.microsoft.com/dotnet/samples
+  tag: aspnetapp
 
 resources:
   requests:

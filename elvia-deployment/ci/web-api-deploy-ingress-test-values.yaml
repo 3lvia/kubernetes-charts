@@ -19,8 +19,8 @@ hostAliases:
       - "haarcgeoevt01t1.hipad.no"
 
 image:
-  repository: mcr.microsoft.com/dotnet/samples:aspnetapp
-  tag: latest
+  repository: mcr.microsoft.com/dotnet/samples
+  tag: aspnetapp
 
 resources:
   requests:
