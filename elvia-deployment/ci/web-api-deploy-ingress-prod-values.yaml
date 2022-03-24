@@ -19,7 +19,7 @@ hostAliases:
       - "haarcgeoevt01t1.hipad.no"
 
 image:
-  repository: nginxinc/nginx-unprivileged
+  repository: mcr.microsoft.com/dotnet/samples:aspnetapp
   tag: latest
 
 resources:

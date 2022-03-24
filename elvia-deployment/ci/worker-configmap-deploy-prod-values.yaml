@@ -7,7 +7,7 @@ environment: prod
 replicaCount: 1
 
 image:
-  repository: nginxinc/nginx-unprivileged
+  repository: mcr.microsoft.com/dotnet/samples:aspnetapp
   tag: latest
 
 resources:
