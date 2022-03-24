@@ -7,8 +7,8 @@ environment: test
 replicaCount: 1
 
 image:
-  repository: containerregistryelvia.azurecr.io/bad-pushreceiver-profiledmeterreadings
-  tag: "ToBeReplaced"
+  repository: nginx
+  tag: latest
 
 resources:
   requests:
