@@ -7,8 +7,8 @@ environment: dev
 replicaCount: 1
 
 image:
-  repository: containerregistryelvia.azurecr.io/bad-bigquery-in-amsaxmlparser-ideenova
-  tag: "ToBeReplacedInAzurePipeline"
+  repository: mcr.microsoft.com/dotnet/samples
+  tag: aspnetapp
 
 resources:
   requests:

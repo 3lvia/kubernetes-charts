@@ -7,8 +7,8 @@ environment: prod
 replicaCount: 1
 
 image:
-  repository: containerregistryelvia.azurecr.io/bad-pushreceiver-profiledmeterreadings
-  tag: "ToBeReplaced"
+  repository: mcr.microsoft.com/dotnet/samples
+  tag: aspnetapp
 
 resources:
   requests:
@@ -22,29 +22,29 @@ env:
   - name: Kvalitetsportalen__Environment
     valueFrom:
       configMapKeyRef:
-        name: pushreceiver-profiledmeterreadings
+        name: pushreceiver-chart-testing
         key: kvalitetsportalen.environment
   - name: ApplicationInsights__Environment
     valueFrom:
       configMapKeyRef:
-        name: pushreceiver-profiledmeterreadings
+        name: pushreceiver-chart-testing
         key: insights.environment
   - name: ELVID__Authority
     valueFrom:
       configMapKeyRef:
-        name: pushreceiver-profiledmeterreadings
+        name: pushreceiver-chart-testing
         key: elvid.authority
   - name: ELVID__RequiredScope
     value: pr.sesam
   - name: bigtable__project
     valueFrom:
       configMapKeyRef:
-        name: pushreceiver-profiledmeterreadings
+        name: pushreceiver-chart-testing
         key: bigtable.project
   - name: bigtable__instanceid
     valueFrom:
       configMapKeyRef:
-        name: pushreceiver-profiledmeterreadings
+        name: pushreceiver-chart-testing
         key: bigtable.instanceid
 
 service:

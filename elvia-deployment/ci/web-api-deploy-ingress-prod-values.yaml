@@ -19,8 +19,8 @@ hostAliases:
       - "haarcgeoevt01t1.hipad.no"
 
 image:
-  repository: containerregistryelvia.azurecr.io/bad-realtimeunits-api
-  tag: "20200715.2"
+  repository: mcr.microsoft.com/dotnet/samples
+  tag: aspnetapp
 
 resources:
   requests:

@@ -46,6 +46,11 @@ stages:
             kubectl create namespace core
           displayName: Create namespace core
         - script: |
+            kubectl -n core create sa pushreceiver-chart-testing
+            kubectl -n core create sa webapi-chart-testing
+            kubectl -n core create sa worker-chart-testing
+          displayName: Create service accounts
+        - script: |
             kubectl get namespace
             kubectl get servicemonitor --all-namespaces
           displayName: Test kubectl
