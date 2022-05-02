@@ -41,7 +41,7 @@ spec:
         app: {{ required "Missing .Values.name" .Values.name }}
         microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
       annotations:
-        traffic.sidecar.istio.io/excludeOutboundPorts: "9092"
+        traffic.sidecar.istio.io/excludeOutboundPorts: "9092,61616"
     spec:
       serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
       securityContext:     
