@@ -32,8 +32,6 @@ spec:
       labels:
         app: {{ required "Missing .Values.name" .Values.name }}
         microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
-      annotations:
-        seccomp.security.alpha.kubernetes.io/pod: runtime/default
     spec:
       {{- if .Values.terminationGracePeriodSeconds }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
@@ -46,6 +44,8 @@ spec:
       - name: containerregistryelvia
       {{- end}}
       securityContext:
+        seccompProfile:
+          type: RuntimeDefault
         runAsUser: 1001
         runAsGroup: 1001
         fsGroup: 1001
