@@ -7,6 +7,7 @@ After making changes to the charts AND changing the version, run
 ```
 Endre Chart version i Chart.yaml
 helm package elvia-deployment
+# helm package elvia-statefulset
 # helm package iss-deployment
 helm repo index .
 git commit

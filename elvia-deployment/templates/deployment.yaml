@@ -84,7 +84,18 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
         resources:
-          {{- toYaml .Values.resources | nindent 10 }}
+          limits:
+            cpu: {{ required "Missing .Values.resources.limits.cpu" .Values.resources.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.limits.memory" .Values.resources.limits.memory }}
+          {{- if eq .Values.environment "dev"}}
+          requests:
+            cpu: 50m
+            memory: 100Mi
+          {{- else }}
+          requests:
+            cpu: {{ required "Missing .Values.resources.requests.cpu" .Values.resources.requests.cpu }}
+            memory: {{ required "Missing .Values.resources.requests.memory" .Values.resources.requests.memory }}
+          {{- end }}
         {{- with .Values.lifecycle }}
         lifecycle:
           {{- toYaml . | nindent 10 }}
