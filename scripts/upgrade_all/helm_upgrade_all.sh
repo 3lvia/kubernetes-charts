@@ -13,6 +13,7 @@ helm upgrade -n cab-extensions --reuse-values afi-orders elvia-charts/elvia-depl
 helm upgrade -n cab-extensions --reuse-values afi-printtarget elvia-charts/elvia-deployment
 helm upgrade -n cab-extensions --reuse-values afi-settlepoint elvia-charts/elvia-deployment
 helm upgrade -n cab-extensions --reuse-values afi-vendor elvia-charts/elvia-deployment
+
 helm upgrade -n louvre --reuse-values ai-vision-api elvia-charts/elvia-deployment
 helm upgrade -n bad --reuse-values amisite-geo elvia-charts/elvia-deployment
 helm upgrade -n sesam-extensions --reuse-values aosjekk elvia-charts/elvia-deployment
@@ -40,6 +41,7 @@ helm upgrade -n nettinfra --reuse-values avvik-arcgisimport elvia-charts/elvia-d
 helm upgrade -n monitoring --reuse-values azure-metrics-extractor elvia-charts/elvia-deployment
 helm upgrade -n iss --reuse-values azure-search-indexer elvia-charts/elvia-deployment
 helm upgrade -n kvalitetsportalen --reuse-values azure-search-indexer elvia-charts/elvia-deployment
+
 helm upgrade -n ebad --reuse-values bigquery-backfiller elvia-charts/elvia-deployment
 helm upgrade -n bad --reuse-values bigquery-in-alarmsandevents elvia-charts/elvia-deployment
 helm upgrade -n bad --reuse-values bigquery-in-amsaxmlparser-ideenova elvia-charts/elvia-deployment
@@ -94,6 +96,7 @@ helm upgrade -n drops --reuse-values drops-ui elvia-charts/elvia-deployment
 helm upgrade -n drops --reuse-values drops-worker elvia-charts/elvia-deployment
 helm upgrade -n kvalitetsportalen --reuse-values dummy-pushreceiver-api elvia-charts/elvia-deployment
 helm upgrade -n iss --reuse-values dummy-pushreceiver-api elvia-charts/elvia-deployment
+
 helm upgrade -n monitoring --reuse-values edna-azurecostwriter elvia-charts/elvia-deployment
 helm upgrade -n monitoring --reuse-values edna-k8susagewriter elvia-charts/elvia-deployment
 helm upgrade -n monitoring --reuse-values edna-systemwriter elvia-charts/elvia-deployment
@@ -128,6 +131,7 @@ helm upgrade -n kvalitetsportalen --reuse-values exceptioninvocations-ingester-l
 helm upgrade -n iss --reuse-values exceptioninvocations-ingester-low-priority elvia-charts/elvia-deployment
 helm upgrade -n kunde-extensions --reuse-values external-data-api elvia-charts/elvia-deployment
 helm upgrade -n kvalitetsportalen --reuse-values external-portal-api elvia-charts/elvia-deployment
+
 helm upgrade -n louvre --reuse-values face-recognition-api elvia-charts/elvia-deployment
 helm upgrade -n kunde --reuse-values faktura-api elvia-charts/elvia-deployment
 helm upgrade -n nettinfra --reuse-values fleetmanagement-admin elvia-charts/elvia-deployment
@@ -152,6 +156,7 @@ helm upgrade -n hemmeligkunde --reuse-values hemmeligkunde-api elvia-charts/elvi
 helm upgrade -n hemmeligkunde --reuse-values hemmeligkunde-portal elvia-charts/elvia-deployment
 helm upgrade -n bad --reuse-values hesmetervalues-ingress elvia-charts/elvia-deployment
 helm upgrade -n bad --reuse-values hesmetervalues-monitoring elvia-charts/elvia-deployment
+
 helm upgrade -n louvre --reuse-values ifs-images elvia-charts/elvia-deployment
 helm upgrade -n louvre --reuse-values image-api elvia-charts/elvia-deployment
 helm upgrade -n louvre --reuse-values image-rotator elvia-charts/elvia-deployment
@@ -187,6 +192,7 @@ helm upgrade -n quant-extensions --reuse-values in-workorder-intility elvia-char
 helm upgrade -n ifs-extensions --reuse-values in-workorder-intility elvia-charts/elvia-deployment
 helm upgrade -n wms-extensions --reuse-values in-workorder-intility elvia-charts/elvia-deployment
 helm upgrade -n quant-extensions --reuse-values in-workorderreport-intility elvia-charts/elvia-deployment
+
 helm upgrade -n drops --reuse-values indexer elvia-charts/elvia-deployment
 helm upgrade -n mdmx --reuse-values ingress-bqvolumes elvia-charts/elvia-deployment
 helm upgrade -n edna --reuse-values ingress-meteringpointversions elvia-charts/elvia-deployment
@@ -215,6 +221,7 @@ helm upgrade -n datascience --reuse-values loadforecast elvia-charts/elvia-deplo
 helm upgrade -n louvre --reuse-values louvre-metrics-extractor elvia-charts/elvia-deployment
 helm upgrade -n arcgis --reuse-values louvre-plugin elvia-charts/elvia-deployment
 helm upgrade -n louvre --reuse-values louvre-web elvia-charts/elvia-deployment
+
 helm upgrade -n convey --reuse-values manifold elvia-charts/elvia-deployment
 helm upgrade -n emif --reuse-values market-api elvia-charts/elvia-deployment
 helm upgrade -n louvre --reuse-values massimporter elvia-charts/elvia-deployment
@@ -238,6 +245,7 @@ helm upgrade -n kunde --reuse-values mssql-prometheus-exporter elvia-charts/elvi
 helm upgrade -n mmm --reuse-values nettleie-inn elvia-charts/elvia-deployment
 helm upgrade -n nextin --reuse-values nextin elvia-charts/elvia-deployment
 helm upgrade -n adls --reuse-values nis-writer elvia-charts/elvia-deployment
+
 helm upgrade -n els --reuse-values ocr elvia-charts/elvia-deployment
 helm upgrade -n ofs --reuse-values ofs-ui elvia-charts/elvia-deployment
 helm upgrade -n core --reuse-values oracle-worker elvia-charts/elvia-deployment
@@ -265,7 +273,7 @@ helm upgrade -n bildedok --reuse-values portal-web elvia-charts/elvia-deployment
 helm upgrade -n louvre --reuse-values power-pole-vision-api elvia-charts/elvia-deployment
 helm upgrade -n kunde --reuse-values poweroutage-api elvia-charts/elvia-deployment
 helm upgrade -n gridtariff --reuse-values priceconfig-api elvia-charts/elvia-deployment
-helm upgrade -n monitoring --reuse-values prometheus-pushgateway elvia-charts/elvia-deployment
+
 helm upgrade -n bad --reuse-values pushreceiver-bigquery-amidevice elvia-charts/elvia-deployment
 helm upgrade -n bad --reuse-values pushreceiver-bigquery-amisite elvia-charts/elvia-deployment
 helm upgrade -n bad --reuse-values pushreceiver-bigquery-devicecomponent elvia-charts/elvia-deployment
