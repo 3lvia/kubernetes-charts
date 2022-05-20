@@ -100,3 +100,27 @@ Create the host of the ingress
 {{- printf "%s.%s-elvia.io" .Values.ingress.subdomain .Values.environment }}
 {{- end }}
 {{- end }}
+
+{{/*
+Find the limits.cpu in millicores, but capped at 50m
+*/}}
+{{- define "resources.limits.cpu.max50m" -}}
+{{- if .Values.resources.limits.cpu | toString | hasSuffix "m" }}
+{{- .Values.resources.limits.cpu  | toString | regexFind "[0-9.]+" | min 50 -}}m
+{{- else -}}
+{{- mulf .Values.resources.limits.cpu 1000 | min 50 -}}m
+{{- end -}}
+{{- end -}}
+
+{{/*
+Find the limits.memory in Mi, but capped at 100Mi
+*/}}
+{{- define "resources.limits.memory.max100Mi" -}}
+{{- if .Values.resources.limits.memory | toString | hasSuffix "Mi" }}
+{{- .Values.resources.limits.memory  | toString | regexFind "[0-9.]+" | min 100 -}}Mi
+{{- else if .Values.resources.limits.memory | toString | hasSuffix "Gi" }}
+{{- .Values.resources.limits.memory  | toString | regexFind "[0-9.]+" | mulf 1000 | min 100 -}}Mi
+{{- else -}}
+{{- fail "value for resources.limits.memory must be given in Mi or Gi units." }}
+{{- end -}}
+{{- end -}}

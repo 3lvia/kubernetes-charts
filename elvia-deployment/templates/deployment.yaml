@@ -89,8 +89,8 @@ spec:
             memory:  {{ required "Missing .Values.resources.limits.memory" .Values.resources.limits.memory }}
           {{- if eq .Values.environment "dev"}}
           requests:
-            cpu: 50m
-            memory: 100Mi
+            cpu: {{ include "resources.limits.cpu.max50m" .}}
+            memory:  {{ include "resources.limits.memory.max100Mi" .}}
           {{- else }}
           requests:
             cpu: {{ required "Missing .Values.resources.requests.cpu" .Values.resources.requests.cpu }}
