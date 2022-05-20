@@ -37,8 +37,8 @@ resources:
     cpu: 100m
     memory: 128Mi
   limits:
-    cpu: 220m
-    memory: 250Mi
+    cpu: 400m
+    memory: 500Mi
 
 env: 
 - name: ASPNETCORE_URLS

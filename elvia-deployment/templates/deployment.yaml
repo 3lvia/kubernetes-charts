@@ -1,6 +1,3 @@
-{{- $limit_cpu_int := .Values.resources.limits.cpu  | toString | regexFind "[0-9.]+"  -}}
-{{- $limit_memory_int := .Values.resources.limits.memory  | toString | regexFind "[0-9.]+"  -}}
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -92,8 +89,8 @@ spec:
             memory:  {{ required "Missing .Values.resources.limits.memory" .Values.resources.limits.memory }}
           {{- if eq .Values.environment "dev"}}
           requests:
-            cpu: {{min $limit_cpu_int 50}}m
-            memory: {{min $limit_memory_int 100}}Mi
+            cpu: {{ include "resources.limits.cpu.max50m" .}}
+            memory:  {{ include "resources.limits.memory.max100Mi" .}}
           {{- else }}
           requests:
             cpu: {{ required "Missing .Values.resources.requests.cpu" .Values.resources.requests.cpu }}
