@@ -301,6 +301,7 @@ helm upgrade -n core --reuse-values skogshorn-msi-simulator elvia-charts/elvia-d
 helm upgrade -n core --reuse-values skogshorn-nett-location-generator elvia-charts/elvia-deployment
 helm upgrade -n core --reuse-values skogshorn-nett-simulator elvia-charts/elvia-deployment
 helm upgrade -n core --reuse-values skogshorn-simulator-nett elvia-charts/elvia-deployment
+
 helm upgrade -n kunde --reuse-values slack-app elvia-charts/elvia-deployment
 helm upgrade -n slick --reuse-values slick-api elvia-charts/elvia-deployment
 helm upgrade -n slick --reuse-values slick-web elvia-charts/elvia-deployment
@@ -326,9 +327,9 @@ helm upgrade -n kvalitetsportalen --reuse-values successfulinvocations-ingester 
 helm upgrade -n iss --reuse-values successfulinvocations-ingester elvia-charts/elvia-deployment
 helm upgrade -n kvalitetsportalen --reuse-values successfulinvocations-ingester-low-priority elvia-charts/elvia-deployment
 helm upgrade -n iss --reuse-values successfulinvocations-ingester-low-priority elvia-charts/elvia-deployment
-helm upgrade -n core --reuse-values super-api elvia-charts/elvia-deployment
 helm upgrade -n ifs-extensions --reuse-values supportissue-api-intility elvia-charts/elvia-deployment
 helm upgrade -n fairlight --reuse-values synthetic-timeseries-data-generator elvia-charts/elvia-deployment
+
 helm upgrade -n core --reuse-values template-test-complex-api elvia-charts/elvia-deployment
 helm upgrade -n core --reuse-values template-test-simple-api elvia-charts/elvia-deployment
 helm upgrade -n core --reuse-values terraform-cloud-users-access-checker elvia-charts/elvia-deployment
