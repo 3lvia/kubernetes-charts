@@ -40,6 +40,9 @@ resources:
     cpu: 400m
     memory: 500Mi
 
+nodeSelector:
+  kubernetes.io/os: linux
+
 env: 
 - name: ASPNETCORE_URLS
   value: http://+:8080
