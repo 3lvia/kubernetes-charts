@@ -14,6 +14,9 @@
   # test: 2
   # prod: 2
 
+# nodeSelector:
+#   kubernetes.io/os: linux
+
 # ports:
 #   - name: vee-port
 #     containerPort: 8081
