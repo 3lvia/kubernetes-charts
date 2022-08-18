@@ -16,6 +16,8 @@ spec:
   replicas: {{ required "Missing .Values.replicaCount.dev" .Values.replicaCount.dev }}
   {{- else if eq .Values.environment "test" }}
   replicas: {{ required "Missing .Values.replicaCount.test" .Values.replicaCount.test }}
+  {{- else if eq .Values.environment "dvtest" }}
+  replicas: {{ required "Missing .Values.replicaCount.dvtest" .Values.replicaCount.dvtest }}
   {{- else if eq .Values.environment "prod" }}
   replicas: {{ required "Missing .Values.replicaCount.prod" .Values.replicaCount.prod }}
   {{- end }}

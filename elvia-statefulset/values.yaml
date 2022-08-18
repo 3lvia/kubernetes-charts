@@ -12,6 +12,7 @@
 # replicaCount:
   # dev: 1
   # test: 2
+  # dvtest: 2 # dvtest optional
   # prod: 2
 
 # nodeSelector:
@@ -153,6 +154,9 @@
 #   test:
 #     bigtable.project: "hafslund-mdm-test"
 #     bigtable.instanceid: "mdm-meterreadings-test"
+#   dvtest:
+#     bigtable.project: "hafslund-mdm-dvtest"
+#     bigtable.instanceid: "mdm-meterreadings-dvtest"
 #   prod:
 #     bigtable.project: "hafslund-mdm"
 #     bigtable.instanceid: "mdm-meterreadings"
