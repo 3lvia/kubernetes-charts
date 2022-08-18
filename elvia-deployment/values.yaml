@@ -12,7 +12,11 @@
 # replicaCount:
   # dev: 1
   # test: 2
+  # dvtest: 2 # dvtest optional
   # prod: 2
+
+# nodeSelector:
+#   kubernetes.io/os: linux
 
 # progressDeadlineSeconds: 600
 
@@ -65,14 +69,6 @@
 #  targetPort: 8080
 
 # ingress:
-#   annotations:
-#     kubernetes.io/ingress.class: traefik
-#     traefik.frontend.rule.type: PathPrefixStrip
-#     # Redirect the /metrics endpoint to /
-#     # This ensures that the /metrics endpoint is not open on the internet
-#     traefik.ingress.kubernetes.io/redirect-permanent: "true"
-#     traefik.ingress.kubernetes.io/redirect-regex: ^https://kunde.test-hafslundnett.io/metrics(.*)
-#     traefik.ingress.kubernetes.io/redirect-replacement: https://kunde.test-hafslundnett.io/
 #   subdomain: github-repository-team-adder
 #   path: "/mypath"
 #   port: 80 # 80 default
@@ -145,9 +141,34 @@
 #   test:
 #     bigtable.project: "hafslund-mdm-test"
 #     bigtable.instanceid: "mdm-meterreadings-test"
+#   dvtest:
+#     bigtable.project: "hafslund-mdm-dvtest"
+#     bigtable.instanceid: "mdm-meterreadings-dvtest"
 #   prod:
 #     bigtable.project: "hafslund-mdm"
 #     bigtable.instanceid: "mdm-meterreadings"
 
+# # Always fetch secrets from Hashicorp Vault if possible
+# # We support kubernetes secrets for unusual deployments
+# secret:
+#   dev:
+#     mysecret: __SECRET_DEV__ # to be replaced in azure devops pipeline
+#   test:
+#     mysecret: __SECRET_TEST__ # to be replaced in azure devops pipeline
+#   dvtest:
+#     mysecret: __SECRET_DVTEST__ # to be replaced in azure devops pipeline
+#   prod:
+#     mysecret: __SECRET_PROD__ # to be replaced in azure devops pipeline
+
 # serviceMonitor:
 #   interval: 60s
+#   honorLabels: true
+
+# volumes:
+# - configMap:
+#     name: github-repository-team-adder2
+#   name: my-volume
+
+# volumeMounts:
+# - mountPath: /usr/share/nginx/html/assets/
+#   name: my-volume
