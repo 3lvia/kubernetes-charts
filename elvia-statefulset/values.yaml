@@ -23,8 +23,6 @@
 #     containerPort: 8081
 #     protocol: TCP
 
-# progressDeadlineSeconds: 600
-
 # dnsConfig:
 #  options:
 #  - name: single-request-reopen
