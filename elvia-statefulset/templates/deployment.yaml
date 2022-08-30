@@ -5,9 +5,6 @@ metadata:
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
 spec:
   serviceName: {{ required "Missing .Values.name" .Values.name }}
-  {{- if .Values.progressDeadlineSeconds }}
-  terminationGracePeriodSeconds: {{ .Values.progressDeadlineSeconds }}
-  {{- end}}
   {{- if not .Values.replicaCount }}
   replicas: {{ required "Missing .Values.replicaCount" .Values.replicaCount }}
   {{- else if kindIs "float64" .Values.replicaCount }}
