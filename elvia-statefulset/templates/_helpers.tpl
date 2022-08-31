@@ -71,3 +71,17 @@ Define the image, using containerregistryelvia.azurecr.io as default container r
 {{- printf "containerregistryelvia.azurecr.io/%s-%s" .Values.namespace .Values.name }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}
 {{- end }}
 {{- end }}
+
+{{/*
+Create the host of the ingress
+*/}}
+{{- define "ingress.host" -}}
+{{- if not .Values.ingress.subdomain }}
+{{- required "Missing .Values.ingress.subdomain" ""}}
+{{- end }}
+{{- if eq .Values.environment "prod"}}
+{{- printf "%s.elvia.io" .Values.ingress.subdomain }}
+{{- else }}
+{{- printf "%s.%s-elvia.io" .Values.ingress.subdomain .Values.environment }}
+{{- end }}
+{{- end }}

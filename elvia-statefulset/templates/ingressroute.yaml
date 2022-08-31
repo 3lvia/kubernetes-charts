@@ -1,0 +1,52 @@
+{{- if .Values.ingress -}}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ required "Missing .Values.name" .Values.name }}
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+spec:
+  routes:
+  - kind: Rule
+    match: Host(`{{ include "ingress.host" . }}`) && PathPrefix(`{{ required "Missing .Values.ingress.path" .Values.ingress.path }}`)
+    {{- if .Values.ingress.routemiddlewares }}
+    middlewares: {{- toYaml .Values.ingress.routemiddlewares | nindent 4 }}
+    {{- else }}
+    middlewares:
+    - name: {{ required "Missing .Values.name" .Values.name }}-stripprefix
+    - name: hsts-header
+      namespace: dns
+    - name: remove-metrics
+      namespace: dns
+    {{- end }}
+    services:
+      - name: {{ required "Missing .Values.name" .Values.name }}
+        {{- if .Values.service.port }}
+        port: {{ .Values.service.port }}
+        {{- else }}
+        port: 80
+        {{- end}}
+        {{- if .Values.ingress.stickysession }}
+        sticky: {{- toYaml .Values.ingress.stickysession | nindent 10 }}
+        {{- end}}
+  {{- if .Values.ingress.enforceApiManagement}}
+  {{- if ne .Values.ingress.subdomain "api"}}
+  {{- fail "If ingress.enforceApiManagement is enabled, the subdomain must be api." }}
+  {{- end }}
+  tls:
+    options:
+      name: pki
+      namespace: vault
+  {{- end }}
+---
+# Strip prefix
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ required "Missing .Values.name" .Values.name }}-stripprefix
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+spec:
+  stripPrefix:
+    prefixes:
+      - {{ required "Missing .Values.ingress.path" .Values.ingress.path }}
+
+{{- end }}

@@ -1,0 +1,90 @@
+name: cache
+namespace: gridtariff
+microserviceType: webapi
+# environment: dev|test|prod
+
+# replicaCount: 2
+replicaCount: 
+  dev: 2
+  test: 2
+  prod: 2
+
+image:
+  repository: containerregistryelvia.azurecr.io/gridtariff-cache
+
+env:
+- name: ASPNETCORE_URLS
+  value: http://+:8080
+- name: mdmx__host-address
+  valueFrom:
+     configMapKeyRef:
+       name: cache
+       key: mdmx.host-address
+
+service:
+ port: 80
+ targetPort: 8080
+
+ingress:
+  subdomain: gridtariff-cache
+  path: "/"
+
+resources:
+  limits:
+    cpu: 1
+    memory: 2Gi
+  requests:
+    cpu: 0.5
+    memory: 128Mi
+
+lifecycle:
+  preStop:
+    exec:
+      command:
+      - sleep
+      - "1"
+
+
+
+readinessProbe:
+  failureThreshold: 120
+  httpGet:
+    path: /health
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 5
+  successThreshold: 1
+  timeoutSeconds: 3
+
+livenessProbe:
+  failureThreshold: 15
+  httpGet:
+    path: /health
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 5
+  successThreshold: 1
+  timeoutSeconds: 3
+
+startupProbe:
+  failureThreshold: 200
+  httpGet:
+    path: /startup
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 3
+  successThreshold: 1
+  timeoutSeconds: 3
+
+configmap:
+  dev:
+    mdmx.host-address: https://mdmx.dev-elvia.io/api/
+  test:
+    mdmx.host-address: https://mdmx.test-elvia.io/api/
+  prod:
+    mdmx.host-address: https://mdmx.elvia.io/api/
+    # No longer calling mdmx test from prod (mdmx is in prod now), so we'll use our normal machine client credentials
+    # mdmx.access-token-service-config-vault-path: kunde:kv:manual:kunde-grid-tariff-api-test
