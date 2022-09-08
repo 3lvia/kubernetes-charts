@@ -12,6 +12,8 @@ spec:
   {{- else if kindIs "map" .Values.replicaCount }}
   {{- if eq .Values.environment "dev" }}
   replicas: {{ required "Missing .Values.replicaCount.dev" .Values.replicaCount.dev }}
+  {{- if eq .Values.environment "sandbox" }}
+  replicas: {{ required "Missing .Values.replicaCount.sandbox" .Values.replicaCount.sandbox }}
   {{- else if eq .Values.environment "test" }}
   replicas: {{ required "Missing .Values.replicaCount.test" .Values.replicaCount.test }}
   {{- else if eq .Values.environment "dvtest" }}

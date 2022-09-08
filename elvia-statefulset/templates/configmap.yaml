@@ -11,6 +11,17 @@ data: {{- toYaml .Values.configmap.dev | nindent 2 }}
 {{- end }}
 {{- end }}
 
+{{- if eq .Values.environment "sandbox"}}
+{{- if .Values.configmap.sandbox }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ required "Missing .Values.name" .Values.name }}
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+data: {{- toYaml .Values.configmap.sandbox | nindent 2 }} 
+{{- end }}
+{{- end }}
+
 {{- if eq .Values.environment "test"}}
 {{- if .Values.configmap.test }}
 apiVersion: v1
