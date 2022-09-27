@@ -20,6 +20,14 @@ imagePullSecret: containerregistryelvia
 
 progressDeadlineSeconds: 60
 
+securityContext:
+  seccompProfile:
+    type: RuntimeDefault
+  runAsUser: 65532
+  runAsGroup: 65532
+  fsGroup: 65532
+  supplementalGroups: [65532]
+
 dnsConfig: 
   options:
   - name: single-request-reopen
