@@ -94,6 +94,15 @@
 #   maxReplicas: 4
 #   targetCPUUtilizationPercentage: 80
 
+
+# securityContext: # If you set the securityContext, you must set all the properties
+#   seccompProfile:
+#     type: RuntimeDefault
+#   runAsUser: 1001
+#   runAsGroup: 1001
+#   fsGroup: 1001
+#   supplementalGroups: [1001]
+
 # lifecycle:
 #   preStop:
 #     exec:
