@@ -15,8 +15,17 @@
   # dvtest: 2 # dvtest optional
   # prod: 2
 
+# If you set nodePool, nodeSelector and tolerations will be ignored
+# nodePool: high-iops
+
 # nodeSelector:
 #   kubernetes.io/os: linux
+
+# tolerations:
+# - effect: NoSchedule
+#   key: type
+#   operator: Equal
+#   value: high-iops
 
 # ports:
 #   - name: vee-port

@@ -48,8 +48,16 @@ resources:
     cpu: 400m
     memory: 500Mi
 
-nodeSelector:
-  kubernetes.io/os: linux
+nodePool: high-iops
+
+# nodeSelector:
+#   kubernetes.io/os: linux
+
+# tolerations:
+# - effect: NoSchedule
+#   key: type
+#   operator: Equal
+#   value: high-iops
 
 env: 
 - name: ASPNETCORE_URLS
