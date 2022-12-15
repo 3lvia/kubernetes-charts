@@ -13,6 +13,9 @@ replicaCount: 2
   # repository: # uses default repo
   #tag: # tag set in pipeline
 
+strategy:
+  type: Recreate
+
 imagePullSecret: containerregistryprodsecret
 
 resources:

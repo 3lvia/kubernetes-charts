@@ -12,6 +12,9 @@ replicaCount:
   test: 2
   prod: 3
 
+strategy:
+  type: Recreate
+
 image:
   repository: containerregistryelvia.azurecr.io/core-demo-api
   tag: "20220131.1"
