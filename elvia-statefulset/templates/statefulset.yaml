@@ -77,7 +77,19 @@ spec:
             containerPort: {{ required "Missing $portsValue.containerPort" $portsValue.containerPort }}
             protocol: {{ required "Missing $portsValue.protocol" $portsValue.protocol }}
         {{- end}}
-        {{- end}}
+        {{- end}}        
+        {{- with .Values.readinessProbe }}
+        readinessProbe:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.livenessProbe }}
+        livenessProbe:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.startupProbe }}
+        startupProbe:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
       {{- if .Values.nodePool }}
       nodeSelector:
         type: {{ .Values.nodePool }}
