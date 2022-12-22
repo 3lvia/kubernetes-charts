@@ -97,18 +97,75 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
         resources:
+          {{- if eq .Values.environment "dev"}}
+          {{- if .Values.resources.dev }}
+          limits:
+            cpu: {{ required "Missing .Values.resources.dev.limits.cpu" .Values.resources.dev.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.dev.limits.memory" .Values.resources.dev.limits.memory }}
+          {{- else }}
           limits:
             cpu: {{ required "Missing .Values.resources.limits.cpu" .Values.resources.limits.cpu }}
             memory:  {{ required "Missing .Values.resources.limits.memory" .Values.resources.limits.memory }}
-          {{- if eq .Values.environment "dev"}}
+          {{- end }}
           requests:
             cpu: {{ include "resources.limits.cpu.max50m" .}}
             memory:  {{ include "resources.limits.memory.max100Mi" .}}
+          {{- end }}
+
+          {{- if eq .Values.environment "test"}}
+          {{- if .Values.resources.test }}
+          limits:
+            cpu: {{ required "Missing .Values.resources.test.limits.cpu" .Values.resources.test.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.test.limits.memory" .Values.resources.test.limits.memory }}
+          requests:
+            cpu: {{ required "Missing .Values.resources.test.requests.cpu" .Values.resources.test.requests.cpu }}
+            memory: {{ required "Missing .Values.resources.test.requests.memory" .Values.resources.test.requests.memory }}
           {{- else }}
+          limits:
+            cpu: {{ required "Missing .Values.resources.limits.cpu" .Values.resources.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.limits.memory" .Values.resources.limits.memory }}
           requests:
             cpu: {{ required "Missing .Values.resources.requests.cpu" .Values.resources.requests.cpu }}
             memory: {{ required "Missing .Values.resources.requests.memory" .Values.resources.requests.memory }}
           {{- end }}
+          {{- end }}
+
+          {{- if eq .Values.environment "dvtest"}}
+          {{- if .Values.resources.dvtest }}
+          limits:
+            cpu: {{ required "Missing .Values.resources.dvtest.limits.cpu" .Values.resources.dvtest.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.dvtest.limits.memory" .Values.resources.dvtest.limits.memory }}
+          requests:
+            cpu: {{ required "Missing .Values.resources.dvtest.requests.cpu" .Values.resources.dvtest.requests.cpu }}
+            memory: {{ required "Missing .Values.resources.dvtest.requests.memory" .Values.resources.dvtest.requests.memory }}
+          {{- else }}
+          limits:
+            cpu: {{ required "Missing .Values.resources.limits.cpu" .Values.resources.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.limits.memory" .Values.resources.limits.memory }}
+          requests:
+            cpu: {{ required "Missing .Values.resources.requests.cpu" .Values.resources.requests.cpu }}
+            memory: {{ required "Missing .Values.resources.requests.memory" .Values.resources.requests.memory }}
+          {{- end }}
+          {{- end }}
+
+          {{- if eq .Values.environment "prod"}}
+          {{- if .Values.resources.prod }}
+          limits:
+            cpu: {{ required "Missing .Values.resources.prod.limits.cpu" .Values.resources.prod.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.prod.limits.memory" .Values.resources.prod.limits.memory }}
+          requests:
+            cpu: {{ required "Missing .Values.resources.prod.requests.cpu" .Values.resources.prod.requests.cpu }}
+            memory: {{ required "Missing .Values.resources.prod.requests.memory" .Values.resources.prod.requests.memory }}
+          {{- else }}
+          limits:
+            cpu: {{ required "Missing .Values.resources.limits.cpu" .Values.resources.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.limits.memory" .Values.resources.limits.memory }}
+          requests:
+            cpu: {{ required "Missing .Values.resources.requests.cpu" .Values.resources.requests.cpu }}
+            memory: {{ required "Missing .Values.resources.requests.memory" .Values.resources.requests.memory }}
+          {{- end }}
+          {{- end }}
+
         {{- with .Values.lifecycle }}
         lifecycle:
           {{- toYaml . | nindent 10 }}
