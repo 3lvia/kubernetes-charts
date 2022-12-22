@@ -104,6 +104,36 @@
 #     cpu: 100m
 #     memory: 128Mi
 
+# resources:
+#   dev:
+#     limits:
+#       cpu: 100m
+#       memory: 128Mi
+#     requests:
+#       cpu: 100m
+#       memory: 128Mi
+#   test:
+#     limits:
+#       cpu: 100m
+#       memory: 128Mi
+#     requests:
+#       cpu: 100m
+#       memory: 128Mi
+#   dvtest:
+#     limits:
+#       cpu: 100m
+#       memory: 128Mi
+#     requests:
+#       cpu: 100m
+#       memory: 128Mi
+#   prod:
+#     limits:
+#       cpu: 1000m
+#       memory: 800Mi
+#     requests:
+#       cpu: 500m
+#       memory: 500Mi
+
 # autoscaling:
 #   minReplicas: 2
 #   maxReplicas: 4
