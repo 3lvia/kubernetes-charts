@@ -60,6 +60,9 @@
 #       key: my_key
 #       name: github-repository-team-adder
 
+# podLabels:
+#   external: activemq
+
 # service:
 #  port: 80
 #  targetPort: 8080
