@@ -40,6 +40,9 @@ spec:
       labels:
         app: {{ required "Missing .Values.name" .Values.name }}
         microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       annotations:
         traffic.sidecar.istio.io/excludeOutboundPorts: "9092"
     spec:

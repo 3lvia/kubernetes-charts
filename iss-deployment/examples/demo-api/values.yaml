@@ -23,6 +23,9 @@ env:
 - name: ASPNETCORE_URLS
   value: http://+:8080
 
+podLabels:
+  external: activemq
+
 service:
  port: 80
  targetPort: 8080
