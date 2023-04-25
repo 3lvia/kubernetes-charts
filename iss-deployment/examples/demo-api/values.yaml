@@ -41,6 +41,9 @@ lifecycle:
       - sleep
       - "1"
 
+# serviceMonitor:
+#   disableIstio: true
+
 readinessProbe:
   failureThreshold: 3
   httpGet:

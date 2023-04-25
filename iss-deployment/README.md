@@ -16,5 +16,12 @@ git push
 
 Local
 ```
-helm template demo-api -f iss-deployment/examples/demo-api/values.yaml ./  --set environment=test --set image.tag=mytag
+helm template demo-api -f iss-deployment/examples/demo-api/values.yaml iss-deployment --set environment=test --set image.tag=mytag
+```
+
+Remote
+```
+helm repo add iss-deployment https://raw.githubusercontent.com/3lvia/kubernetes-charts/master
+helm repo update
+helm template demo-api -f iss-deployment/examples/demo-api/values.yaml iss-deployment --set environment=test --set image.tag=mytag
 ```
