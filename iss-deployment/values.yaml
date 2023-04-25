@@ -154,3 +154,4 @@
 
 # serviceMonitor:
 #   interval: 60s
+#   disableIstio: true

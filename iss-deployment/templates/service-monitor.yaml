@@ -6,12 +6,15 @@ metadata:
 spec:
   endpoints:
   - port: http # must match port name of service
+    {{- if (.Values.serviceMonitor).disableIstio }}
+    {{- else }}
     scheme: https
     tlsConfig:
       caFile: /etc/prom-certs/root-cert.pem
       certFile: /etc/prom-certs/cert-chain.pem
       insecureSkipVerify: true
       keyFile: /etc/prom-certs/key.pem
+    {{- end }}
     {{- if .Values.serviceMonitor }}
     {{- if .Values.serviceMonitor.interval }}
     interval: {{ .Values.serviceMonitor.interval -}}
