@@ -212,10 +212,15 @@ spec:
         env:
           {{- toYaml . | nindent 8 }}
         {{- end }}
+        {{- with $sidecarValue.args}}
+        args:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
         image: {{ include "sidecar.image" $data }}  
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
+          runAsNonRoot: true
         resources:
          {{- if $sidecarValue.resources}}
           {{- toYaml $sidecarValue.resources | nindent 10 }}
