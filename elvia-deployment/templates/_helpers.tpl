@@ -78,7 +78,7 @@ Define the sidecar.image, using containerregistryelvia.azurecr.io as default con
 {{- define "sidecar.image" -}}
 {{- $imagetag := .tag}}
 {{- if .sidecar.image.tag}}
-{{- $imagetag := .sidecar.image.tag}}
+{{- $imagetag = .sidecar.image.tag}}
 {{- end}}
 {{- if .sidecar.image.repository }}
 {{- .sidecar.image.repository }}:{{ required "Missing $imagetag" $imagetag }}

@@ -120,7 +120,8 @@ sidecars:
         cpu: 100m
         memory: 512Mi
     image:
-      repository: gcr.io/cloud-sql-connectors/cloud-sql-proxy:latest
+      repository: gcr.io/cloud-sql-connectors/cloud-sql-proxy
+      tag: latest
     args:
       # If connecting from a VPC-native GKE cluster, you can use the
       # following flag to have the proxy connect over private IP
