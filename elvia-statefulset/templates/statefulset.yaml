@@ -60,8 +60,12 @@ spec:
             name: {{ required "Missing $envFromValue.name" $envFromValue.name }}
         {{- end }}
         {{- end }}
-        {{- with .Values.env }}
         env:
+        - name: ELVIA_APPLICATION_NAMESPACE
+          value: {{ required "Missing .Values.namespace" .Values.namespace }}
+        - name: ELVIA_APPLICATION_NAME
+          value: {{ required "Missing .Values.namespace" .Values.name }}
+        {{- with .Values.env }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
         image: {{ include "image" . }} 
