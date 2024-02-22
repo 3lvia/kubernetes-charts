@@ -3,8 +3,9 @@ kind: Deployment
 metadata:
   name: {{ required "Missing .Values.name" .Values.name }}
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
-  {{- if or ((.Values.labels).repositoryName) ((.Values.labels).commitHash) }}
+  {{- if .Values.labels}}
   {{- if kindIs "map" .Values.labels }}
+  {{- if or ((.Values.labels).repositoryName) ((.Values.labels).commitHash) }}
   labels:
     {{- range $key, $val := .Values.labels }}
       {{- if and (ne $key "repositoryName") (ne $key "commitHash") }}
@@ -17,6 +18,7 @@ metadata:
     {{- if ((.Values.labels).commitHash)}}
     commitHash: {{((.Values.labels).commitHash) }}
     {{- end }}
+  {{- end }}
   {{- else }}
   {{- fail ".Values.labels must be a map" }}
   {{- end }}
