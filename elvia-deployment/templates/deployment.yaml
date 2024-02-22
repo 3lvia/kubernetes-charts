@@ -3,6 +3,24 @@ kind: Deployment
 metadata:
   name: {{ required "Missing .Values.name" .Values.name }}
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+  {{- if or ((.Values.labels).repositoryName) ((.Values.labels).commitHash) }}
+  {{- if kindIs "map" .Values.labels }}
+  labels:
+    {{- range $key, $val := .Values.labels }}
+      {{- if and (ne $key "repositoryName") (ne $key "commitHash") }}
+      {{- fail (printf "%s is not an allowed label. Allowed labels are: repositoryName and commitHash" $key) }}
+      {{- end }}
+    {{- end }}
+    {{- if ((.Values.labels).repositoryName)}}
+    repositoryName: {{((.Values.labels).repositoryName)}}
+    {{- end }}
+    {{- if ((.Values.labels).commitHash)}}
+    commitHash: {{((.Values.labels).commitHash) }}
+    {{- end }}
+  {{- else }}
+  {{- fail ".Values.labels must be a map" }}
+  {{- end }}
+  {{- end }}
 spec:
   {{- if .Values.progressDeadlineSeconds }}
   progressDeadlineSeconds: {{ .Values.progressDeadlineSeconds }}
