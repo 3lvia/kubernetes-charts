@@ -6,6 +6,7 @@ metadata:
   {{- if .Values.labels }}
   {{- if kindIs "map" .Values.labels }}
   labels:
+    # Checks if the provided labels contain any disallowed labels
     {{- range $key, $val := .Values.labels }}
       {{- if and (ne $key "repositoryName") (ne $key "commitHash") }}
       {{- fail (printf "%s is not an allowed label. Allowed labels are: repositoryName and commitHash" $key) }}
