@@ -7,6 +7,10 @@ namespace: core
 microserviceType: webapi
 #environment: dev
 
+labels:
+  repositoryName: core-github-repository-team-adder2
+  commitHash: 3d5d54d27304bdcf7be582fbcfe3362c718af970
+
 replicaCount:
   dev: 1
   test: 1

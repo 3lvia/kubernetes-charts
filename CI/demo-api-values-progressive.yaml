@@ -7,6 +7,10 @@ namespace: core
 microserviceType: webapi
 environment: dev
 
+labels:
+  repositoryName: core-demo-api
+  commitHash: 2bcaf3ea484099843d33972b6f1ea6b1bc121037
+
 replicaCount:
   dev: 1
   test: 2
