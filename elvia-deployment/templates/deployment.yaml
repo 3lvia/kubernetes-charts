@@ -137,6 +137,10 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
         resources:
           {{- if eq .Values.environment "dev"}}
           {{- if .Values.resources.dev }}

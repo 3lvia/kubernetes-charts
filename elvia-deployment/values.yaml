@@ -1,6 +1,6 @@
-# Default values for elvia-deployment.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# # Default values for elvia-deployment.
+# # This is a YAML-formatted file.
+# # Declare variables to be passed into your templates.
 
 # name: metervalues-api
 # namespace: bad
@@ -10,12 +10,11 @@
 # replicaCount: 1
 
 # replicaCount:
-  # dev: 1
-  # test: 2
-  # dvtest: 2 # dvtest optional
-  # prod: 2
+#   dev: 1
+#   test: 2
+#   prod: 2
 
-# If you set nodePool, nodeSelector and tolerations will be ignored
+# # If you set nodePool, nodeSelector and tolerations will be ignored
 # nodePool: high-iops
 
 # nodeSelector:
@@ -119,13 +118,6 @@
 #     requests:
 #       cpu: 100m
 #       memory: 128Mi
-#   dvtest:
-#     limits:
-#       cpu: 100m
-#       memory: 128Mi
-#     requests:
-#       cpu: 100m
-#       memory: 128Mi
 #   prod:
 #     limits:
 #       cpu: 1000m
@@ -195,9 +187,6 @@
 #   test:
 #     bigtable.project: "hafslund-mdm-test"
 #     bigtable.instanceid: "mdm-meterreadings-test"
-#   dvtest:
-#     bigtable.project: "hafslund-mdm-dvtest"
-#     bigtable.instanceid: "mdm-meterreadings-dvtest"
 #   prod:
 #     bigtable.project: "hafslund-mdm"
 #     bigtable.instanceid: "mdm-meterreadings"
@@ -209,8 +198,6 @@
 #     mysecret: __SECRET_DEV__ # to be replaced in azure devops pipeline
 #   test:
 #     mysecret: __SECRET_TEST__ # to be replaced in azure devops pipeline
-#   dvtest:
-#     mysecret: __SECRET_DVTEST__ # to be replaced in azure devops pipeline
 #   prod:
 #     mysecret: __SECRET_PROD__ # to be replaced in azure devops pipeline
 
