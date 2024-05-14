@@ -56,7 +56,7 @@ spec:
   strategy:
     rollingUpdate:
       maxSurge: 1
-      {{- if eq .Values.microserviceType "webapi" }}
+      {{- if .Values.microserviceType has (list "webapi" "api") }}
       maxUnavailable: 0
       {{- else }}
       maxUnavailable: 1

@@ -21,7 +21,7 @@
         "microserviceType": {
             "$id": "#root/microserviceType",
             "type": "string",
-            "pattern": "^(worker|webapi|pushreceiver)$"
+            "pattern": "^(worker|webapi|pushreceiver|api|webapp|portal)$"
         }
     },
     "examples": [
