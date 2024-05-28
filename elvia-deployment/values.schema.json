@@ -5,6 +5,25 @@
     "title": "The root schema",
     "description": "The root schema comprises the entire JSON document.",
     "default": {},
+    "properties": {
+        "name": {
+            "$id": "#root/name",
+            "type": "string"
+        },
+        "namespace": {
+            "$id": "#root/namespace",
+            "type": "string"
+        },
+        "environment": {
+            "$id": "#root/namespace",
+            "type": "string"
+        },
+        "microserviceType": {
+            "$id": "#root/microserviceType",
+            "type": "string",
+            "pattern": "^(worker|webapi|pushreceiver|api|webapp|portal)$"
+        }
+    },
     "examples": [
         {
             "name": "github-repository-team-adder",

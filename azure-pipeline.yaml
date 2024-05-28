@@ -23,7 +23,7 @@ stages:
             sudo apt-get install helm
           displayName: Install helm 3
         - script: |
-            curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
+            curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.23.0/kind-linux-amd64
             chmod +x ./kind
             sudo mv kind /usr/local/bin
             sudo service docker restart
@@ -40,7 +40,7 @@ stages:
           condition: failed()
         - script: |
             helm repo add traefik https://helm.traefik.io/traefik
-            helm install traefik traefik/traefik
+            helm install --version '26.*' traefik traefik/traefik
           displayName: Install Traefik
         - script: |
             kubectl create namespace core
