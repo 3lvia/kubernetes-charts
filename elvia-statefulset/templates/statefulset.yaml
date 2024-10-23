@@ -30,6 +30,8 @@ spec:
       microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
   template:
     metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: {{ required "Missing .Values.name" .Values.name }}
       labels:
         app: {{ required "Missing .Values.name" .Values.name }}
         microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
