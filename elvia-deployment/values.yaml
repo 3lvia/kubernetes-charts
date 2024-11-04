@@ -52,8 +52,6 @@
 
 # imagePullSecret: containerregistryelvia
 
-# azureWorkloadIdentity: true
-
 # sidecars:
 #   sidecar:
 #     name: gs2parser
