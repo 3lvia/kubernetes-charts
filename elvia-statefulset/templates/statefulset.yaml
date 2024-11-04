@@ -35,6 +35,7 @@ spec:
       labels:
         app: {{ required "Missing .Values.name" .Values.name }}
         microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
+        azure.workload.identity/use: "true"
     spec:
       {{- if .Values.terminationGracePeriodSeconds }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}

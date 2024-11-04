@@ -69,10 +69,8 @@ spec:
         kubectl.kubernetes.io/default-container: {{ required "Missing .Values.name" .Values.name }}
       labels:
         app: {{ required "Missing .Values.name" .Values.name }}
-        microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
-        {{- if .Values.azureWorkloadIdentity }}
+        microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}        
         azure.workload.identity/use: "true"
-        {{- end}}
     spec:
       serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
       imagePullSecrets:
