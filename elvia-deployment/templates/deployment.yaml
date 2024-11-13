@@ -85,7 +85,6 @@ spec:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
-        readOnlyRootFilesystem: true
         runAsUser: 1001
         runAsGroup: 1001
         fsGroup: 1001
@@ -144,6 +143,7 @@ spec:
           capabilities:
             drop:
             - ALL
+          readOnlyRootFilesystem: true
           runAsNonRoot: true
         resources:
           {{- if eq .Values.environment "dev"}}

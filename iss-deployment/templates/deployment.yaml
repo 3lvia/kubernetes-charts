@@ -51,7 +51,6 @@ spec:
       serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
       securityContext:
         fsGroup: 1001
-        readOnlyRootFilesystem: true
         runAsGroup: 1001
         runAsUser: 1001
         seccompProfile:
@@ -85,6 +84,7 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
         {{- with .Values.lifecycle }}

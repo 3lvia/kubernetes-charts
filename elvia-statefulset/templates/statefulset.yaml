@@ -50,7 +50,6 @@ spec:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
-        readOnlyRootFilesystem: true
         runAsUser: 1001
         runAsGroup: 1001
         fsGroup: 1001
@@ -76,6 +75,7 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
         {{- if .Values.ports }}
