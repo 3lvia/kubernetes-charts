@@ -1,20 +1,13 @@
 # kubernetes-charts
-Default charts for kubernetes resources used by Elvia
 
-# development
+Default charts for Kubernetes resources used by Elvia.
 
-After making changes to the charts AND changing the version, run
-```
-Endre Chart version i Chart.yaml
-helm package elvia-deployment
-# helm package elvia-statefulset
-# helm package iss-deployment
-helm repo index .
-git commit
-git push
-```
+## Publishing new charts
 
-# test
+Upgrade the version in the charts `Chart.yaml` file.
+When pushing to trunk, the charts will automatically packaged and published to the GitHub repository.
+
+## Testing
 
 Local
 ```
