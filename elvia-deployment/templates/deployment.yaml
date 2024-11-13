@@ -69,7 +69,7 @@ spec:
         kubectl.kubernetes.io/default-container: {{ required "Missing .Values.name" .Values.name }}
       labels:
         app: {{ required "Missing .Values.name" .Values.name }}
-        microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}        
+        microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
         azure.workload.identity/use: "true"
     spec:
       serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
@@ -80,21 +80,22 @@ spec:
       - name: containerregistryelvia
       {{- end}}
       {{- if .Values.securityContext }}
-      securityContext: {{- toYaml .Values.securityContext | nindent 8 }} 
+      securityContext: {{- toYaml .Values.securityContext | nindent 8 }}
       {{- else }}
       securityContext:
         seccompProfile:
           type: RuntimeDefault
+        readOnlyRootFilesystem: true
         runAsUser: 1001
         runAsGroup: 1001
         fsGroup: 1001
         supplementalGroups: [1001]
       {{- end }}
       {{- if .Values.dnsConfig }}
-      dnsConfig: {{- toYaml .Values.dnsConfig | nindent 8 }} 
+      dnsConfig: {{- toYaml .Values.dnsConfig | nindent 8 }}
       {{- end}}
       {{- with .Values.hostAliases }}
-      hostAliases: 
+      hostAliases:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.volumes }}
@@ -136,7 +137,7 @@ spec:
         {{- with .Values.env }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
-        image: {{ include "image" . }} 
+        image: {{ include "image" . }}
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -236,7 +237,7 @@ spec:
         {{- end }}
       {{- if .Values.sidecars }}
       {{- range $sidecarKey, $sidecarValue := .Values.sidecars }}
-      {{- $data := dict "sidecar" $sidecarValue "tag" $.Values.image.tag "namespace" $.Values.namespace}}  
+      {{- $data := dict "sidecar" $sidecarValue "tag" $.Values.image.tag "namespace" $.Values.namespace}}
       - name: {{ required "Missing $sidecarValue.name" $sidecarValue.name }}
         env:
         - name: ELVIA_APPLICATION_NAMESPACE
@@ -250,7 +251,7 @@ spec:
         args:
           {{- toYaml . | nindent 8 }}
         {{- end }}
-        image: {{ include "sidecar.image" $data }}  
+        image: {{ include "sidecar.image" $data }}
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -263,6 +264,3 @@ spec:
          {{end}}
         {{- end }}
       {{- end}}
-
-
-
