@@ -21,7 +21,7 @@ strategy:
 
 image:
   repository: containerregistryelvia.azurecr.io/core-demo-api
-  tag: "20240221.2"
+  tag: "latest-cache"
 
 imagePullSecret: containerregistryelvia
 
