@@ -8,8 +8,6 @@ jobs:
   publish-helm-charts:
     name: Publish Helm charts
     runs-on: elvia-runner
-    permissions:
-      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,6 +21,12 @@ jobs:
       - name: Index Helm repository
         run: helm repo index .
 
+      - name: Get GitHub App token for repository
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
       - name: Push packaged charts to GitHub repository
         run: |
           if [[ -z "$(git status --porcelain)" ]]; then
@@ -30,8 +34,8 @@ jobs:
             exit 0
           fi
 
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.email '${{ vars.GH_APP_USER_EMAIL }}'
+          git config user.name '${{ vars.GH_APP_USERNAME }}'
 
           git add .
           git commit -m 'Publish Helm charts'
