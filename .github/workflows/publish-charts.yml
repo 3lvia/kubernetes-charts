@@ -14,7 +14,7 @@ jobs:
       - name: Check if commit was pushed by GitHub App
         id: check-app
         run: |
-          if '${{ github.actor }}' == '${{ vars.GH_APP_USERNAME }}'; then
+          if [[ '${{ github.actor }}' == '${{ vars.GH_APP_USERNAME }}' ]]; then
             echo 'Commit was pushed by GitHub App.'
             echo "pushed-by-app=true" >> "$GITHUB_OUTPUT"
           fi
