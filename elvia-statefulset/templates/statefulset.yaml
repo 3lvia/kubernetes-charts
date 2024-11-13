@@ -50,6 +50,7 @@ spec:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
+        readOnlyRootFilesystem: true
         runAsUser: 1001
         runAsGroup: 1001
         fsGroup: 1001
@@ -71,7 +72,7 @@ spec:
         {{- with .Values.env }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
-        image: {{ include "image" . }} 
+        image: {{ include "image" . }}
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -84,7 +85,7 @@ spec:
             containerPort: {{ required "Missing $portsValue.containerPort" $portsValue.containerPort }}
             protocol: {{ required "Missing $portsValue.protocol" $portsValue.protocol }}
         {{- end}}
-        {{- end}}        
+        {{- end}}
         {{- with .Values.readinessProbe }}
         readinessProbe:
           {{- toYaml . | nindent 10 }}
