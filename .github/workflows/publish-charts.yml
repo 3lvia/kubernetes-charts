@@ -5,9 +5,25 @@ on:
     branches: [master]
 
 jobs:
+  check-app:
+    name: Check if commit was pushed by GitHub App
+    runs-on: ubuntu-latest
+    outputs:
+      pushed-by-app: ${{ steps.check-app.outputs.pushed-by-app }}
+    steps:
+      - name: Check if commit was pushed by GitHub App
+        id: check-app
+        run: |
+          if '${{ github.actor }}' == '${{ vars.GH_APP_USERNAME }}'; then
+            echo 'Commit was pushed by GitHub App.'
+            echo "pushed-by-app=true" >> "$GITHUB_OUTPUT"
+          fi
+
   publish-helm-charts:
     name: Publish Helm charts
     runs-on: elvia-runner
+    needs: [check-app]
+    if: ${{ needs.check-app.outputs.pushed-by-app != 'true' }}
     steps:
       - name: Get GitHub App token for repository
         uses: actions/create-github-app-token@v1
