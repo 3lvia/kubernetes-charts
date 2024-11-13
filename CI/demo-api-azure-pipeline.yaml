@@ -30,7 +30,7 @@ stages:
       inputs:
         PathtoPublish: elvia-deployment
         ArtifactName: elvia-deployment
-    
+
 - stage: DeployStable
   dependsOn: Build
   jobs:
@@ -38,7 +38,7 @@ stages:
     parameters:
       name: demo-api
       helmValuesFile: demo-api-values-stable.yaml
-    
+
 - stage: DeployProgressive
   dependsOn: DeployStable
   jobs:

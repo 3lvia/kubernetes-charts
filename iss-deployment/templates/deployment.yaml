@@ -49,18 +49,19 @@ spec:
         traffic.sidecar.istio.io/excludeOutboundPorts: "9092"
     spec:
       serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
-      securityContext:     
+      securityContext:
         fsGroup: 1001
+        readOnlyRootFilesystem: true
         runAsGroup: 1001
         runAsUser: 1001
         seccompProfile:
           type: RuntimeDefault
         supplementalGroups: [1001]
       {{- if .Values.dnsConfig }}
-      dnsConfig: {{- toYaml .Values.dnsConfig | nindent 8 }} 
+      dnsConfig: {{- toYaml .Values.dnsConfig | nindent 8 }}
       {{- end}}
       {{- with .Values.hostAliases }}
-      hostAliases: 
+      hostAliases:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.volumes }}
@@ -80,7 +81,7 @@ spec:
         env:
           {{- toYaml . | nindent 8 }}
         {{- end }}
-        image: {{ include "image" . }} 
+        image: {{ include "image" . }}
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
