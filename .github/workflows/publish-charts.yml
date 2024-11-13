@@ -1,0 +1,38 @@
+name: Publish Helm charts
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  publish-helm-charts:
+    name: Publish Helm charts
+    runs-on: elvia-runner
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Package charts
+        run: |
+          helm package elvia-deployment
+          helm package elvia-statefulset
+          helm package iss-deployment
+
+      - name: Index Helm repository
+        run: helm repo index .
+
+      - name: Push packaged charts to GitHub repository
+        run: |
+          if [[ -z "$(git status --porcelain)" ]]; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          git add .
+          git commit -m 'Publish Helm charts'
+          git push
