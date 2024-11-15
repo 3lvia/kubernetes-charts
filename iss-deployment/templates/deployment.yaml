@@ -63,10 +63,12 @@ spec:
       hostAliases:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.volumes }}
       volumes:
+      {{- with .Values.volumes }}
         {{- toYaml . | nindent 6 }}
       {{- end }}
+      - emptyDir: {}
+        name: tmp
       containers:
       - name: {{ required "Missing .Values.name" .Values.name }}
         {{- if .Values.envFrom}}
@@ -103,7 +105,9 @@ spec:
         startupProbe:
           {{- toYaml . | nindent 10 }}
         {{- end }}
-        {{- with .Values.volumeMounts }}
         volumeMounts:
+        {{- with .Values.volumeMounts }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
+        - mountPath: /tmp
+          name: tmp
