@@ -97,10 +97,12 @@ spec:
       hostAliases:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.volumes }}
       volumes:
+      {{- with .Values.volumes }}
         {{- toYaml . | nindent 6 }}
       {{- end }}
+      - emptyDir: {}
+        name: tmp
       {{- if .Values.nodePool }}
       nodeSelector:
         type: {{ .Values.nodePool }}
@@ -231,10 +233,12 @@ spec:
         startupProbe:
           {{- toYaml . | nindent 10 }}
         {{- end }}
-        {{- with .Values.volumeMounts }}
         volumeMounts:
+        {{- with .Values.volumeMounts }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
+        - mountPath: /tmp
+          name: tmp
       {{- if .Values.sidecars }}
       {{- range $sidecarKey, $sidecarValue := .Values.sidecars }}
       {{- $data := dict "sidecar" $sidecarValue "tag" $.Values.image.tag "namespace" $.Values.namespace}}

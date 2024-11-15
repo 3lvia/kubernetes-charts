@@ -54,6 +54,9 @@ spec:
         runAsGroup: 1001
         fsGroup: 1001
         supplementalGroups: [1001]
+      volumes:
+      - emptyDir: {}
+        name: tmp
       containers:
       - name: {{ required "Missing .Values.name" .Values.name }}
         {{- if .Values.envFrom}}
@@ -98,6 +101,9 @@ spec:
         startupProbe:
           {{- toYaml . | nindent 10 }}
         {{- end }}
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmp
       {{- if .Values.nodePool }}
       nodeSelector:
         type: {{ .Values.nodePool }}
