@@ -145,7 +145,7 @@ spec:
           capabilities:
             drop:
             - ALL
-          readOnlyRootFilesystem: true
+          # readOnlyRootFilesystem: true
           runAsNonRoot: true
         resources:
           {{- if eq .Values.environment "dev"}}

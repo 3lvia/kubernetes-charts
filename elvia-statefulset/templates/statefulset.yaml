@@ -78,7 +78,7 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
+          # readOnlyRootFilesystem: true
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
         {{- if .Values.ports }}
