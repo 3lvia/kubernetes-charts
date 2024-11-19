@@ -199,3 +199,4 @@ secret:
 serviceMonitor:
   interval: 60s
   honorLabels: true
+  enable: true
