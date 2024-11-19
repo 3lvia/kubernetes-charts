@@ -1,3 +1,4 @@
+{{- if or (not .Values.serviceMonitor) (or .Values.serviceMonitor.enable (not (hasKey .Values.serviceMonitor "enable"))) -}}
 kind: ServiceMonitor
 apiVersion: monitoring.coreos.com/v1
 metadata:
@@ -17,3 +18,4 @@ spec:
   selector:
     matchLabels:
       app: {{ required "Missing .Values.name" .Values.name }}
+{{- end }}

@@ -170,3 +170,4 @@
 
 # serviceMonitor:
 #   interval: 60s
+#   enable: true
