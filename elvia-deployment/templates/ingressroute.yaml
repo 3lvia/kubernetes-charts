@@ -2,7 +2,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: {{ required "Missing .Values.name" .Values.name }}
+  name: {{ required "Missing .Values.name" .Values.name }}-v3
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
 spec:
   routes:
@@ -42,7 +42,7 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: {{ required "Missing .Values.name" .Values.name }}-stripprefix
+  name: {{ required "Missing .Values.name" .Values.name }}-stripprefix-v3
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
 spec:
   stripPrefix:
