@@ -96,6 +96,8 @@ Create the host of the ingress
 {{- end }}
 {{- if eq .Values.environment "prod"}}
 {{- printf "%s.elvia.io" .Values.ingress.subdomain }}
+{{- else if eq .Values.environment "sandbox"}}
+{{- printf "%s-sandbox.dev-elvia.io" .Values.ingress.subdomain }}
 {{- else }}
 {{- printf "%s.%s-elvia.io" .Values.ingress.subdomain .Values.environment }}
 {{- end }}
