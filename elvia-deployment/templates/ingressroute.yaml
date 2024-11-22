@@ -12,7 +12,7 @@ spec:
     middlewares: {{- toYaml .Values.ingress.routemiddlewares | nindent 4 }}
     {{- else }}
     middlewares:
-    - name: {{ required "Missing .Values.name" .Values.name }}-stripprefix
+    - name: {{ required "Missing .Values.name" .Values.name }}-stripprefix-v3
     - name: hsts-header
       namespace: dns
     - name: remove-metrics
