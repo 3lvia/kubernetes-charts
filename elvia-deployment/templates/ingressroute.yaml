@@ -2,7 +2,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: {{ required "Missing .Values.name" .Values.name }}-v3
+  name: {{ required "Missing .Values.name" .Values.name }}
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
 spec:
   routes:
@@ -12,7 +12,7 @@ spec:
     middlewares: {{- toYaml .Values.ingress.routemiddlewares | nindent 4 }}
     {{- else }}
     middlewares:
-    - name: {{ required "Missing .Values.name" .Values.name }}-stripprefix-v3
+    - name: {{ required "Missing .Values.name" .Values.name }}-stripprefix
     - name: hsts-header
       namespace: dns
     - name: remove-metrics
@@ -42,7 +42,7 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: {{ required "Missing .Values.name" .Values.name }}-stripprefix-v3
+  name: {{ required "Missing .Values.name" .Values.name }}-stripprefix
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
 spec:
   stripPrefix:
