@@ -51,6 +51,8 @@ jobs:
         run: helm repo index .
 
       - name: Push packaged charts to GitHub repository
+        # Only on push to master
+        if: github.ref == 'refs/heads/master'
         run: |
           if [[ -z "$(git status --porcelain)" ]]; then
             echo 'No changes to commit.'
