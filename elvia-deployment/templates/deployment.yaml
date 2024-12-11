@@ -133,6 +133,12 @@ spec:
           value: {{ required "Missing .Values.namespace" .Values.namespace }}
         - name: ELVIA_APPLICATION_NAME
           value: {{ required "Missing .Values.namespace" .Values.name }}
+        - name: ELVIA_ENVIRONMENT
+          value: {{ required "Missing .Values.environment" .Values.environment }}
+        - name: OTEL_EXPORTER_OTLP_PROTOCOL
+          value: grpc
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: http://otel-collector.monitoring.svc.cluster.local:4317
         {{- with .Values.env }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -245,7 +251,7 @@ spec:
         - name: ELVIA_APPLICATION_NAME
           value: {{ required "Missing .Values.name" $.Values.name }}
         - name: ELVIA_ENVIRONMENT
-          value: {{ required "Missing .Values.environment" .Values.environment }}
+          value: {{ required "Missing .Values.environment" $.Values.environment }}
         - name: OTEL_EXPORTER_OTLP_PROTOCOL
           value: grpc
         - name: OTEL_EXPORTER_OTLP_ENDPOINT
