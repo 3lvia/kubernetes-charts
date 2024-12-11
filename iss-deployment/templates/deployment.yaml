@@ -76,8 +76,16 @@ spec:
             name: {{ required "Missing $envFromValue.name" $envFromValue.name }}
         {{- end }}
         {{- end }}
-        {{- with .Values.env }}
         env:
+        - name: ELVIA_APPLICATION_NAMESPACE
+          value: {{ required "Missing .Values.namespace" .Values.namespace }}
+        - name: ELVIA_APPLICATION_NAME
+          value: {{ required "Missing .Values.namespace" .Values.name }}
+        - name: OTEL_EXPORTER_OTLP_PROTOCOL
+          value: grpc
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: http://otel-collector.monitoring.svc.cluster.local:4317
+        {{- with .Values.env }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
         image: {{ include "image" . }}
