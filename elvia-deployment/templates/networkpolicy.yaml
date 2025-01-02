@@ -1,0 +1,58 @@
+{{- if .Values.networkPolicy }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ required "Missing .Values.name" .Values.name }}
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ required "Missing .Values.name" .Values.name }}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    {{- with .Values.networkPolicy.ingress.from }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: dns
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: traefik
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: monitoring
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: prometheus
+    ports:
+    {{- if .Values.networkPolicy.ingress.ports }}
+    {{- with .Values.networkPolicy.ingress.ports }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- else }}
+    - protocol: TCP
+      {{- if .Values.service }}
+
+      {{- if .Values.service.targetPort }}
+      port: {{ .Values.service.targetPort -}}
+      {{- else if .Values.service.port }}
+      port: {{ .Values.service.port -}}
+      {{- end }}
+        
+      {{- else }}
+      port: 2112 # Default prometheus port for worker
+      {{- end }}
+    {{- end }}
+  egress:
+    {{- if .Values.networkPolicy.egress }}
+    {{- with .Values.networkPolicy.egress }}
+      {{- toYaml . | nindent 2 }}
+    {{- end }}
+    {{- else }}
+    - {}
+    {{- end }}
+{{- end }}
