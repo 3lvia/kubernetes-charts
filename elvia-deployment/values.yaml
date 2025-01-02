@@ -169,6 +169,32 @@
 #   successThreshold: 1
 #   timeoutSeconds: 3
 
+
+# networkPolicy:
+#   enable: true
+#   ingress:
+#     from:
+#     - ipBlock:
+#         cidr: 172.17.0.0/16
+#         except:
+#         - 172.17.1.0/24
+#     - namespaceSelector:
+#         matchLabels:
+#           project: myproject
+#     - podSelector:
+#         matchLabels:
+#           role: frontend
+#     ports:
+#     - protocol: TCP
+#       port: 6379
+#   egress:
+#   - to:
+#     - ipBlock:
+#         cidr: 10.0.0.0/24
+#     ports:
+#     - protocol: TCP
+#       port: 5978
+
 # startupProbe:
 #   failureThreshold: 5
 #   httpGet:
