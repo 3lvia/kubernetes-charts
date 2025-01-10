@@ -129,29 +129,19 @@ ingress:
   subdomain: github-repository-team-adder
   path: "/"
 
-networkPolicy:
-  ingress:
-    from:
-    - ipBlock:
-        cidr: 172.17.0.0/16
-        except:
-        - 172.17.1.0/24
-    - namespaceSelector:
-        matchLabels:
-          project: myproject
-    - podSelector:
-        matchLabels:
-          role: frontend
-    ports:
-    - protocol: TCP
-      port: 6379
-  egress:
-  - to:
-    - ipBlock:
-        cidr: 10.0.0.0/24
-    ports:
-    - protocol: TCP
-      port: 5978
+accessPolicy:
+  inbound: 
+    rules:
+      - application: "demo-app"
+        namespace: "core"
+      - application: "demo-app2"
+        namespace: "core2"
+  outbound:
+    rules:
+      - application: "demo-api"
+        namespace: "core"
+      - application: "demo-api2"
+        namespace: "core2"
 
 autoscaling:
   minReplicas: 2

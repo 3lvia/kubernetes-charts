@@ -1,0 +1,32 @@
+# Default values for elvia-deployment.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+name: demo-app
+namespace: core
+microserviceType: webapi
+#environment: dev
+
+labels:
+  repositoryName: core-github-repository-team-adder2
+  commitHash: 3d5d54d27304bdcf7be582fbcfe3362c718af970
+
+replicaCount: 1
+
+image:
+  repository: containerregistryelvia.azurecr.io/core-github-repository-team-adder
+  tag: "20201203.3"
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 400m
+    memory: 500Mi
+
+accessPolicy:
+  outbound:
+    rules:
+      - application: "demo-api"
+        namespace: "core"
