@@ -1,0 +1,21 @@
+suite: test deployment
+templates:
+  - deployment.yaml
+tests:
+  - it: should work
+    set:
+      image.tag: latest
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+    asserts:
+      - matchSnapshot: {}

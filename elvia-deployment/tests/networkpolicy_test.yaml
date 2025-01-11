@@ -1,0 +1,87 @@
+suite: test networkpolicy
+templates:
+  - networkpolicy.yaml
+tests:
+  - it: demo-app
+    set:
+      image.tag: latest
+      name: demo-app
+      namespace: core
+      microserviceType: worker
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      accessPolicy:
+        outbound: 
+          rules:
+            - application: "demo-api"
+              namespace: "core"
+    asserts:
+      - isKind:
+          of: NetworkPolicy
+      - equal:
+          path: metadata.name
+          value: demo-app
+      - equal:
+          path: metadata.namespace
+          value: core
+      - equal:
+          path: spec.podSelector.matchLabels.app
+          value: demo-app
+      - equal:
+          path: spec.ingress[0].from[0].namespaceSelector.matchLabels["kubernetes.io/metadata.name"]
+          value: monitoring
+      - equal:
+          path: spec.ingress[0].from[0].podSelector.matchLabels["app.kubernetes.io/name"]
+          value: prometheus
+
+  - it: demo-api
+    set:
+      image.tag: latest
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: dev
+      replicaCount: 2
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      accessPolicy:
+        outbound:
+          rules:
+            - application: "demo-api"
+              namespace: "core"
+      ingress:
+        subdomain: core
+        path: "/demo-api"
+      service:
+        port: 8080
+
+    asserts:
+      - isKind:
+          of: NetworkPolicy
+      - equal:
+          path: metadata.name
+          value: demo-api
+      - equal:
+          path: metadata.namespace
+          value: core
+      - equal:
+          path: spec.podSelector.matchLabels.app
+          value: demo-api
+      - equal:
+          path: spec.ingress[0].from[0].namespaceSelector.matchLabels["kubernetes.io/metadata.name"]
+          value: dns
+      - equal:
+          path: spec.ingress[0].from[0].podSelector.matchLabels["app.kubernetes.io/name"]
+          value: traefik

@@ -24,7 +24,7 @@ spec:
           app.kubernetes.io/name: {{ $value.application }}
     {{- end }}
     {{- end }}
-    {{- if .Values.ingress -}}
+    {{- if .Values.ingress }}
     # Allow ingress traffic from traefik
     - namespaceSelector:
         matchLabels:
