@@ -1,4 +1,4 @@
-should work:
+deployment snapshot should match:
   1: |
     apiVersion: apps/v1
     kind: Deployment

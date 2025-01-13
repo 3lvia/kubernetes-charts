@@ -9,6 +9,12 @@ When pushing to trunk, the charts will automatically packaged and published to t
 
 ## Testing
 
+Unit testing
+```sh
+helm plugin install https://github.com/helm-unittest/helm-unittest.git
+helm unittest elvia-deployment
+```
+
 Local
 ```
 helm template github-repo -f elvia-deployment/examples/github-repository-team-adder/values_api.yaml elvia-deployment/  --set environment=test --set image.tag=mytag

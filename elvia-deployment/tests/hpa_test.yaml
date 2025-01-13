@@ -1,13 +1,13 @@
-suite: test deployment
+suite: test hpa
 templates:
-  - deployment.yaml
+  - hpa.yaml
 tests:
-  - it: deployment snapshot should match
+  - it: hpa snapshot should match
     set:
       image.tag: latest
-      name: demo-api
+      name: demo-app
       namespace: core
-      microserviceType: webapi
+      microserviceType: worker
       environment: dev
       replicaCount: 1
       resources:
@@ -17,5 +17,9 @@ tests:
         limits:
           cpu: 400m
           memory: 500Mi
+      autoscaling:
+        minReplicas: 2
+        maxReplicas: 4
+        targetCPUUtilizationPercentage: 80
     asserts:
       - matchSnapshot: {}

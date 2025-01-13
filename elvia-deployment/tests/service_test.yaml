@@ -2,7 +2,7 @@ suite: test service
 templates:
   - service.yaml
 tests:
-  - it: should work
+  - it: service snapshot should match
     set:
       image.tag: latest
       name: demo-api
@@ -17,6 +17,9 @@ tests:
         limits:
           cpu: 400m
           memory: 500Mi
+      service:
+        port: 80
+        targetPort: 8080
       ingress:
         subdomain: core
         path: "/demo-api"

@@ -1,15 +1,15 @@
-suite: test networkpolicy
+suite: test service monitor
 templates:
-  - networkpolicy.yaml
+  - service-monitor.yaml
 tests:
-  - it: network policy snapshot should match
+  - it: service monitor snapshot should match
     set:
       image.tag: latest
       name: demo-api
       namespace: core
       microserviceType: webapi
       environment: dev
-      replicaCount: 2
+      replicaCount: 1
       resources:
         requests:
           cpu: 100m
@@ -17,15 +17,5 @@ tests:
         limits:
           cpu: 400m
           memory: 500Mi
-      accessPolicy:
-        outbound:
-          rules:
-            - namespace: "core"
-      ingress:
-        subdomain: core
-        path: "/demo-api"
-      service:
-        port: 8080
-
     asserts:
       - matchSnapshot: {}

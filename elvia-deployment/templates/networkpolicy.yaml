@@ -19,9 +19,11 @@ spec:
     - namespaceSelector:
         matchLabels:
           kubernetes.io/metadata.name: {{ $value.namespace }}
+      {{- if $value.application }}
       podSelector:
         matchLabels:
           app.kubernetes.io/name: {{ $value.application }}
+      {{- end }}
     {{- end }}
     {{- end }}
     {{- if .Values.ingress }}
@@ -61,9 +63,11 @@ spec:
     - namespaceSelector:
         matchLabels:
           kubernetes.io/metadata.name: {{ $value.namespace }}
+      {{- if $value.application }}
       podSelector:
         matchLabels:
           app.kubernetes.io/name: {{ $value.application }}
+      {{- end }}
   {{- end }}
   {{- end }}
   # Allow egress traffic to the internet

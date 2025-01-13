@@ -1,0 +1,31 @@
+suite: test configmap
+templates:
+  - configmap.yaml
+tests:
+  - it: configmap snapshot should match
+    set:
+      image.tag: latest
+      name: demo-app
+      namespace: core
+      microserviceType: worker
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      configmap:
+        dev:
+          testmode: "true"
+          elvid.authority: https://elvid.test-elvia.io/
+        test:
+          testmode: "false"
+          elvid.authority: https://elvid.test-elvia.io/
+        prod:
+          testmode: "false"
+          elvid.authority: https://elvid.elvia.io/
+    asserts:
+      - matchSnapshot: {}
