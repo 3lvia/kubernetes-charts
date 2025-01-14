@@ -18,6 +18,10 @@ tests:
           cpu: 400m
           memory: 500Mi
       accessPolicy:
+        inbound: 
+          rules:
+            - application: "demo-app"
+              namespace: "core"
         outbound:
           rules:
             - namespace: "core"

@@ -43,6 +43,12 @@ network policy snapshot should match:
         - from:
             - namespaceSelector:
                 matchLabels:
+                  kubernetes.io/metadata.name: core
+              podSelector:
+                matchLabels:
+                  app.kubernetes.io/name: demo-app
+            - namespaceSelector:
+                matchLabels:
                   kubernetes.io/metadata.name: dns
               podSelector:
                 matchLabels:
