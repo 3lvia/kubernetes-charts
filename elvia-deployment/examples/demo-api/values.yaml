@@ -1,0 +1,98 @@
+# Default values for elvia-deployment.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+name: demo-api
+namespace: core
+microserviceType: webapi
+
+replicaCount: 
+  dev: 1
+  test: 1
+  prod: 2
+
+azureWorkloadIdentity: true
+
+env:
+- name: ASPNETCORE_URLS
+  value: http://+:8080
+- name: AdGroup__Read
+  valueFrom:
+    configMapKeyRef:
+      key: adgroup.read
+      name: demo-api # must match name of the application
+      
+configmap:
+  dev:
+    adgroup.read: "0dd44cf4-d269-11ef-8aa0-00155d10f9e8"
+  test:
+    adgroup.read: "0dd44cf4-d269-11ef-8aa0-00155d10f9e8"
+  prod:
+    adgroup.read: "0ebf1a2c-d269-11ef-b593-00155d10f9e8"
+
+service:
+ port: 80
+ targetPort: 8080
+
+ingress:
+  subdomain: core
+  path: "/demo-api"
+
+accessPolicy:
+  inbound: [] # Do not allow calls from other pods, only through the ingress
+  outbound:
+    rules:
+      - namespace: "core" # only allow outbound calls to the 'core' namespace
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 80
+
+lifecycle:
+  preStop:
+    exec:
+      command:
+      - sleep
+      - "1"
+
+readinessProbe:
+  failureThreshold: 3
+  httpGet:
+    path: /health
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 15
+  successThreshold: 1
+  timeoutSeconds: 3
+
+livenessProbe:
+  failureThreshold: 5
+  httpGet:
+    path: /health
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 15
+  successThreshold: 1
+  timeoutSeconds: 3
+
+startupProbe:
+  failureThreshold: 30
+  httpGet:
+    path: /health
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 3
+  successThreshold: 1
+  timeoutSeconds: 2
