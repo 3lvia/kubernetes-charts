@@ -169,7 +169,8 @@
 #   successThreshold: 1
 #   timeoutSeconds: 3
 
-
+# Controls inbound and outbound network access to the application.
+# If this is unset, all access is allowed.
 # accessPolicy:
 #   inbound:
 #     rules:
