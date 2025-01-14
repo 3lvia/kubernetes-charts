@@ -62,20 +62,20 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-Define the image value. The image is different in each environment. 
+Define the image value. The image is different in each environment.
 */}}
 {{- define "image" -}}
 {{- if .Values.image.repository }}
-{{- .Values.image.repository }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}
-{{- else }} 
+{{- .Values.image.repository }}{{- if .Values.image.digest }}@{{ .Values.image.digest }}{{- else }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}{{- end }}
+{{- else }}
 {{- if eq .Values.environment "dev"}}
-{{- printf "gcr.io/iss-dev-88440/%s-%s" .Values.namespace .Values.name }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}
+{{- printf "gcr.io/iss-dev-88440/%s-%s" .Values.namespace .Values.name }}{{- if .Values.image.digest }}@{{ .Values.image.digest }}{{- else }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}{{- end }}
 {{- end }}
 {{- if eq .Values.environment "test"}}
-{{- printf "gcr.io/iss-test-79771/%s-%s" .Values.namespace .Values.name }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}
+{{- printf "gcr.io/iss-test-79771/%s-%s" .Values.namespace .Values.name }}{{- if .Values.image.digest }}@{{ .Values.image.digest }}{{- else }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}{{- end }}
 {{- end }}
 {{- if eq .Values.environment "prod"}}
-{{- printf "gcr.io/iss-prod-91279/%s-%s" .Values.namespace .Values.name }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}
+{{- printf "gcr.io/iss-prod-91279/%s-%s" .Values.namespace .Values.name }}{{- if .Values.image.digest }}@{{ .Values.image.digest }}{{- else }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

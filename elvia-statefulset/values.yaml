@@ -46,7 +46,8 @@
 
 # image:
 #  repository: containerregistryelvia.azurecr.io/bad-realtimeunits-api # defaults to containerregistryelvia.azurecr.io/$namespace-$name
-#  tag: "ToBeReplaced"
+#  tag: ToBeReplaced
+#  digest: ToBeReplaced
 
 # imagePullSecret: containerregistryelvia
 
