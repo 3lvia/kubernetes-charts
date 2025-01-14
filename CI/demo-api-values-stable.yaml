@@ -11,7 +11,7 @@ replicaCount: 2
 
 image:
   repository: containerregistryelvia.azurecr.io/core-demo-api
-  tag: "latest-cache"
+  tag: "latest-cache@sha256:a8ed8ccd193c1cd070fdeff3a7a4ad133424b8cc5f9d02caf3dd0ce75d63d5d5"
 
 imagePullSecret: containerregistryelvia
 
