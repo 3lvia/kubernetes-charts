@@ -171,7 +171,7 @@
 
 
 # accessPolicy:
-#   inbound: 
+#   inbound:
 #     rules:
 #       - namespace: "core" # only allow inbound calls from a namespace
 #         application: "demo-app" # optional, only allow calls from a specific application
