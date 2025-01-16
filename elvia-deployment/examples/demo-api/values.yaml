@@ -6,10 +6,7 @@ name: demo-api
 namespace: core
 microserviceType: webapi
 
-replicaCount: 
-  dev: 1
-  test: 1
-  prod: 2
+replicaCount: 2
 
 azureWorkloadIdentity: true
 

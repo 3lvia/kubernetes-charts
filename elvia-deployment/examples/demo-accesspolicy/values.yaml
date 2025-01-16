@@ -6,10 +6,7 @@ name: demo-accesspolicy
 namespace: core
 microserviceType: worker
 
-replicaCount: 
-  dev: 1
-  test: 1
-  prod: 2
+replicaCount: 1
 
 azureWorkloadIdentity: true
 
@@ -32,8 +29,8 @@ resources:
     cpu: 100m
     memory: 128Mi
   requests:
-    cpu: 100m
-    memory: 128Mi
+    cpu: 10m
+    memory: 12Mi
 
 readinessProbe:
   failureThreshold: 3
