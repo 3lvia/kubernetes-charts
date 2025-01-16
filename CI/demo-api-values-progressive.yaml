@@ -16,30 +16,19 @@ replicaCount:
   test: 2
   prod: 3
 
-
-networkPolicy:
-  ingress:
-    from:
-    - ipBlock:
-        cidr: 172.17.0.0/16
-        except:
-        - 172.17.1.0/24
-    - namespaceSelector:
-        matchLabels:
-          project: myproject
-    - podSelector:
-        matchLabels:
-          role: frontend
-    ports:
-    - protocol: TCP
-      port: 6379
-  egress:
-  - to:
-    - ipBlock:
-        cidr: 10.0.0.0/24
-    ports:
-    - protocol: TCP
-      port: 5978
+accessPolicy:
+  inbound: 
+    rules:
+      # Only allow inbound calls from a specified namespace and application
+      # Can also specify only the namespace
+      - namespace: "core"
+        application: "demo-app"
+  outbound:
+    rules:
+      # Only allow outbound calls to a specified namespace and application
+      # Can also specify only the namespace
+      - namespace: "msim"
+        application: "api"
       
 strategy:
   type: Recreate
