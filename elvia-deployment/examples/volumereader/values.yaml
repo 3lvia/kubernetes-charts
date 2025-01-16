@@ -23,8 +23,6 @@ sidecars:
     image:
       repository: containerregistryelvia.azurecr.io/mdmx-gs2parser
 
-imagePullSecret: containerregistryelvia
-
 resources:
   requests:
     cpu: 100m

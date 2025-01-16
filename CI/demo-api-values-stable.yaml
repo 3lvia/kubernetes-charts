@@ -13,8 +13,6 @@ image:
   repository: containerregistryelvia.azurecr.io/core-demo-api
   tag: "latest-cache"
 
-imagePullSecret: containerregistryelvia
-
 env:
 - name: ASPNETCORE_URLS
   value: http://+:8080

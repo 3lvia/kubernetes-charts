@@ -37,8 +37,6 @@ image:
   repository: containerregistryelvia.azurecr.io/core-demo-api
   tag: "latest-cache"
 
-imagePullSecret: containerregistryelvia
-
 #expect configMap for each to exist for common configmap
 envFrom:
   - configMapRef:

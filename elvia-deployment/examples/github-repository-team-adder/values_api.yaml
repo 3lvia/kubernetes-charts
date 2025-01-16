@@ -20,8 +20,6 @@ image:
   repository: containerregistryelvia.azurecr.io/core-github-repository-team-adder
   tag: "20201203.3"
 
-imagePullSecret: containerregistryelvia
-
 progressDeadlineSeconds: 60
 
 securityContext:

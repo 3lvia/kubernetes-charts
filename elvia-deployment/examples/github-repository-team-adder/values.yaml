@@ -16,8 +16,6 @@ replicaCount: 2
 strategy:
   type: Recreate
 
-imagePullSecret: containerregistryprodsecret
-
 resources:
   dev:
     limits:
