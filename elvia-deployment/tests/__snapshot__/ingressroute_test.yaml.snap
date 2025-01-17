@@ -1,0 +1,30 @@
+ingressroute snapshot should match:
+  1: |
+    apiVersion: traefik.io/v1alpha1
+    kind: IngressRoute
+    metadata:
+      name: demo-api
+      namespace: core
+    spec:
+      routes:
+        - kind: Rule
+          match: Host(`core.dev-elvia.io`) && PathPrefix(`/demo-api`)
+          middlewares:
+            - name: demo-api-stripprefix
+            - name: hsts-header
+              namespace: dns
+            - name: remove-metrics
+              namespace: dns
+          services:
+            - name: demo-api
+              port: 80
+  2: |
+    apiVersion: traefik.io/v1alpha1
+    kind: Middleware
+    metadata:
+      name: demo-api-stripprefix
+      namespace: core
+    spec:
+      stripPrefix:
+        prefixes:
+          - /demo-api

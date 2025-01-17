@@ -16,14 +16,26 @@ replicaCount:
   test: 2
   prod: 3
 
+accessPolicy:
+  inbound: 
+    rules:
+      # Only allow inbound calls from a specified namespace and application
+      # Can also specify only the namespace
+      - namespace: "core"
+        application: "demo-app"
+  outbound:
+    rules:
+      # Only allow outbound calls to a specified namespace and application
+      # Can also specify only the namespace
+      - namespace: "msim"
+        application: "api"
+      
 strategy:
   type: Recreate
 
 image:
   repository: containerregistryelvia.azurecr.io/core-demo-api
   tag: "latest-cache"
-
-imagePullSecret: containerregistryelvia
 
 #expect configMap for each to exist for common configmap
 envFrom:

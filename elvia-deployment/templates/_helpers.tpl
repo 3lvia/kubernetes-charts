@@ -107,10 +107,20 @@ Create the host of the ingress
 Find the limits.cpu in millicores, but capped at 50m
 */}}
 {{- define "resources.limits.cpu.max50m" -}}
+{{- if .Values.resources.limits }}
 {{- if .Values.resources.limits.cpu | toString | hasSuffix "m" }}
 {{- .Values.resources.limits.cpu  | toString | regexFind "[0-9.]+" | min 50 -}}m
 {{- else -}}
 {{- mulf .Values.resources.limits.cpu 1000 | min 50 -}}m
+{{- end -}}
+{{- else if .Values.resources.dev.limits }}
+{{- if .Values.resources.dev.limits.cpu | toString | hasSuffix "m" }}
+{{- .Values.resources.dev.limits.cpu  | toString | regexFind "[0-9.]+" | min 50 -}}m
+{{- else -}}
+{{- mulf .Values.resources.dev.limits.cpu 1000 | min 50 -}}m
+{{- end -}}
+{{- else -}}
+{{- fail "Missing resource.limits.cpu" }}
 {{- end -}}
 {{- end -}}
 
@@ -118,11 +128,23 @@ Find the limits.cpu in millicores, but capped at 50m
 Find the limits.memory in Mi, but capped at 100Mi
 */}}
 {{- define "resources.limits.memory.max100Mi" -}}
+{{- if .Values.resources.limits }}
 {{- if .Values.resources.limits.memory | toString | hasSuffix "Mi" }}
 {{- .Values.resources.limits.memory  | toString | regexFind "[0-9.]+" | min 100 -}}Mi
 {{- else if .Values.resources.limits.memory | toString | hasSuffix "Gi" }}
 {{- .Values.resources.limits.memory  | toString | regexFind "[0-9.]+" | mulf 1000 | min 100 -}}Mi
 {{- else -}}
 {{- fail "value for resources.limits.memory must be given in Mi or Gi units." }}
+{{- end -}}
+{{- else if .Values.resources.dev.limits }}
+{{- if .Values.resources.dev.limits.memory | toString | hasSuffix "Mi" }}
+{{- .Values.resources.dev.limits.memory  | toString | regexFind "[0-9.]+" | min 100 -}}Mi
+{{- else if .Values.resources.dev.limits.memory | toString | hasSuffix "Gi" }}
+{{- .Values.resources.dev.limits.memory  | toString | regexFind "[0-9.]+" | mulf 1000 | min 100 -}}Mi
+{{- else -}}
+{{- fail "value for resources.limits.memory must be given in Mi or Gi units." }}
+{{- end -}}
+{{- else -}}
+{{- fail "Missing resource.limits.memory" }}
 {{- end -}}
 {{- end -}}

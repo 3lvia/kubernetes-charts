@@ -1,0 +1,27 @@
+suite: test service
+templates:
+  - service.yaml
+tests:
+  - it: service snapshot should match
+    set:
+      image.tag: latest
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      service:
+        port: 80
+        targetPort: 8080
+      ingress:
+        subdomain: core
+        path: "/demo-api"
+    asserts:
+      - matchSnapshot: {}

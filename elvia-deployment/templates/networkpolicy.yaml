@@ -1,0 +1,105 @@
+{{- if .Values.accessPolicy }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ required "Missing .Values.name" .Values.name }}
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ required "Missing .Values.name" .Values.name }}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    {{- if .Values.accessPolicy.inbound }}
+    {{- range $key, $value := .Values.accessPolicy.inbound.rules }}
+    # Allow ingress traffic from user configured application
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: {{ $value.namespace }}
+      {{- if $value.application }}
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: {{ $value.application }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- if .Values.ingress }}
+    # Allow ingress traffic from traefik
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: dns
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: traefik
+    {{- end }}
+    # Allow ingress traffic from prometheus
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: monitoring
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: prometheus
+    ports:
+    - protocol: TCP
+      {{- if .Values.service }}
+
+      {{- if .Values.service.targetPort }}
+      port: {{ .Values.service.targetPort -}}
+      {{- else if .Values.service.port }}
+      port: {{ .Values.service.port -}}
+      {{- end }}
+        
+      {{- else }}
+      port: 2112 # Default prometheus port for worker
+      {{- end }}
+  egress:
+  {{- if .Values.accessPolicy.outbound }}
+  {{- range $key, $value := .Values.accessPolicy.outbound.rules }}
+  # Allow egress traffic to user configured application
+  - to: 
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: {{ $value.namespace }}
+      {{- if $value.application }}
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: {{ $value.application }}
+      {{- end }}
+  {{- end }}
+  {{- end }}
+  # Allow egress traffic to the internet
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+        except:
+        - 10.0.0.0/8
+        - 192.168.0.0/16
+        - 172.16.0.0/12
+  # Allow egress traffic to linkerd, required for service mesh
+  - to: 
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: linkerd
+  # Allow egress traffic to otel-collector, used for tracing
+  - to: 
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: monitoring
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: otel-collector
+  # Allow dns traffic to kube-dns
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: "kube-system"
+      podSelector:
+        matchLabels:
+          k8s-app: "kube-dns"
+    ports:
+    - protocol: UDP
+      port: 53
+{{- end }}

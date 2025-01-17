@@ -169,6 +169,18 @@
 #   successThreshold: 1
 #   timeoutSeconds: 3
 
+# Controls inbound and outbound network access to the application.
+# If this is unset, all access is allowed.
+# accessPolicy:
+#   inbound:
+#     rules:
+#       - namespace: "core" # only allow inbound calls from a namespace
+#         application: "demo-app" # optional, only allow calls from a specific application
+#   outbound:
+#     rules:
+#       - namespace: "core" # only allow outbound calls to a namespace
+#         application: "demo-api" # optionally, only allow calls to a specific application
+
 # startupProbe:
 #   failureThreshold: 5
 #   httpGet:

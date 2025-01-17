@@ -5,27 +5,27 @@
 name: demo-api
 namespace: core
 microserviceType: webapi
-environment: dev
 
 replicaCount: 2
 
-image:
-  repository: containerregistryelvia.azurecr.io/core-demo-api
-  tag: "latest-cache"
+azureWorkloadIdentity: true
 
 env:
 - name: ASPNETCORE_URLS
   value: http://+:8080
-- name: my_key_from_config_map
+- name: AdGroup__Read
   valueFrom:
     configMapKeyRef:
-      key: mykey
-      name: demo-api
-- name: my_key_from_secret
-  valueFrom:
-    secretKeyRef:
-      key: mysecret
-      name: demo-api
+      key: adgroup.read
+      name: demo-api # must match name of the application
+      
+configmap:
+  dev:
+    adgroup.read: "0dd44cf4-d269-11ef-8aa0-00155d10f9e8"
+  test:
+    adgroup.read: "0dd44cf4-d269-11ef-8aa0-00155d10f9e8"
+  prod:
+    adgroup.read: "0ebf1a2c-d269-11ef-b593-00155d10f9e8"
 
 service:
  port: 80
@@ -35,6 +35,12 @@ ingress:
   subdomain: core
   path: "/demo-api"
 
+accessPolicy:
+  inbound: [] # Do not allow calls from other pods, only through the ingress
+  outbound:
+    rules:
+      - namespace: "core" # only allow outbound calls to the 'core' namespace
+
 resources:
   limits:
     cpu: 100m
@@ -43,10 +49,10 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-# autoscaling:
-#   minReplicas: 2
-#   maxReplicas: 4
-#   targetCPUUtilizationPercentage: 80
+autoscaling:
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 80
 
 lifecycle:
   preStop:
@@ -77,23 +83,13 @@ livenessProbe:
   successThreshold: 1
   timeoutSeconds: 3
 
-configmap:
-  dev:
-    mykey: "dev-value"
-  test:
-    mykey: "test-value"
-  prod:
-    mykey: "prod-value"
-
-# Always fetch secrets from Hashicorp Vault if possible
-# We support kubernetes secrets for unusual deployments
-secret:
-  dev:
-    mysecret: __SECRET_DEV__ # to be replaced in azure devops pipeline
-  test:
-    mysecret: __SECRET_TEST__ # to be replaced in azure devops pipeline
-  prod:
-    mysecret: __SECRET_PROD__ # to be replaced in azure devops pipeline
-
-serviceMonitor:
-  interval: 60s
+startupProbe:
+  failureThreshold: 30
+  httpGet:
+    path: /health
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 3
+  successThreshold: 1
+  timeoutSeconds: 2

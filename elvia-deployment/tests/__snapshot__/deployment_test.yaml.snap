@@ -1,0 +1,66 @@
+deployment snapshot should match:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: demo-api
+      namespace: core
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: demo-api
+          microservice-type: webapi
+      strategy:
+        rollingUpdate:
+          maxSurge: 1
+          maxUnavailable: 0
+        type: RollingUpdate
+      template:
+        metadata:
+          annotations:
+            kubectl.kubernetes.io/default-container: demo-api
+          labels:
+            app: demo-api
+            azure.workload.identity/use: "true"
+            microservice-type: webapi
+        spec:
+          containers:
+            - env:
+                - name: ELVIA_APPLICATION_NAMESPACE
+                  value: core
+                - name: ELVIA_APPLICATION_NAME
+                  value: demo-api
+                - name: ELVIA_ENVIRONMENT
+                  value: dev
+                - name: OTEL_EXPORTER_OTLP_PROTOCOL
+                  value: grpc
+                - name: OTEL_EXPORTER_OTLP_ENDPOINT
+                  value: http://otel-collector.monitoring.svc.cluster.local:4317
+              image: containerregistryelvia.azurecr.io/core-demo-api:latest
+              imagePullPolicy: Always
+              name: demo-api
+              resources:
+                limits:
+                  cpu: 400m
+                  memory: 500Mi
+                requests:
+                  cpu: 50m
+                  memory: 100Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                runAsNonRoot: true
+          imagePullSecrets:
+            - name: containerregistryelvia
+          securityContext:
+            fsGroup: 1001
+            runAsGroup: 1001
+            runAsUser: 1001
+            seccompProfile:
+              type: RuntimeDefault
+            supplementalGroups:
+              - 1001
+          serviceAccountName: demo-api

@@ -1,0 +1,16 @@
+service snapshot should match:
+  1: |
+    apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app: demo-api
+      name: demo-api
+      namespace: core
+    spec:
+      ports:
+        - name: demo-apiport
+          port: 80
+          targetPort: 8080
+      selector:
+        app: demo-api

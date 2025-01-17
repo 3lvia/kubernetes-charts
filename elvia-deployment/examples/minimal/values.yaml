@@ -1,0 +1,16 @@
+# minimal values.yaml file for a worker microservice
+# also requires that 'environment' and 'image.tag' is set, but these are set in the CI/CD pipeline
+
+name: demo-app
+namespace: core
+microserviceType: worker # worker, api, webapp, portal
+
+replicaCount: 1
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 10m
+    memory: 12Mi

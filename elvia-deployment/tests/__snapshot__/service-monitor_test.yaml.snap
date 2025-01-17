@@ -1,0 +1,13 @@
+service monitor snapshot should match:
+  1: |
+    apiVersion: monitoring.coreos.com/v1
+    kind: ServiceMonitor
+    metadata:
+      name: demo-api
+      namespace: core
+    spec:
+      endpoints:
+        - port: demo-apiport
+      selector:
+        matchLabels:
+          app: demo-api

@@ -1,0 +1,25 @@
+suite: test hpa
+templates:
+  - hpa.yaml
+tests:
+  - it: hpa snapshot should match
+    set:
+      image.tag: latest
+      name: demo-app
+      namespace: core
+      microserviceType: worker
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      autoscaling:
+        minReplicas: 2
+        maxReplicas: 4
+        targetCPUUtilizationPercentage: 80
+    asserts:
+      - matchSnapshot: {}

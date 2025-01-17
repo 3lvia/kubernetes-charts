@@ -1,0 +1,228 @@
+# Default values for elvia-deployment.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+name: github-repository-team-adder
+namespace: core
+microserviceType: worker # worker|webapi|pushreceiver|api|webapp|portal
+environment: dev # dev|test|prod
+
+# replicaCount: 1
+
+replicaCount:
+  dev: 1
+  test: 2
+  prod: 2
+
+# If you set nodePool, nodeSelector and tolerations will be ignored
+nodePool: high-iops
+
+nodeSelector:
+  kubernetes.io/os: linux
+
+tolerations:
+- effect: NoSchedule
+  key: type
+  operator: Equal
+  value: high-iops
+
+progressDeadlineSeconds: 600
+
+dnsConfig:
+ options:
+ - name: single-request-reopen
+
+hostAliases:
+ - ip: "10.160.4.139"
+   hostnames:
+     - "haarcgeoevent01.hipad.no"
+ - ip: "172.19.253.6"
+   hostnames:
+     - "haarcgeoevt01t1.hipad.no"
+
+strategy:
+ rollingUpdate:
+   maxSurge: 1
+   maxUnavailable: 0
+ type: RollingUpdate
+
+image:
+ repository: containerregistryelvia.azurecr.io/bad-realtimeunits-api # defaults to containerregistryelvia.azurecr.io/$namespace-$name
+ tag: "ToBeReplaced"
+
+imagePullSecret: containerregistryelvia
+
+sidecars:
+  sidecar:
+    name: gs2parser
+    resources:
+      requests:
+        cpu: 10m
+        memory: 50Mi
+      limits:
+        cpu: 10m
+        memory: 50Mi
+    image:
+      repository: containerregistryelvia.azurecr.io/mdmx-gs2parser
+
+envFrom:
+  - configMapRef:
+    name: github-repository-team-adder
+
+env:
+- name: ASPNETCORE_URLS
+  value: http://+:8080
+- name: my_key_from_config_map
+  valueFrom:
+    configMapKeyRef:
+      key: my_key
+      name: github-repository-team-adder
+
+service:
+ port: 80
+ targetPort: 8080
+
+ingress:
+  subdomain: github-repository-team-adder
+  path: "/mypath"
+  port: 80 # 80 default
+  enforceApiManagement: false # Enable to only allow calls coming from Api Management. If true the subdomain MUST be 'api'.
+  routemiddlewares:
+    - name: hsts-header
+      namespace: dns
+    - name: remove-metrics
+      namespace: dns
+  stickysession:
+    cookie: {}
+
+# resources:
+#   limits:
+#     cpu: 100m
+#     memory: 128Mi
+#   requests:
+#     cpu: 10m
+#     memory: 12Mi
+
+resources:
+  dev:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 12Mi
+  test:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 12m
+      memory: 16Mi
+  prod:
+    limits:
+      cpu: 1000m
+      memory: 800Mi
+    requests:
+      cpu: 50m
+      memory: 50Mi
+
+autoscaling:
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 80
+
+
+securityContext: # If you set the securityContext, you must set all the properties
+  seccompProfile:
+    type: RuntimeDefault
+  runAsUser: 1001
+  runAsGroup: 1001
+  fsGroup: 1001
+  supplementalGroups: [1001]
+
+lifecycle:
+  preStop:
+    exec:
+      command:
+      - sleep
+      - "15"
+
+readinessProbe:
+  failureThreshold: 3
+  httpGet:
+    path: /metrics
+    port: 2112
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 15
+  successThreshold: 1
+  timeoutSeconds: 3
+
+livenessProbe:
+  failureThreshold: 5
+  httpGet:
+    path: /metrics
+    port: 2112
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 15
+  successThreshold: 1
+  timeoutSeconds: 3
+
+# Controls inbound and outbound network access to the application.
+# If this is unset, all access is allowed.
+accessPolicy:
+  inbound:
+    rules:
+      - namespace: "core" # only allow inbound calls from a namespace
+        application: "demo-app" # optional, only allow calls from a specific application
+  outbound:
+    rules:
+      - namespace: "core" # only allow outbound calls to a namespace
+        application: "demo-api-go" # optionally, only allow calls to a specific application
+
+startupProbe:
+  failureThreshold: 5
+  httpGet:
+    path: /metrics
+    port: 2112
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 15
+  successThreshold: 1
+  timeoutSeconds: 3
+
+configmap:
+  dev:
+    bigtable.project: "hafslund-mdm-dev"
+    bigtable.instanceid: "mdm-meterreadings-dev"
+  test:
+    bigtable.project: "hafslund-mdm-test"
+    bigtable.instanceid: "mdm-meterreadings-test"
+  prod:
+    bigtable.project: "hafslund-mdm"
+    bigtable.instanceid: "mdm-meterreadings"
+
+# Always fetch secrets from Hashicorp Vault if possible
+# We support kubernetes secrets for unusual deployments
+secret:
+  dev:
+    mysecret: __SECRET_DEV__ # to be replaced in CI/CD pipeline
+  test:
+    mysecret: __SECRET_TEST__ # to be replaced in CI/CD pipeline
+  prod:
+    mysecret: __SECRET_PROD__ # to be replaced in CI/CD pipeline
+
+serviceMonitor:
+  interval: 60s
+  honorLabels: true
+  enable: true
+
+volumes:
+- configMap:
+    name: github-repository-team-adder
+  name: my-volume
+
+volumeMounts:
+- mountPath: /usr/share/nginx/html/assets/
+  name: my-volume

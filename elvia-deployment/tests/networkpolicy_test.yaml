@@ -1,0 +1,35 @@
+suite: test networkpolicy
+templates:
+  - networkpolicy.yaml
+tests:
+  - it: network policy snapshot should match
+    set:
+      image.tag: latest
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: dev
+      replicaCount: 2
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      accessPolicy:
+        inbound: 
+          rules:
+            - application: "demo-app"
+              namespace: "core"
+        outbound:
+          rules:
+            - namespace: "core"
+      ingress:
+        subdomain: core
+        path: "/demo-api"
+      service:
+        port: 8080
+
+    asserts:
+      - matchSnapshot: {}
