@@ -11,6 +11,9 @@ network policy snapshot should match:
             - namespaceSelector:
                 matchLabels:
                   kubernetes.io/metadata.name: core
+              podSelector:
+                matchLabels:
+                  app: demo-app
         - to:
             - ipBlock:
                 cidr: 0.0.0.0/0
@@ -46,7 +49,7 @@ network policy snapshot should match:
                   kubernetes.io/metadata.name: core
               podSelector:
                 matchLabels:
-                  app.kubernetes.io/name: demo-app
+                  app: demo-app
             - namespaceSelector:
                 matchLabels:
                   kubernetes.io/metadata.name: dns

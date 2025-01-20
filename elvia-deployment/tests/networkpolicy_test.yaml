@@ -25,6 +25,7 @@ tests:
         outbound:
           rules:
             - namespace: "core"
+              application: "demo-app"
       ingress:
         subdomain: core
         path: "/demo-api"
