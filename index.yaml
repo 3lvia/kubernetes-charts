@@ -3,9 +3,9 @@ entries:
   elvia-deployment:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-01-20T12:12:04.419352446Z"
+    created: "2025-01-21T09:47:06.046940018Z"
     description: A Helm chart for Kubernetes.
-    digest: 7feaed4046caa9b1f402e95f4614b06b764aae63c160bc688d802dfdcd84d081
+    digest: f73b8c5bc56e44c6beb7b230b69eb36a0c512bbca98607a9696507d7f5c6088c
     name: elvia-deployment
     type: application
     urls:
@@ -13,7 +13,7 @@ entries:
     version: 0.24.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-01-20T12:12:04.418888354Z"
+    created: "2025-01-21T09:47:06.04634023Z"
     description: A Helm chart for Kubernetes.
     digest: 7796c84e71ec7b1b70da205bfcccd8019d6cdd814ae071571babcf48569bbd3d
     name: elvia-deployment
@@ -24,9 +24,9 @@ entries:
   elvia-statefulset:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-01-20T12:12:04.419686143Z"
+    created: "2025-01-21T09:47:06.047270444Z"
     description: A Helm chart for Kubernetes
-    digest: cb655e191213d160fecf59267bb03b48244f32f1326c262591076e21e091c410
+    digest: 329823c4431780c1937d9fb4cc232e229e0b26d1c21b0b81d7230d30fc5e19c3
     name: elvia-statefulset
     type: application
     urls:
@@ -35,12 +35,12 @@ entries:
   iss-deployment:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-20T12:12:04.419968333Z"
+    created: "2025-01-21T09:47:06.047557329Z"
     description: A Helm chart for Kubernetes.
-    digest: 20c0f0f8c235cdd3dc039b520d5e1d31edfbd0e75a1e11ae096c9c43fd3cf76b
+    digest: 8ccade77f6c404912cef0ea03d2541d0cc1cfdebc05387060e4d80c7947c6245
     name: iss-deployment
     type: application
     urls:
     - iss-deployment-0.4.3.tgz
     version: 0.4.3
-generated: "2025-01-20T12:12:04.418316369Z"
+generated: "2025-01-21T09:47:06.045678267Z"
