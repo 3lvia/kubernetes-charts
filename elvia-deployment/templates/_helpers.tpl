@@ -66,9 +66,9 @@ Define the image, using containerregistryelvia.azurecr.io as default container r
 */}}
 {{- define "image" -}}
 {{- if .Values.image.repository }}
-{{- .Values.image.repository }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}
-{{- else }} 
-{{- printf "containerregistryelvia.azurecr.io/%s-%s" .Values.namespace .Values.name }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}
+{{- .Values.image.repository }}{{- if .Values.image.digest }}@{{ .Values.image.digest }}{{- else }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}{{- end }}
+{{- else }}
+{{- printf "containerregistryelvia.azurecr.io/%s-%s" .Values.namespace .Values.name }}{{- if .Values.image.digest }}@{{ .Values.image.digest }}{{- else }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}{{- end }}
 {{- end }}
 {{- end }}
 
@@ -82,7 +82,7 @@ Define the sidecar.image, using containerregistryelvia.azurecr.io as default con
 {{- end}}
 {{- if .sidecar.image.repository }}
 {{- .sidecar.image.repository }}:{{ required "Missing $imagetag" $imagetag }}
-{{- else }} 
+{{- else }}
 {{- printf "containerregistryelvia.azurecr.io/%s-%s" .namespace .sidecar.name }}:{{ required "Missing $imagetag" $imagetag }}
 {{- end }}
 {{- end }}

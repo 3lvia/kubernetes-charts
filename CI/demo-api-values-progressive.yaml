@@ -35,7 +35,7 @@ strategy:
 
 image:
   repository: containerregistryelvia.azurecr.io/core-demo-api
-  tag: "latest-cache"
+  digest: sha256:7a01e22d7695c70d87de15be46001c20e3aefcd32284ecebbffb5d28aa4d6ed9
 
 #expect configMap for each to exist for common configmap
 envFrom:

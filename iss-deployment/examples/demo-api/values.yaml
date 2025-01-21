@@ -6,7 +6,7 @@ name: demo-api
 namespace: adms-extensions
 microserviceType: webapi
 
-replicaCount: 
+replicaCount:
   dev: 1
   test: 1
   prod: 2
