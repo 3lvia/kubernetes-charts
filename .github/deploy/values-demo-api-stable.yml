@@ -1,0 +1,99 @@
+# Default values for elvia-deployment.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+name: demo-api
+namespace: core
+microserviceType: webapi
+environment: dev
+
+replicaCount: 2
+
+image:
+  repository: containerregistryelvia.azurecr.io/core-demo-api
+  tag: "latest-cache"
+
+env:
+- name: ASPNETCORE_URLS
+  value: http://+:8080
+- name: my_key_from_config_map
+  valueFrom:
+    configMapKeyRef:
+      key: mykey
+      name: demo-api
+- name: my_key_from_secret
+  valueFrom:
+    secretKeyRef:
+      key: mysecret
+      name: demo-api
+
+service:
+ port: 80
+ targetPort: 8080
+
+ingress:
+  subdomain: core
+  path: "/demo-api"
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# autoscaling:
+#   minReplicas: 2
+#   maxReplicas: 4
+#   targetCPUUtilizationPercentage: 80
+
+lifecycle:
+  preStop:
+    exec:
+      command:
+      - sleep
+      - "1"
+
+readinessProbe:
+  failureThreshold: 3
+  httpGet:
+    path: /health
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 15
+  successThreshold: 1
+  timeoutSeconds: 3
+
+livenessProbe:
+  failureThreshold: 5
+  httpGet:
+    path: /health
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 15
+  successThreshold: 1
+  timeoutSeconds: 3
+
+configmap:
+  dev:
+    mykey: "dev-value"
+  test:
+    mykey: "test-value"
+  prod:
+    mykey: "prod-value"
+
+# Always fetch secrets from Hashicorp Vault if possible
+# We support kubernetes secrets for unusual deployments
+secret:
+  dev:
+    mysecret: __SECRET_DEV__ # to be replaced in azure devops pipeline
+  test:
+    mysecret: __SECRET_TEST__ # to be replaced in azure devops pipeline
+  prod:
+    mysecret: __SECRET_PROD__ # to be replaced in azure devops pipeline
+
+serviceMonitor:
+  interval: 60s

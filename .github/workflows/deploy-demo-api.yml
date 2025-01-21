@@ -1,0 +1,72 @@
+name: Deploy demo-api
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+env:
+  APPLICATION_NAME: 'demo-api'
+  SYSTEM_NAME: 'core'
+
+jobs:
+  set-env:
+    name: Set environment variables
+    runs-on: ubuntu-latest
+    outputs:
+      helm-chart-repository-url: ${{ steps.set-env.outputs.helm-chart-repository-url }}
+    concurrency:
+      group: '${{ github.workflow }}-${{ github.ref }}'
+      cancel-in-progress: true
+    steps:
+      - name: Set environment variables
+        id: set-env
+        run: |
+          # We only set for PR, meaning on push it will be empty, making it default to default URL.
+          if [[ '${{ github.event_name }}' == 'pull_request' ]]; then
+            echo 'helm-chart-repository-url=https://raw.githubusercontent.com/${{ github.repository }}/refs/heads/${{ github.head_ref }}' >> "$GITHUB_OUTPUT"
+          fi
+
+  deploy-stable:
+    name: Deploy Stable
+    needs: [set-env]
+    runs-on: elvia-runner
+    permissions:
+      contents: read
+      id-token: write
+    concurrency:
+      group: deploy
+    environment: dev
+    steps:
+      - name: Deploy
+        uses: 3lvia/core-github-actions-templates/deploy@trunk
+        with:
+          name: ${{ env.APPLICATION_NAME }}
+          namespace: ${{ env.SYSTEM_NAME }}
+          environment: 'dev'
+          AZURE_CLIENT_ID: ${{ vars.AKS_CLIENT_ID }}
+          helm-values-file: '.github/deploy/values-demo-api-stable.yml'
+          helm-chart-repository-url: ${{ needs.set-env.outputs.helm-chart-repository-url }}
+          override-image-tag: 'latest-cache'
+
+  deploy-progressive:
+    name: Deploy Progressive
+    needs: [set-env]
+    runs-on: elvia-runner
+    permissions:
+      contents: read
+      id-token: write
+    concurrency:
+      group: deploy
+    environment: dev
+    steps:
+      - name: Deploy
+        uses: 3lvia/core-github-actions-templates/deploy@trunk
+        with:
+          name: ${{ env.APPLICATION_NAME }}
+          namespace: ${{ env.SYSTEM_NAME }}
+          environment: 'dev'
+          AZURE_CLIENT_ID: ${{ vars.AKS_CLIENT_ID }}
+          helm-values-file: '.github/deploy/values-demo-api-progressive.yml'
+          helm-chart-repository-url: ${{ needs.set-env.outputs.helm-chart-repository-url }}

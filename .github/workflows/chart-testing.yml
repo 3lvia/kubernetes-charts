@@ -1,0 +1,75 @@
+name: Chart testing
+
+on:
+  pull_request:
+    branches: [master]
+
+concurrency:
+  group: '${{ github.workflow }}-${{ github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  chart-testing:
+    name: Chart testing
+    runs-on: elvia-runner
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Kubernetes cluster
+        run: |
+          curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.23.0/kind-linux-amd64
+          chmod +x ./kind
+          sudo mv kind /usr/local/bin
+          sudo service docker restart
+          kind create cluster --wait 5m
+
+      - name: Install kube-prometheus-stack with Helm
+        run: |
+          helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+          helm repo update
+          helm install prometheus prometheus-community/kube-prometheus-stack
+
+      - name: Get events
+        if: failure()
+        run: kubectl get events
+
+      - name: Install Traefik
+        run: |
+          helm repo add traefik https://helm.traefik.io/traefik
+          helm install --version '26.*' traefik traefik/traefik
+
+      - name: Create namespace core
+        run: kubectl create namespace core
+
+      - name: Create service accounts
+        run: |
+          kubectl -n core create sa pushreceiver-chart-testing
+          kubectl -n core create sa webapi-chart-testing
+          kubectl -n core create sa worker-chart-testing
+
+      - name: Test kubectl
+        run: |
+          kubectl get namespace
+          kubectl get servicemonitor --all-namespaces
+
+      - name: Install yamllint
+        run: |
+          sudo apt-get update
+          sudo apt-get install yamllint -y
+
+      - name: Install yamale
+        run: pipx install yamale
+
+      - name: Configure ct config
+        run: |
+          mkdir "$HOME/.ct"
+          mv ct/etc/* "$HOME/.ct/"
+
+      - name: Run ct lint
+        run: ./ct/bin/ct lint --config ct.yaml
+
+      - name: Run ct install --upgrade
+        run: ./ct/bin/ct install --upgrade --config ct.yaml
