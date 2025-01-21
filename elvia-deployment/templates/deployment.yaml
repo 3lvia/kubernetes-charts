@@ -8,15 +8,18 @@ metadata:
   labels:
     {{- /* Checks if the provided labels contain any disallowed labels */ -}}
     {{- range $key, $val := .Values.labels }}
-      {{- if and (ne $key "repositoryName") (ne $key "commitHash") }}
-      {{- fail (printf "%s is not an allowed label. Allowed labels are: repositoryName and commitHash" $key) }}
+      {{- if and (ne $key "repositoryName") (ne $key "commitHash") (ne $key "deployedBy") }}
+      {{- fail (printf "%s is not an allowed label. Allowed labels are: repositoryName, commitHash and deployedBy" $key) }}
       {{- end }}
     {{- end }}
     {{- if ((.Values.labels).repositoryName)}}
     repositoryName: {{((.Values.labels).repositoryName)}}
     {{- end }}
     {{- if ((.Values.labels).commitHash)}}
-    commitHash: {{((.Values.labels).commitHash) }}
+    commitHash: {{((.Values.labels).commitHash)}}
+    {{- end }}
+    {{- if ((.Values.labels).deployedBy)}}
+    deployedBy: {{((.Values.labels).deployedBy)}}
     {{- end }}
   {{- else }}
   {{- fail ".Values.labels must be a map" }}
