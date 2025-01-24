@@ -74,6 +74,9 @@ spec:
         app: {{ required "Missing .Values.name" .Values.name }}
         microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
         azure.workload.identity/use: "true"
+        {{- if (.Values.labels).deployedBy }}
+        deployedBy: {{ .Values.labels.deployedBy }}
+        {{- end }}
     spec:
       serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
       imagePullSecrets:

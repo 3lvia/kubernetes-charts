@@ -67,6 +67,9 @@ spec:
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
+        {{- if (.Values.labels).deployedBy }}
+        deployedBy: {{ (.Values.labels).deployedBy }}
+        {{- end }}
       annotations:
         traffic.sidecar.istio.io/excludeOutboundPorts: "9092"
     spec:
