@@ -1,0 +1,17 @@
+{{- range .Values.persistentVolumes }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ required ".name" .name }}-claim
+  labels:
+    app: {{ required "Missing $.Values.name" $.Values.name }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ required "Missing .size" .size }}
+  storageClassName: managed-premium
+  volumeName: {{ required ".name" .name }}
+---
+{{- end }}

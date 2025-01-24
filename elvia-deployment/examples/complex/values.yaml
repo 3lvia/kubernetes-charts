@@ -233,3 +233,11 @@ volumes:
 volumeMounts:
 - mountPath: /usr/share/nginx/html/assets/
   name: my-volume
+
+persistentVolumes:
+- name: application-logs
+  mountPath: /var/log/application
+  size: 1Gi
+- name: important-data
+  mountPath: /var/data
+  size: 100Mi

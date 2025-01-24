@@ -127,3 +127,8 @@ secret:
 
 serviceMonitor:
   interval: 60s
+
+persistentVolumes:
+- name: test
+  size: 10Mi
+  mountPath: /tmp/test
