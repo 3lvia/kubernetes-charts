@@ -15,6 +15,12 @@ spec:
     honorLabels: {{ .Values.serviceMonitor.honorLabels -}}
     {{- end }}
     {{- end }}
+    {{- if .Values.serviceMonitor }}
+    {{- with .Values.serviceMonitor.metricRelabelings }}
+    metricRelabelings:
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- end }}
   selector:
     matchLabels:
       app: {{ required "Missing .Values.name" .Values.name }}
