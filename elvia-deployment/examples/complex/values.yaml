@@ -217,6 +217,13 @@ serviceMonitor:
   interval: 60s
   honorLabels: true
   enable: true
+  metricRelabelings:
+  - action: keep
+    regex: ^otelcol_exporter.*
+    sourceLabels:
+    - __name__
+  - action: labeldrop
+    regex: ^.*\..*$
 
 volumes:
 - configMap:

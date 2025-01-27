@@ -42,9 +42,9 @@ helm unittest elvia-deployment
 
 Local
 ```
-helm template github-repo -f elvia-deployment/examples/github-repository-team-adder/values_api.yaml elvia-deployment/  --set environment=test --set image.tag=mytag
+helm template github-repo -f elvia-deployment/examples/demo-api/values.yaml elvia-deployment/  --set environment=test --set image.tag=mytag
 # https://github.com/yannh/kubeconform
-helm template github-repo -f elvia-deployment/examples/github-repository-team-adder/values_api.yaml elvia-deployment/  --set environment=test --set image.tag=mytag|kubeconform -strict -ignore-missing-schemas -verbose
+helm template github-repo -f elvia-deployment/examples/demo-api/values.yaml elvia-deployment/  --set environment=test --set image.tag=mytag|kubeconform -strict -ignore-missing-schemas -verbose
 
 helm template gridtariff-cache -f elvia-statefulset/examples/gridtariff-cache/values.yaml elvia-statefulset/  --set environment=test --set image.tag=mytag
 ```
