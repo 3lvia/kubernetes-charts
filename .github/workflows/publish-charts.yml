@@ -47,10 +47,7 @@ jobs:
           helm package elvia-statefulset
           helm package iss-deployment
 
-      - name: Index Helm repository
-        run: helm repo index .
-
-      - name: Push packaged charts to GitHub repository
+      - name: Index Helm repository & push packaged charts to GitHub repository if changes have been made
         # Only on push to master
         if: github.ref == 'refs/heads/master'
         run: |
@@ -58,6 +55,8 @@ jobs:
             echo 'No changes to commit.'
             exit 0
           fi
+
+          helm repo index .
 
           git config user.email '${{ vars.GH_APP_USER_EMAIL }}'
           git config user.name '${{ vars.GH_APP_USERNAME }}'
