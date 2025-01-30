@@ -11,6 +11,6 @@ spec:
   resources:
     requests:
       storage: {{ required "Missing .size" .size }}
-  storageClassName: managed-csi-premium
+  storageClassName: azurefile-csi-premium
 ---
 {{- end }}
