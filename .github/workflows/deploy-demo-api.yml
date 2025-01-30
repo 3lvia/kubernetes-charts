@@ -42,7 +42,7 @@ jobs:
       - name: Deploy
         uses: 3lvia/core-github-actions-templates/deploy@trunk
         with:
-          name: ${{ env.APPLICATION_NAME }}
+          name: '${{ env.APPLICATION_NAME }}-stable'
           namespace: ${{ env.SYSTEM_NAME }}
           environment: 'dev'
           AZURE_CLIENT_ID: ${{ vars.AKS_CLIENT_ID }}
@@ -64,7 +64,7 @@ jobs:
       - name: Deploy
         uses: 3lvia/core-github-actions-templates/deploy@trunk
         with:
-          name: ${{ env.APPLICATION_NAME }}
+          name: '${{ env.APPLICATION_NAME }}-progressive'
           namespace: ${{ env.SYSTEM_NAME }}
           environment: 'dev'
           AZURE_CLIENT_ID: ${{ vars.AKS_CLIENT_ID }}

@@ -100,9 +100,18 @@ spec:
       hostAliases:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.volumes }}
+      {{- if or .Values.volumes .Values.persistentVolumes }}
       volumes:
+      {{- end }}
+      {{- with .Values.volumes }}
         {{- toYaml . | nindent 6 }}
+      {{- end }}
+      {{- if .Values.persistentVolumes }}
+      {{- range .Values.persistentVolumes }}
+      - name: {{ required "Missing .name" .name }}-pv
+        persistentVolumeClaim:
+          claimName: {{ required "Missing .name" .name }}-claim
+      {{- end }}
       {{- end }}
       {{- if .Values.nodePool }}
       nodeSelector:
@@ -240,9 +249,17 @@ spec:
         startupProbe:
           {{- toYaml . | nindent 10 }}
         {{- end }}
-        {{- with .Values.volumeMounts }}
+        {{- if or .Values.volumes .Values.persistentVolumes }}
         volumeMounts:
+        {{- end }}
+        {{- with .Values.volumeMounts }}
           {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- if .Values.persistentVolumes }}
+        {{- range .Values.persistentVolumes }}
+        - name: {{ required "Missing .name" .name }}-pv
+          mountPath: {{ required "Missing .mountPath" .mountPath }}
+        {{- end }}
         {{- end }}
       {{- if .Values.sidecars }}
       {{- range $sidecarKey, $sidecarValue := .Values.sidecars }}

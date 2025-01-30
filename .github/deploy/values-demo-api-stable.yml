@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-name: demo-api
+name: demo-api-stable
 namespace: core
 microserviceType: webapi
 environment: dev
@@ -11,29 +11,29 @@ replicaCount: 2
 
 image:
   repository: containerregistryelvia.azurecr.io/core-demo-api
-  tag: "latest-cache"
+  tag: 'latest-cache'
 
 env:
-- name: ASPNETCORE_URLS
-  value: http://+:8080
-- name: my_key_from_config_map
-  valueFrom:
-    configMapKeyRef:
-      key: mykey
-      name: demo-api
-- name: my_key_from_secret
-  valueFrom:
-    secretKeyRef:
-      key: mysecret
-      name: demo-api
+  - name: ASPNETCORE_URLS
+    value: http://+:8080
+  - name: my_key_from_config_map
+    valueFrom:
+      configMapKeyRef:
+        key: mykey
+        name: demo-api-stable
+  - name: my_key_from_secret
+    valueFrom:
+      secretKeyRef:
+        key: mysecret
+        name: demo-api-stable
 
 service:
- port: 80
- targetPort: 8080
+  port: 80
+  targetPort: 8080
 
 ingress:
   subdomain: core
-  path: "/demo-api"
+  path: '/demo-api'
 
 resources:
   limits:
@@ -52,8 +52,8 @@ lifecycle:
   preStop:
     exec:
       command:
-      - sleep
-      - "1"
+        - sleep
+        - '1'
 
 readinessProbe:
   failureThreshold: 3
@@ -79,11 +79,11 @@ livenessProbe:
 
 configmap:
   dev:
-    mykey: "dev-value"
+    mykey: 'dev-value'
   test:
-    mykey: "test-value"
+    mykey: 'test-value'
   prod:
-    mykey: "prod-value"
+    mykey: 'prod-value'
 
 # Always fetch secrets from Hashicorp Vault if possible
 # We support kubernetes secrets for unusual deployments
