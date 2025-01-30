@@ -7,7 +7,7 @@ metadata:
     app: {{ required "Missing $.Values.name" $.Values.name }}
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: {{ required "Missing .size" .size }}
