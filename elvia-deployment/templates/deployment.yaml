@@ -110,7 +110,7 @@ spec:
       {{- range .Values.persistentVolumes }}
       - name: {{ required "Missing .name" .name }}-pv
         persistentVolumeClaim:
-          claimName: {{ required "Missing .name" .name }}-pvc
+          claimName: {{ required "Missing .name" .name }}-claim
       {{- end }}
       {{- end }}
       {{- if .Values.nodePool }}
