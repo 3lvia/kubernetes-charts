@@ -12,6 +12,5 @@ spec:
     requests:
       storage: {{ required "Missing .size" .size }}
   storageClassName: managed-csi-premium
-  volumeName: {{ required ".name" .name }}
 ---
 {{- end }}

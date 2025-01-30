@@ -130,5 +130,5 @@ serviceMonitor:
 
 persistentVolumes:
   - name: test
-    size: 10Mi
+    size: 1Gi
     mountPath: /tmp/test
