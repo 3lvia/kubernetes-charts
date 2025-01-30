@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-name: demo-api
+name: demo-api-progressive
 namespace: core
 microserviceType: webapi
 environment: dev
@@ -17,19 +17,19 @@ replicaCount:
   prod: 3
 
 accessPolicy:
-  inbound: 
+  inbound:
     rules:
       # Only allow inbound calls from a specified namespace and application
       # Can also specify only the namespace
-      - namespace: "core"
-        application: "demo-app"
+      - namespace: 'core'
+        application: 'demo-app'
   outbound:
     rules:
       # Only allow outbound calls to a specified namespace and application
       # Can also specify only the namespace
-      - namespace: "msim"
-        application: "api"
-      
+      - namespace: 'msim'
+        application: 'api'
+
 strategy:
   type: Recreate
 
@@ -40,29 +40,29 @@ image:
 #expect configMap for each to exist for common configmap
 envFrom:
   - configMapRef:
-    name: demo-api
+    name: demo-api-progressive
 
 env:
-- name: ASPNETCORE_URLS
-  value: http://+:8080
-- name: my_key_from_config_map
-  valueFrom:
-    configMapKeyRef:
-      key: mykey
-      name: demo-api
-- name: my_key_from_secret
-  valueFrom:
-    secretKeyRef:
-      key: mysecret
-      name: demo-api
+  - name: ASPNETCORE_URLS
+    value: http://+:8080
+  - name: my_key_from_config_map
+    valueFrom:
+      configMapKeyRef:
+        key: mykey
+        name: demo-api-progressive
+  - name: my_key_from_secret
+    valueFrom:
+      secretKeyRef:
+        key: mysecret
+        name: demo-api-progressive
 
 service:
- port: 80
- targetPort: 8080
+  port: 80
+  targetPort: 8080
 
 ingress:
   subdomain: api
-  path: "/demo-api"
+  path: '/demo-api'
   enforceApiManagement: true
 
 resources:
@@ -82,8 +82,8 @@ lifecycle:
   preStop:
     exec:
       command:
-      - sleep
-      - "1"
+        - sleep
+        - '1'
 
 readinessProbe:
   failureThreshold: 3
@@ -109,11 +109,11 @@ livenessProbe:
 
 configmap:
   dev:
-    mykey: "dev-value"
+    mykey: 'dev-value'
   test:
-    mykey: "test-value"
+    mykey: 'test-value'
   prod:
-    mykey: "prod-value"
+    mykey: 'prod-value'
 
 # Always fetch secrets from Hashicorp Vault if possible
 # We support kubernetes secrets for unusual deployments
@@ -129,6 +129,6 @@ serviceMonitor:
   interval: 60s
 
 persistentVolumes:
-- name: test
-  size: 10Mi
-  mountPath: /tmp/test
+  - name: test
+    size: 10Mi
+    mountPath: /tmp/test
