@@ -33,6 +33,8 @@ deployment snapshot should match:
                   value: demo-api
                 - name: ELVIA_ENVIRONMENT
                   value: dev
+                - name: ELVIA_WORKLOAD_IDENTITY_NAME
+                  value: uai-core-demo-api-dev
                 - name: OTEL_EXPORTER_OTLP_PROTOCOL
                   value: grpc
                 - name: OTEL_EXPORTER_OTLP_ENDPOINT

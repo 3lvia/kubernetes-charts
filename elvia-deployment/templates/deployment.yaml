@@ -144,9 +144,11 @@ spec:
         - name: ELVIA_APPLICATION_NAMESPACE
           value: {{ required "Missing .Values.namespace" .Values.namespace }}
         - name: ELVIA_APPLICATION_NAME
-          value: {{ required "Missing .Values.namespace" .Values.name }}
+          value: {{ required "Missing .Values.name" .Values.name }}
         - name: ELVIA_ENVIRONMENT
           value: {{ required "Missing .Values.environment" .Values.environment }}
+        - name: ELVIA_WORKLOAD_IDENTITY_NAME
+          value: uai-{{ required "Missing .Values.namespace" .Values.namespace }}-{{ required "Missing .Values.name" .Values.name }}-{{ required "Missing .Values.environment" .Values.environment }}
         - name: OTEL_EXPORTER_OTLP_PROTOCOL
           value: grpc
         - name: OTEL_EXPORTER_OTLP_ENDPOINT
