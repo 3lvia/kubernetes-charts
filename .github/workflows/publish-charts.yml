@@ -28,7 +28,7 @@ jobs:
     if: ${{ needs.check-app.outputs.pushed-by-app != 'true' }}
     steps:
       - name: Get GitHub App token for repository
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v2
         id: app-token
         with:
           app-id: ${{ vars.GH_APP_ID }}
