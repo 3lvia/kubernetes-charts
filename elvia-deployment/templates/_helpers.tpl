@@ -99,8 +99,8 @@ or environment-specific:
 {{- $imagetag = .Values.image.dev.tag }}
 {{- end }}
 {{- if and (eq .Values.environment "test") .Values.image.test }}
-{{- $imagerepository = .Values.image.dev.repository }}
-{{- $imagTtag = .Values.image.dev.tag }}
+{{- $imagerepository = .Values.image.test.repository }}
+{{- $imagetag = .Values.image.test.tag }}
 {{- end }}
 {{- if and (eq .Values.environment "prod") .Values.image.prod }}
 {{- $imagerepository = .Values.image.prod.repository }}
