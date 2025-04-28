@@ -19,3 +19,98 @@ tests:
           memory: 500Mi
     asserts:
       - matchSnapshot: {}
+
+  - it: deployment snapshot should match for dev-specific image when environment is dev
+    set:
+      image.dev.tag: dev
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+    asserts:
+      - matchSnapshot: {}
+
+  - it: deployment snapshot should match for test-specific image when environment is test
+    set:
+      image.test.tag: test
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: test
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+    asserts:
+      - matchSnapshot: {}
+
+  - it: deployment snapshot should match for prod-specific image when environment is prod
+    set:
+      image.prod.tag: prod
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: prod
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+    asserts:
+      - matchSnapshot: {}
+
+  - it: deployment snapshot should match for dev-specific image when environment isn't dev
+    set:
+      image.tag: latest
+      image.dev.tag: dev
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: prod
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+    asserts:
+      - matchSnapshot: {}
+
+  - it: deployment snapshot should match for multiple images
+    set:
+      image.tag: latest
+      image.sandbox.tag: sandbox
+      image.dev.tag: dev
+      image.test.tag: test
+      image.prod.tag: prod
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: test
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+    asserts:
+      - matchSnapshot: {}
