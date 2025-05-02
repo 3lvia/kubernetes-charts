@@ -39,7 +39,7 @@ deployment snapshot should match:
                   value: grpc
                 - name: OTEL_EXPORTER_OTLP_ENDPOINT
                   value: http://otel-collector.monitoring.svc.cluster.local:4317
-              image: containerregistryelvia.azurecr.io/core-demo-api:latest
+              image: containerregistryelvia.azurecr.io/core/demo-api:latest
               imagePullPolicy: Always
               name: demo-api
               resources:
@@ -107,7 +107,7 @@ deployment snapshot should match for dev-specific image when environment is dev:
                   value: grpc
                 - name: OTEL_EXPORTER_OTLP_ENDPOINT
                   value: http://otel-collector.monitoring.svc.cluster.local:4317
-              image: containerregistryelvia.azurecr.io/core-demo-api:dev
+              image: containerregistryelvia.azurecr.io/core/demo-api:dev
               imagePullPolicy: Always
               name: demo-api
               resources:
@@ -175,7 +175,7 @@ deployment snapshot should match for dev-specific image when environment isn't d
                   value: grpc
                 - name: OTEL_EXPORTER_OTLP_ENDPOINT
                   value: http://otel-collector.monitoring.svc.cluster.local:4317
-              image: containerregistryelvia.azurecr.io/core-demo-api:latest
+              image: containerregistryelvia.azurecr.io/core/demo-api:latest
               imagePullPolicy: Always
               name: demo-api
               resources:
@@ -243,7 +243,7 @@ deployment snapshot should match for multiple images:
                   value: grpc
                 - name: OTEL_EXPORTER_OTLP_ENDPOINT
                   value: http://otel-collector.monitoring.svc.cluster.local:4317
-              image: containerregistryelvia.azurecr.io/core-demo-api:test
+              image: containerregistryelvia.azurecr.io/core/demo-api:test
               imagePullPolicy: Always
               name: demo-api
               resources:
@@ -311,7 +311,7 @@ deployment snapshot should match for prod-specific image when environment is pro
                   value: grpc
                 - name: OTEL_EXPORTER_OTLP_ENDPOINT
                   value: http://otel-collector.monitoring.svc.cluster.local:4317
-              image: containerregistryelvia.azurecr.io/core-demo-api:prod
+              image: containerregistryelvia.azurecr.io/core/demo-api:prod
               imagePullPolicy: Always
               name: demo-api
               resources:
@@ -379,7 +379,7 @@ deployment snapshot should match for test-specific image when environment is tes
                   value: grpc
                 - name: OTEL_EXPORTER_OTLP_ENDPOINT
                   value: http://otel-collector.monitoring.svc.cluster.local:4317
-              image: containerregistryelvia.azurecr.io/core-demo-api:test
+              image: containerregistryelvia.azurecr.io/core/demo-api:test
               imagePullPolicy: Always
               name: demo-api
               resources:

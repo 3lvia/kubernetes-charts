@@ -109,7 +109,7 @@ or environment-specific:
 {{- if .Values.image.repository }}
 {{- .Values.image.repository }}:{{ required (printf "Missing image.tag or image.%s.tag" .Values.environment) $imagetag }}
 {{- else }}
-{{- printf "containerregistryelvia.azurecr.io/%s-%s" .Values.namespace .Values.name }}:{{ required (printf "Missing image.tag or image.%s.tag" .Values.environment) $imagetag }}
+{{- printf "containerregistryelvia.azurecr.io/%s/%s" .Values.namespace .Values.name }}:{{ required (printf "Missing image.tag or image.%s.tag" .Values.environment) $imagetag }}
 {{- end }}
 {{- end }}
 
