@@ -65,7 +65,8 @@ Create the name of the service account to use
 Define the image, using containerregistryelvia.azurecr.io as default container registry
 */}}
 {{- define "image" -}}
-{{- if and .Values.image.repository (ne .Values.image.repository (printf "containerregistryelvia.azurecr.io/%s-%s" .Values.namespace .Values.name)) }} # only allow setting image repo if it is not on old deprecated syntax
+{{/* only allow setting image repo if it is not on old deprecated syntax */}}
+{{- if and .Values.image.repository (ne .Values.image.repository (printf "containerregistryelvia.azurecr.io/%s-%s" .Values.namespace .Values.name)) }}
 {{- .Values.image.repository }}{{- if .Values.image.digest }}@{{ .Values.image.digest }}{{- else }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}{{- end }}
 {{- else }}
 {{- printf "containerregistryelvia.azurecr.io/%s/%s" .Values.namespace .Values.name }}{{- if .Values.image.digest }}@{{ .Values.image.digest }}{{- else }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}{{- end }}
