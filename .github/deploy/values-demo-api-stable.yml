@@ -10,7 +10,7 @@ environment: dev
 replicaCount: 2
 
 image:
-  repository: containerregistryelvia.azurecr.io/core-demo-api
+  repository: containerregistryelvia.azurecr.io/core/demo-api
   tag: 'latest-cache'
 
 env:
