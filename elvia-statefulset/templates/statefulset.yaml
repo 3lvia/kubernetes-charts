@@ -98,6 +98,8 @@ spec:
           value: grpc
         - name: OTEL_EXPORTER_OTLP_ENDPOINT
           value: http://otel-collector.monitoring.svc.cluster.local:4317
+        - name: OTEL_SERVICE_NAME
+          value: {{ required "Missing .Values.name" .Values.name }}
         {{- with .Values.env }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
