@@ -67,7 +67,6 @@ Define the image, using containerregistryelvia.azurecr.io as default container r
 Supports image for any environment:
 
   image:
-    repository: myrepo
     tag: mytag
 
 or environment-specific:
