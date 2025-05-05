@@ -67,7 +67,6 @@ Define the image, using containerregistryelvia.azurecr.io as default container r
 Supports image for any environment:
 
   image:
-    repository: myrepo
     tag: mytag
 
 or environment-specific:
@@ -106,7 +105,7 @@ or environment-specific:
 {{- $imagerepository = .Values.image.prod.repository }}
 {{- $imagetag = .Values.image.prod.tag }}
 {{- end }}
-{{- if .Values.image.repository }}
+{{- if and .Values.image.repository (ne .Values.image.repository (printf "containerregistryelvia.azurecr.io/%s-%s" .Values.namespace .Values.name)) }} # only allow setting image repo if it is not on old deprecated syntax
 {{- .Values.image.repository }}:{{ required (printf "Missing image.tag or image.%s.tag" .Values.environment) $imagetag }}
 {{- else }}
 {{- printf "containerregistryelvia.azurecr.io/%s/%s" .Values.namespace .Values.name }}:{{ required (printf "Missing image.tag or image.%s.tag" .Values.environment) $imagetag }}
