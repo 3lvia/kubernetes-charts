@@ -62,14 +62,55 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-Define the image, using containerregistryelvia.azurecr.io as default container registry
+Define the image, using containerregistryelvia.azurecr.io as default container registry.
+
+Supports image for any environment:
+
+  image:
+    repository: myrepo
+    tag: mytag
+
+or environment-specific:
+
+  image:
+    sandbox:
+      repository: myrepo
+      tag: mytag
+    dev:
+      repository: myrepo
+      tag: mytag
+    test:
+      repository: myrepo
+      tag: mytag
+    prod:
+      repository: myrepo
+      tag: mytag
+
 */}}
 {{- define "image" -}}
+{{- $imagetag := .Values.image.tag }}
+{{- $imagerepository := .Values.image.repository }}
+{{- if and (eq .Values.environment "sandbox") .Values.image.sandbox }}
+{{- $imagerepository = .Values.image.sandbox.repository }}
+{{- $imagetag = .Values.image.sandbox.tag }}
+{{- end }}
+{{- if and (eq .Values.environment "dev") .Values.image.dev }}
+{{- $imagerepository = .Values.image.dev.repository }}
+{{- $imagetag = .Values.image.dev.tag }}
+{{- end }}
+{{- if and (eq .Values.environment "test") .Values.image.test }}
+{{- $imagerepository = .Values.image.test.repository }}
+{{- $imagetag = .Values.image.test.tag }}
+{{- end }}
+{{- if and (eq .Values.environment "prod") .Values.image.prod }}
+{{- $imagerepository = .Values.image.prod.repository }}
+{{- $imagetag = .Values.image.prod.tag }}
+{{- end }}
 {{- /* only allow setting image repo if it is not on old deprecated syntax */}}
 {{- if and .Values.image.repository (ne .Values.image.repository (printf "containerregistryelvia.azurecr.io/%s-%s" .Values.namespace .Values.name)) }}
-{{- .Values.image.repository }}{{- if .Values.image.digest }}@{{ .Values.image.digest }}{{- else }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}{{- end }}
+{{- .Values.image.repository }}:{{ required (printf "Missing image.tag or image.%s.tag" .Values.environment) $imagetag }}
 {{- else }}
-{{- printf "containerregistryelvia.azurecr.io/%s/%s" .Values.namespace .Values.name }}{{- if .Values.image.digest }}@{{ .Values.image.digest }}{{- else }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}{{- end }}
+{{- printf "containerregistryelvia.azurecr.io/%s/%s" .Values.namespace .Values.name }}:{{ required (printf "Missing image.tag or image.%s.tag" .Values.environment) $imagetag }}
 {{- end }}
 {{- end }}
 
