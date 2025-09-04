@@ -79,6 +79,9 @@ or environment-specific:
     dev:
       repository: myrepo
       tag: mytag
+    kptest:
+      repository: myrepo
+      tag: mytag
     test:
       repository: myrepo
       tag: mytag
@@ -97,6 +100,10 @@ or environment-specific:
 {{- if and (eq .Values.environment "dev") .Values.image.dev }}
 {{- $imagerepository = .Values.image.dev.repository }}
 {{- $imagetag = .Values.image.dev.tag }}
+{{- end }}
+{{- if and (eq .Values.environment "kptest") .Values.image.kptest }}
+{{- $imagerepository = .Values.image.kptest.repository }}
+{{- $imagetag = .Values.image.kptest.tag }}
 {{- end }}
 {{- if and (eq .Values.environment "test") .Values.image.test }}
 {{- $imagerepository = .Values.image.test.repository }}

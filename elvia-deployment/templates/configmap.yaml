@@ -33,14 +33,14 @@ data: {{- toYaml .Values.configmap.test | nindent 2 }}
 {{- end }}
 {{- end }}
 
-{{- if eq .Values.environment "dvtest"}}
-{{- if .Values.configmap.dvtest }}
+{{- if eq .Values.environment "kptest"}}
+{{- if .Values.configmap.kptest }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ required "Missing .Values.name" .Values.name }}
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
-data: {{- toYaml .Values.configmap.dvtest | nindent 2 }} 
+data: {{- toYaml .Values.configmap.kptest | nindent 2 }} 
 {{- end }}
 {{- end }}
 

@@ -40,8 +40,8 @@ spec:
   replicas: {{ required "Missing .Values.replicaCount.sandbox" .Values.replicaCount.sandbox }}
   {{- else if eq .Values.environment "test" }}
   replicas: {{ required "Missing .Values.replicaCount.test" .Values.replicaCount.test }}
-  {{- else if eq .Values.environment "dvtest" }}
-  replicas: {{ required "Missing .Values.replicaCount.dvtest" .Values.replicaCount.dvtest }}
+  {{- else if eq .Values.environment "kptest" }}
+  replicas: {{ required "Missing .Values.replicaCount.kptest" .Values.replicaCount.kptest }}
   {{- else if eq .Values.environment "prod" }}
   replicas: {{ required "Missing .Values.replicaCount.prod" .Values.replicaCount.prod }}
   {{- end }}
@@ -201,14 +201,14 @@ spec:
           {{- end }}
           {{- end }}
 
-          {{- if eq .Values.environment "dvtest"}}
-          {{- if .Values.resources.dvtest }}
+          {{- if eq .Values.environment "kptest"}}
+          {{- if .Values.resources.kptest }}
           limits:
-            cpu: {{ required "Missing .Values.resources.dvtest.limits.cpu" .Values.resources.dvtest.limits.cpu }}
-            memory:  {{ required "Missing .Values.resources.dvtest.limits.memory" .Values.resources.dvtest.limits.memory }}
+            cpu: {{ required "Missing .Values.resources.kptest.limits.cpu" .Values.resources.kptest.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.kptest.limits.memory" .Values.resources.kptest.limits.memory }}
           requests:
-            cpu: {{ required "Missing .Values.resources.dvtest.requests.cpu" .Values.resources.dvtest.requests.cpu }}
-            memory: {{ required "Missing .Values.resources.dvtest.requests.memory" .Values.resources.dvtest.requests.memory }}
+            cpu: {{ required "Missing .Values.resources.kptest.requests.cpu" .Values.resources.kptest.requests.cpu }}
+            memory: {{ required "Missing .Values.resources.kptest.requests.memory" .Values.resources.kptest.requests.memory }}
           {{- else }}
           limits:
             cpu: {{ required "Missing .Values.resources.limits.cpu" .Values.resources.limits.cpu }}
