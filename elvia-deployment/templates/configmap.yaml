@@ -40,7 +40,7 @@ kind: ConfigMap
 metadata:
   name: {{ required "Missing .Values.name" .Values.name }}
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
-data: {{- toYaml .Values.configmap.kptest | nindent 2 }} 
+data: {{- toYaml .Values.configmap.kptest | nindent 2 }}
 {{- end }}
 {{- end }}
 
