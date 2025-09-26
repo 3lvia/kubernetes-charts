@@ -37,10 +37,6 @@ spec:
       name: pki
       namespace: vault
   {{- end }}
-  {{- if eq .Values.environment "kptest" }}
-  tls:
-    secretName: {{ .Values.namespace }}-tls
-  {{- end }}
 ---
 # Strip prefix
 apiVersion: traefik.io/v1alpha1
