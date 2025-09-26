@@ -19,6 +19,12 @@ metadata:
     traefik.ingress.kubernetes.io/request-modifier: "ReplacePathRegex: ^/metrics(.*) /"
   {{- end }}
 spec:
+  {{- if eq .Values.environment "kptest" }}
+  tls:
+  - hosts:
+    - {{ required "Missing .Values.namespace" .Values.namespace }}.kptest-elvia.io
+    secretName: {{ required "Missing .Values.namespace" .Values.namespace }}-tls
+  {{- end }}
   rules:
     - host: {{ include "ingress.host" . }}
       http:
