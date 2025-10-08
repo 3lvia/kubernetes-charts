@@ -38,6 +38,7 @@ spec:
         microservice-type: "job"
         azure.workload.identity/use: "true"
     spec:
+      restartPolicy: Never
       serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
       imagePullSecrets:
       {{- if .Values.imagePullSecret }}
