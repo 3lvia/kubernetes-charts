@@ -29,10 +29,6 @@ spec:
   backoffLimit: {{ default 6 .Values.backoffLimit }}
   completions: {{ default 1 .Values.completions }}
   parallelism: {{ default 1 .Values.parallelism }}
-  selector:
-    matchLabels:
-      app: {{ required "Missing .Values.name" .Values.name }}
-      microservice-type: "job"
   template:
     metadata:
       annotations:
@@ -43,6 +39,7 @@ spec:
         azure.workload.identity/use: "true"
     spec:
       serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
+      restartPolicy: {{ default "Always" .Values.restartPolicy }}
       imagePullSecrets:
       {{- if .Values.imagePullSecret }}
       - name: {{ .Values.imagePullSecret }}
