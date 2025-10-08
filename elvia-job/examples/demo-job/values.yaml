@@ -1,0 +1,18 @@
+name: demo-job
+namespace: core
+
+backoffLimit: 3
+parallelism: 2
+completions: 5
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
+
+env:
+  - name: ASPNETCORE_URLS
+    value: http://+:8080

@@ -1,0 +1,167 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ required "Missing .Values.name" .Values.name }}
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+  {{- if .Values.labels }}
+  {{- if kindIs "map" .Values.labels }}
+  labels:
+    {{- /* Checks if the provided labels contain any disallowed labels */ -}}
+    {{- range $key, $val := .Values.labels }}
+      {{- if and (ne $key "repositoryName") (ne $key "commitHash") (ne $key "deployedBy") }}
+      {{- fail (printf "%s is not an allowed label. Allowed labels are: repositoryName, commitHash and deployedBy" $key) }}
+      {{- end }}
+    {{- end }}
+    {{- if ((.Values.labels).repositoryName)}}
+    repositoryName: {{((.Values.labels).repositoryName)}}
+    {{- end }}
+    {{- if ((.Values.labels).commitHash)}}
+    commitHash: {{((.Values.labels).commitHash)}}
+    {{- end }}
+    {{- if ((.Values.labels).deployedBy)}}
+    deployedBy: {{((.Values.labels).deployedBy)}}
+    {{- end }}
+  {{- else }}
+  {{- fail ".Values.labels must be a map" }}
+  {{- end }}
+  {{- end }}
+spec:
+  backoffLimit: {{ required "Missing .Values.backoffLimit" .Values.backoffLimit }}
+  parallelism: {{ default 1 .Values.parallelism }}
+  backoffLimit: {{ default 6 .Values.backoffLimit }}
+  selector:
+    matchLabels:
+      app: {{ required "Missing .Values.name" .Values.name }}
+      microservice-type: "job"
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: {{ required "Missing .Values.name" .Values.name }}
+      labels:
+        app: {{ required "Missing .Values.name" .Values.name }}
+        microservice-type: "job"
+        azure.workload.identity/use: "true"
+    spec:
+      serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
+      imagePullSecrets:
+      {{- if .Values.imagePullSecret }}
+      - name: {{ .Values.imagePullSecret }}
+      {{- else }}
+      - name: containerregistryelvia
+      {{- end}}
+      {{- if .Values.securityContext }}
+      securityContext: {{- toYaml .Values.securityContext | nindent 8 }}
+      {{- else }}
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+        supplementalGroups: [1001]
+      {{- end }}
+      containers:
+      - name: {{ required "Missing .Values.name" .Values.name }}
+        {{- if .Values.envFrom}}
+        envFrom:
+        {{- range $envFromKey, $envFromValue := .Values.envFrom }}
+        - configMapRef:
+            name: {{ required "Missing $envFromValue.name" $envFromValue.name }}
+        {{- end }}
+        {{- end }}
+        env:
+        - name: ELVIA_APPLICATION_NAMESPACE
+          value: {{ required "Missing .Values.namespace" .Values.namespace }}
+        - name: ELVIA_APPLICATION_NAME
+          value: {{ required "Missing .Values.name" .Values.name }}
+        - name: ELVIA_ENVIRONMENT
+          value: {{ required "Missing .Values.environment" .Values.environment }}
+        - name: ELVIA_WORKLOAD_IDENTITY_NAME
+          value: uai-{{ required "Missing .Values.namespace" .Values.namespace }}-{{ required "Missing .Values.name" .Values.name }}-{{ required "Missing .Values.environment" .Values.environment }}
+        - name: OTEL_EXPORTER_OTLP_PROTOCOL
+          value: grpc
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: http://otel-collector.monitoring.svc.cluster.local:4317
+        - name: OTEL_SERVICE_NAME
+          value: {{ required "Missing .Values.name" .Values.name }}
+        {{- with .Values.env }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        image: {{ include "image" . }}
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          # readOnlyRootFilesystem: true
+          runAsNonRoot: true
+        resources:
+          {{- if eq .Values.environment "dev"}}
+          {{- if .Values.resources.dev }}
+          limits:
+            cpu: {{ required "Missing .Values.resources.dev.limits.cpu" .Values.resources.dev.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.dev.limits.memory" .Values.resources.dev.limits.memory }}
+          {{- else }}
+          limits:
+            cpu: {{ required "Missing .Values.resources.limits.cpu" .Values.resources.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.limits.memory" .Values.resources.limits.memory }}
+          {{- end }}
+          requests:
+            cpu: {{ include "resources.limits.cpu.max50m" .}}
+            memory:  {{ include "resources.limits.memory.max100Mi" .}}
+          {{- end }}
+
+          {{- if eq .Values.environment "test"}}
+          {{- if .Values.resources.test }}
+          limits:
+            cpu: {{ required "Missing .Values.resources.test.limits.cpu" .Values.resources.test.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.test.limits.memory" .Values.resources.test.limits.memory }}
+          requests:
+            cpu: {{ required "Missing .Values.resources.test.requests.cpu" .Values.resources.test.requests.cpu }}
+            memory: {{ required "Missing .Values.resources.test.requests.memory" .Values.resources.test.requests.memory }}
+          {{- else }}
+          limits:
+            cpu: {{ required "Missing .Values.resources.limits.cpu" .Values.resources.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.limits.memory" .Values.resources.limits.memory }}
+          requests:
+            cpu: {{ required "Missing .Values.resources.requests.cpu" .Values.resources.requests.cpu }}
+            memory: {{ required "Missing .Values.resources.requests.memory" .Values.resources.requests.memory }}
+          {{- end }}
+          {{- end }}
+
+          {{- if eq .Values.environment "kptest"}}
+          {{- if .Values.resources.kptest }}
+          limits:
+            cpu: {{ required "Missing .Values.resources.kptest.limits.cpu" .Values.resources.kptest.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.kptest.limits.memory" .Values.resources.kptest.limits.memory }}
+          requests:
+            cpu: {{ required "Missing .Values.resources.kptest.requests.cpu" .Values.resources.kptest.requests.cpu }}
+            memory: {{ required "Missing .Values.resources.kptest.requests.memory" .Values.resources.kptest.requests.memory }}
+          {{- else }}
+          limits:
+            cpu: {{ required "Missing .Values.resources.limits.cpu" .Values.resources.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.limits.memory" .Values.resources.limits.memory }}
+          requests:
+            cpu: {{ required "Missing .Values.resources.requests.cpu" .Values.resources.requests.cpu }}
+            memory: {{ required "Missing .Values.resources.requests.memory" .Values.resources.requests.memory }}
+          {{- end }}
+          {{- end }}
+
+          {{- if eq .Values.environment "prod"}}
+          {{- if .Values.resources.prod }}
+          limits:
+            cpu: {{ required "Missing .Values.resources.prod.limits.cpu" .Values.resources.prod.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.prod.limits.memory" .Values.resources.prod.limits.memory }}
+          requests:
+            cpu: {{ required "Missing .Values.resources.prod.requests.cpu" .Values.resources.prod.requests.cpu }}
+            memory: {{ required "Missing .Values.resources.prod.requests.memory" .Values.resources.prod.requests.memory }}
+          {{- else }}
+          limits:
+            cpu: {{ required "Missing .Values.resources.limits.cpu" .Values.resources.limits.cpu }}
+            memory:  {{ required "Missing .Values.resources.limits.memory" .Values.resources.limits.memory }}
+          requests:
+            cpu: {{ required "Missing .Values.resources.requests.cpu" .Values.resources.requests.cpu }}
+            memory: {{ required "Missing .Values.resources.requests.memory" .Values.resources.requests.memory }}
+          {{- end }}
+          {{- end }}

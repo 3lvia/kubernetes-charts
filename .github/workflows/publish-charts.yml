@@ -46,6 +46,7 @@ jobs:
           helm package elvia-deployment
           helm package elvia-statefulset
           helm package iss-deployment
+          helm package elvia-job
 
       - name: Index Helm repository & push packaged charts to GitHub repository if changes have been made
         # Only on push to master
