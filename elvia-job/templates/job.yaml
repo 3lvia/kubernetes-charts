@@ -26,9 +26,9 @@ metadata:
   {{- end }}
   {{- end }}
 spec:
-  backoffLimit: {{ required "Missing .Values.backoffLimit" .Values.backoffLimit }}
-  parallelism: {{ default 1 .Values.parallelism }}
   backoffLimit: {{ default 6 .Values.backoffLimit }}
+  completions: {{ default 1 .Values.completions }}
+  parallelism: {{ default 1 .Values.parallelism }}
   selector:
     matchLabels:
       app: {{ required "Missing .Values.name" .Values.name }}

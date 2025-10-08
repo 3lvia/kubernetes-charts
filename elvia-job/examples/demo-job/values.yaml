@@ -1,9 +1,12 @@
 name: demo-job
 namespace: core
 
-backoffLimit: 3
-parallelism: 2
-completions: 5
+# Max retry attempts before marking the job failed
+backoffLimit: 6
+# Total number of successful completions needed
+completions: 1
+# Number of pods to run in parallel
+parallelism: 1
 
 resources:
   requests:
@@ -16,3 +19,16 @@ resources:
 env:
   - name: ASPNETCORE_URLS
     value: http://+:8080
+  - name: AdGroup__Read
+    valueFrom:
+      configMapKeyRef:
+        key: adgroup.read
+        name: demo-api # must match name of the application
+
+configmap:
+  dev:
+    adgroup.read: '0dd44cf4-d269-11ef-8aa0-00155d10f9e8'
+  test:
+    adgroup.read: '0dd44cf4-d269-11ef-8aa0-00155d10f9e8'
+  prod:
+    adgroup.read: '0ebf1a2c-d269-11ef-b593-00155d10f9e8'
