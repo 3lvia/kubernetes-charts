@@ -39,7 +39,6 @@ spec:
         azure.workload.identity/use: "true"
     spec:
       serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
-      restartPolicy: {{ default "Always" .Values.restartPolicy }}
       imagePullSecrets:
       {{- if .Values.imagePullSecret }}
       - name: {{ .Values.imagePullSecret }}
