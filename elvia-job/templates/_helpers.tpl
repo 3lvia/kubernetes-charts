@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "elvia-deployment.name" -}}
+{{- define "elvia-job.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "elvia-deployment.fullname" -}}
+{{- define "elvia-job.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "elvia-deployment.chart" -}}
+{{- define "elvia-job.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "elvia-deployment.labels" -}}
-helm.sh/chart: {{ include "elvia-deployment.chart" . }}
-{{ include "elvia-deployment.selectorLabels" . }}
+{{- define "elvia-job.labels" -}}
+helm.sh/chart: {{ include "elvia-job.chart" . }}
+{{ include "elvia-job.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "elvia-deployment.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "elvia-deployment.name" . }}
+{{- define "elvia-job.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "elvia-job.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "elvia-deployment.serviceAccountName" -}}
+{{- define "elvia-job.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "elvia-deployment.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "elvia-job.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
@@ -118,38 +118,6 @@ or environment-specific:
 {{- .Values.image.repository }}:{{ required (printf "Missing image.tag or image.%s.tag" .Values.environment) $imagetag }}
 {{- else }}
 {{- printf "containerregistryelvia.azurecr.io/%s/%s" .Values.namespace .Values.name }}:{{ required (printf "Missing image.tag or image.%s.tag" .Values.environment) $imagetag }}
-{{- end }}
-{{- end }}
-
-
-{{/*
-Define the sidecar.image, using containerregistryelvia.azurecr.io as default container registry
-*/}}
-{{- define "sidecar.image" -}}
-{{- $imagetag := .tag}}
-{{- if .sidecar.image.tag}}
-{{- $imagetag = .sidecar.image.tag}}
-{{- end}}
-{{- if .sidecar.image.repository }}
-{{- .sidecar.image.repository }}:{{ required "Missing $imagetag" $imagetag }}
-{{- else }}
-{{- printf "containerregistryelvia.azurecr.io/%s-%s" .namespace .sidecar.name }}:{{ required "Missing $imagetag" $imagetag }}
-{{- end }}
-{{- end }}
-
-{{/*
-Create the host of the ingress
-*/}}
-{{- define "ingress.host" -}}
-{{- if not .Values.ingress.subdomain }}
-{{- required "Missing .Values.ingress.subdomain" ""}}
-{{- end }}
-{{- if eq .Values.environment "prod"}}
-{{- printf "%s.elvia.io" .Values.ingress.subdomain }}
-{{- else if eq .Values.environment "sandbox"}}
-{{- printf "%s-sandbox.dev-elvia.io" .Values.ingress.subdomain }}
-{{- else }}
-{{- printf "%s.%s-elvia.io" .Values.ingress.subdomain .Values.environment }}
 {{- end }}
 {{- end }}
 
