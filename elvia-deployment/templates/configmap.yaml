@@ -7,7 +7,7 @@ kind: ConfigMap
 metadata:
   name: {{ required "Missing .Values.name" .Values.name }}
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
-data: {{- toYaml .Values.configmap.dev | nindent 2 }} 
+data: {{- toYaml .Values.configmap.dev | nindent 2 }}
 {{- end }}
 {{- end }}
 
@@ -18,7 +18,7 @@ kind: ConfigMap
 metadata:
   name: {{ required "Missing .Values.name" .Values.name }}
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
-data: {{- toYaml .Values.configmap.sandbox | nindent 2 }} 
+data: {{- toYaml .Values.configmap.sandbox | nindent 2 }}
 {{- end }}
 {{- end }}
 
@@ -29,7 +29,7 @@ kind: ConfigMap
 metadata:
   name: {{ required "Missing .Values.name" .Values.name }}
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
-data: {{- toYaml .Values.configmap.test | nindent 2 }} 
+data: {{- toYaml .Values.configmap.test | nindent 2 }}
 {{- end }}
 {{- end }}
 
@@ -51,8 +51,17 @@ kind: ConfigMap
 metadata:
   name: {{ required "Missing .Values.name" .Values.name }}
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
-data: {{- toYaml .Values.configmap.prod | nindent 2 }} 
+data: {{- toYaml .Values.configmap.prod | nindent 2 }}
 {{- end }}
+{{- end }}
+
+{{- if not (or (.Values.configmap.dev) (.Values.configmap.sandbox) (.Values.configmap.test) (.Values.configmap.kptest) (.Values.configmap.prod)) }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ required "Missing .Values.name" .Values.name }}
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+data: {{- toYaml .Values.configmap | nindent 2 }}
 {{- end }}
 
 {{- end }}
