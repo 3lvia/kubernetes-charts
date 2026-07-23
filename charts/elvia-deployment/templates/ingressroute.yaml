@@ -1,4 +1,7 @@
 {{- if .Values.ingress -}}
+{{- if and .Values.ingress.exposure (not (has .Values.ingress.exposure (list "internal" "public"))) }}
+{{- fail (printf "Invalid ingress.exposure value: %s. Must be either 'internal' or 'public', or omit it" .Values.ingress.exposure) }}
+{{- end }}
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
@@ -17,6 +20,10 @@ spec:
       namespace: dns
     - name: remove-metrics
       namespace: dns
+    {{- if eq .Values.ingress.exposure "internal" }}
+    - name: {{ required "Missing .Values.name" .Values.name }}-ipwhitelist-internal
+      namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+    {{- end }}
     {{- end }}
     services:
       - name: {{ required "Missing .Values.name" .Values.name }}
@@ -48,5 +55,22 @@ spec:
   stripPrefix:
     prefixes:
       - {{ required "Missing .Values.ingress.path" .Values.ingress.path }}
+{{- if eq .Values.ingress.exposure "internal" }}
+---
+# IP Whitelist-internal
+# POC Will be moved to argocd /manifests/cluster-addons/environments/xxxx/xxx/traefik/manifests/middleware.yaml
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ required "Missing .Values.name" .Values.name }}-ipwhitelist-internal
+  namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
+spec:
+  ipAllowList:
+    sourceRange:
+      - 188.95.241.183/32 #IP for all Elvia machines
+    ipStrategy:
+      depth: 1
+
+{{- end }}
 
 {{- end }}
