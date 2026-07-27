@@ -1,0 +1,1 @@
+helm upgrade --debug --install -n core -f values-demo-api.yaml demo-api ./../../../elvia-deployment --set-string environment=sandbox --set-string labels.repositoryName=core  --set-string image.tag="8095e00c652cf69406f7fbcdf3537226d01ead08-207"  --set-string labels.commitHash="1b8fc09" --dry-run=server

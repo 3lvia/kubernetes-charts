@@ -1,0 +1,1 @@
+helm template demo-api ./../../../elvia-deployment -n core -f values-demo-api.yaml --set-string environment=sandbox --set-string labels.repositoryName=core  --set-string image.tag="1b8fc098d9409d536cafc7f82ca4772967dbf33c-203" --set-string labels.commitHash="1b8fc09"

@@ -1,0 +1,88 @@
+# Default values for elvia-deployment.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+name: demo-api
+namespace: core
+microserviceType: webapi
+
+# replicaCount: 2
+replicaCount:
+  sandbox: 1
+  dev: 1
+  kptest: 1
+  test: 1
+  prod: 2
+
+azureWorkloadIdentity: true
+
+env:
+  - name: ASPNETCORE_URLS
+    value: http://+:8080
+
+service:
+  port: 80
+  targetPort: 8080
+
+ingress:
+  subdomain: core
+  path: '/demo-api'
+  exposure: internal
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+lifecycle:
+  preStop:
+    exec:
+      command:
+        - sleep
+        - '1'
+
+readinessProbe:
+  failureThreshold: 3
+  httpGet:
+    path: /health
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 15
+  successThreshold: 1
+  timeoutSeconds: 3
+
+livenessProbe:
+  failureThreshold: 5
+  httpGet:
+    path: /health
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 15
+  successThreshold: 1
+  timeoutSeconds: 3
+
+startupProbe:
+  failureThreshold: 30
+  httpGet:
+    path: /health
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 3
+  successThreshold: 1
+  timeoutSeconds: 2
+# configmap:
+#   dev:
+#     bigtable.project: "hafslund-mdm-dev"
+#     bigtable.instanceid: "mdm-meterreadings-dev"
+#   test:
+#     bigtable.project: "hafslund-mdm-test"
+#     bigtable.instanceid: "mdm-meterreadings-test"
+#   prod:
+#     bigtable.project: "hafslund-mdm"
+#     bigtable.instanceid: "mdm-meterreadings"
