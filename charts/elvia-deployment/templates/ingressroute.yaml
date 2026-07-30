@@ -1,6 +1,6 @@
 {{- if .Values.ingress -}}
-{{- if and .Values.ingress.exposure (not (has .Values.ingress.exposure (list "internal" "public"))) }}
-{{- fail (printf "Invalid ingress.exposure value: %s. Must be either 'internal' or 'public', or omit it" .Values.ingress.exposure) }}
+{{- if and .Values.ingress.exposure (not (has .Values.ingress.exposure (list "internal" "public-ip-filtered" "public"))) }}
+{{- fail (printf "Invalid ingress.exposure value: %s. Must be 'public-ip-filtered', 'internal', or 'public', or omit it" .Values.ingress.exposure) }}
 {{- end }}
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
@@ -8,9 +8,17 @@ metadata:
   name: {{ required "Missing .Values.name" .Values.name }}
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
 spec:
+  {{- if eq .Values.ingress.exposure "internal" }}
+  # True internal exposure: only traefik-internal (private LB, no public path) serves this route.
+  ingressClassName: traefik-internal
+  {{- end }}
   routes:
   - kind: Rule
+    {{- if eq .Values.ingress.exposure "internal" }}
+    match: Host(`{{ include "ingress.internalHost" . }}`) && PathPrefix(`{{ required "Missing .Values.ingress.path" .Values.ingress.path }}`)
+    {{- else }}
     match: Host(`{{ include "ingress.host" . }}`) && PathPrefix(`{{ required "Missing .Values.ingress.path" .Values.ingress.path }}`)
+    {{- end }}
     {{- if .Values.ingress.routemiddlewares }}
     middlewares: {{- toYaml .Values.ingress.routemiddlewares | nindent 4 }}
     {{- else }}
@@ -20,7 +28,7 @@ spec:
       namespace: dns
     - name: remove-metrics
       namespace: dns
-    {{- if eq .Values.ingress.exposure "internal" }}
+    {{- if eq .Values.ingress.exposure "public-ip-filtered" }}
     - name: {{ required "Missing .Values.name" .Values.name }}-ipwhitelist-internal
       namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
     {{- end }}
@@ -55,7 +63,7 @@ spec:
   stripPrefix:
     prefixes:
       - {{ required "Missing .Values.ingress.path" .Values.ingress.path }}
-{{- if eq .Values.ingress.exposure "internal" }}
+{{- if eq .Values.ingress.exposure "public-ip-filtered" }}
 ---
 # IP Whitelist-internal
 # POC Will be moved to argocd /manifests/cluster-addons/environments/xxxx/xxx/traefik/manifests/middleware.yaml

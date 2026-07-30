@@ -6,7 +6,6 @@ name: demo-api
 namespace: core
 microserviceType: webapi
 
-# replicaCount: 2
 replicaCount:
   sandbox: 1
   dev: 1
@@ -28,14 +27,17 @@ ingress:
   subdomain: core
   path: '/demo-api'
   exposure: internal
+  # exposure: public-ip-filtered
+  # exposure: public
 
 resources:
-  limits:
-    cpu: 100m
+    limits:
+    cpu: 1000m
     memory: 128Mi
   requests:
-    cpu: 100m
-    memory: 128Mi
+    cpu: 500m
+    memory: 25Mi
+
 
 lifecycle:
   preStop:
@@ -76,13 +78,3 @@ startupProbe:
   periodSeconds: 3
   successThreshold: 1
   timeoutSeconds: 2
-# configmap:
-#   dev:
-#     bigtable.project: "hafslund-mdm-dev"
-#     bigtable.instanceid: "mdm-meterreadings-dev"
-#   test:
-#     bigtable.project: "hafslund-mdm-test"
-#     bigtable.instanceid: "mdm-meterreadings-test"
-#   prod:
-#     bigtable.project: "hafslund-mdm"
-#     bigtable.instanceid: "mdm-meterreadings"
