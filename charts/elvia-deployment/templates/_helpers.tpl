@@ -163,7 +163,7 @@ Create the host of a true-internal (traefik-internal) ingress, served only via t
 {{- if eq .Values.environment "prod"}}
 {{- printf "%s.internal.elvia.io" .Values.ingress.subdomain }}
 {{- else if eq .Values.environment "sandbox"}}
-{{- printf "%s.sandbox-internal.dev-elvia.io" .Values.ingress.subdomain }}
+{{- printf "%s.internal.sandbox.dev-elvia.io" .Values.ingress.subdomain }}
 {{- else }}
 {{- printf "%s.internal.%s-elvia.io" .Values.ingress.subdomain .Values.environment }}
 {{- end }}

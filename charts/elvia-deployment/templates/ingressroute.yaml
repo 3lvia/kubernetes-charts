@@ -7,11 +7,13 @@ kind: IngressRoute
 metadata:
   name: {{ required "Missing .Values.name" .Values.name }}
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
-spec:
-  {{- if eq .Values.ingress.exposure "internal" }}
-  # True internal exposure: only traefik-internal (private LB, no public path) serves this route.
-  ingressClassName: traefik-internal
+  {{- if .Values.ingress.annotations }}
+  annotations:
+    {{- range $key, $value := .Values.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
   {{- end }}
+spec:
   routes:
   - kind: Rule
     {{- if eq .Values.ingress.exposure "internal" }}

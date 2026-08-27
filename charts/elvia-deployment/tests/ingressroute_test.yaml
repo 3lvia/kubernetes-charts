@@ -76,7 +76,7 @@ tests:
     asserts:
       - matchSnapshot: {}
 
-  - it: ingressroute should set ingressClassName traefik-internal and internal host when exposure is internal
+  - it: ingressroute should set internal host when exposure is internal
     set:
       image.tag: latest
       name: demo-api
@@ -99,10 +99,6 @@ tests:
         path: "/demo-api"
         exposure: internal
     asserts:
-      - equal:
-          path: spec.ingressClassName
-          value: traefik-internal
-        documentIndex: 0
       - equal:
           path: spec.routes[0].match
           value: Host(`core.internal.dev-elvia.io`) && PathPrefix(`/demo-api`)
@@ -134,6 +130,6 @@ tests:
     asserts:
       - equal:
           path: spec.routes[0].match
-          value: Host(`core.sandbox-internal.dev-elvia.io`) && PathPrefix(`/demo-api`)
+          value: Host(`core.internal.sandbox.dev-elvia.io`) && PathPrefix(`/demo-api`)
         documentIndex: 0
 
