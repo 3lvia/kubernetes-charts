@@ -71,6 +71,9 @@ Define the image value. The image is different in each environment.
 {{- if eq .Values.environment "dev"}}
 {{- printf "gcr.io/iss-dev-88440/%s-%s" .Values.namespace .Values.name }}{{- if .Values.image.digest }}@{{ .Values.image.digest }}{{- else }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}{{- end }}
 {{- end }}
+{{- if eq .Values.environment "kptest"}}
+{{- printf "gcr.io/iss-kptest-14666/%s-%s" .Values.namespace .Values.name }}{{- if .Values.image.digest }}@{{ .Values.image.digest }}{{- else }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}{{- end }}
+{{- end }}
 {{- if eq .Values.environment "test"}}
 {{- printf "gcr.io/iss-test-79771/%s-%s" .Values.namespace .Values.name }}{{- if .Values.image.digest }}@{{ .Values.image.digest }}{{- else }}:{{ required "Missing .Values.image.tag" .Values.image.tag }}{{- end }}
 {{- end }}
