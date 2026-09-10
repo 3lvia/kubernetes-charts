@@ -1,5 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
+{{- if and (eq .Values.microserviceType "worker") .Values.ingress }}
+{{- fail "ingress is not allowed when microserviceType is worker" }}
+{{- end }}
+{{- if and (eq .Values.microserviceType "worker") .Values.service }}
+{{- fail "service is not allowed when microserviceType is worker" }}
+{{- end }}
 metadata:
   name: {{ required "Missing .Values.name" .Values.name }}
   namespace: {{ required "Missing .Values.namespace" .Values.namespace }}
@@ -241,13 +247,22 @@ spec:
         lifecycle:
           {{- toYaml . | nindent 10 }}
         {{- end }}
+        {{- if and (eq .Values.microserviceType "worker") .Values.readinessProbe }}
+        {{- fail "readinessProbe is not allowed when microserviceType is worker" }}
+        {{- end }}
         {{- with .Values.readinessProbe }}
         readinessProbe:
           {{- toYaml . | nindent 10 }}
         {{- end }}
+        {{- if and (eq .Values.microserviceType "worker") .Values.livenessProbe }}
+        {{- fail "livenessProbe is not allowed when microserviceType is worker" }}
+        {{- end }}
         {{- with .Values.livenessProbe }}
         livenessProbe:
           {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- if and (eq .Values.microserviceType "worker") .Values.startupProbe }}
+        {{- fail "startupProbe is not allowed when microserviceType is worker" }}
         {{- end }}
         {{- with .Values.startupProbe }}
         startupProbe:

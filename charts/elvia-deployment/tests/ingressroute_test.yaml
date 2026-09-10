@@ -25,3 +25,111 @@ tests:
         path: "/demo-api"
     asserts:
       - matchSnapshot: {}
+
+  - it: ingressroute should include internal whitelist middleware when exposure is public-ip-filtered
+    set:
+      image.tag: latest
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      service:
+        port: 80
+        targetPort: 8080
+      ingress:
+        subdomain: core
+        path: "/demo-api"
+        exposure: public-ip-filtered
+    asserts:
+      - matchSnapshot: {}
+
+  - it: ingressroute should not include internal whitelist middleware when exposure is public
+    set:
+      image.tag: latest
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      service:
+        port: 80
+        targetPort: 8080
+      ingress:
+        subdomain: core
+        path: "/demo-api"
+        exposure: public
+    asserts:
+      - matchSnapshot: {}
+
+  - it: ingressroute should set internal host when exposure is internal
+    set:
+      image.tag: latest
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      service:
+        port: 80
+        targetPort: 8080
+      ingress:
+        subdomain: core
+        path: "/demo-api"
+        exposure: internal
+    asserts:
+      - equal:
+          path: spec.routes[0].match
+          value: Host(`core.internal.dev-elvia.io`) && PathPrefix(`/demo-api`)
+        documentIndex: 0
+      - matchSnapshot: {}
+
+  - it: ingressroute should use hyphenated sandbox internal host when exposure is internal
+    set:
+      image.tag: latest
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: sandbox
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      service:
+        port: 80
+        targetPort: 8080
+      ingress:
+        subdomain: core
+        path: "/demo-api"
+        exposure: internal
+    asserts:
+      - equal:
+          path: spec.routes[0].match
+          value: Host(`core.internal.sandbox.dev-elvia.io`) && PathPrefix(`/demo-api`)
+        documentIndex: 0
+

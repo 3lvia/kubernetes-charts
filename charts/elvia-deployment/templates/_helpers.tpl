@@ -154,6 +154,22 @@ Create the host of the ingress
 {{- end }}
 
 {{/*
+Create the host of a true-internal (traefik-internal) ingress, served only via the private LB.
+*/}}
+{{- define "ingress.internalHost" -}}
+{{- if not .Values.ingress.subdomain }}
+{{- required "Missing .Values.ingress.subdomain" ""}}
+{{- end }}
+{{- if eq .Values.environment "prod"}}
+{{- printf "%s.internal.elvia.io" .Values.ingress.subdomain }}
+{{- else if eq .Values.environment "sandbox"}}
+{{- printf "%s.internal.sandbox.dev-elvia.io" .Values.ingress.subdomain }}
+{{- else }}
+{{- printf "%s.internal.%s-elvia.io" .Values.ingress.subdomain .Values.environment }}
+{{- end }}
+{{- end }}
+
+{{/*
 Find the limits.cpu in millicores, but capped at 50m
 */}}
 {{- define "resources.limits.cpu.max50m" -}}
