@@ -1,0 +1,16 @@
+{{- /* Renders as a CronJob when .Values.schedule is set (see job.yaml for the one-off variant) */ -}}
+{{- if .Values.schedule }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  {{- include "elvia-job.metadata" . | nindent 2 }}
+spec:
+  schedule: {{ required "Missing .Values.schedule" .Values.schedule | quote }}
+  suspend: {{ .Values.suspend | default false }}
+  concurrencyPolicy: {{ .Values.concurrencyPolicy | default "Forbid" }}
+  successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit | default 3 }}
+  failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit | default 1 }}
+  jobTemplate:
+    spec:
+      {{- include "elvia-job.jobSpec" . | nindent 6 }}
+{{- end }}
