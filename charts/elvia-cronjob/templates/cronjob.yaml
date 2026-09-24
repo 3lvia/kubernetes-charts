@@ -1,9 +1,7 @@
-{{- /* Renders when .Values.kind is "CronJob" - see job.yaml for the one-off variant (the default) */ -}}
-{{- if eq (include "elvia-job.kind" .) "CronJob" }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  {{- include "elvia-job.metadata" . | nindent 2 }}
+  {{- include "elvia-job-common.metadata" . | nindent 2 }}
 spec:
   schedule: {{ required "Missing .Values.schedule" .Values.schedule | quote }}
   suspend: {{ .Values.suspend | default false }}
@@ -12,5 +10,4 @@ spec:
   failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit | default 1 }}
   jobTemplate:
     spec:
-      {{- include "elvia-job.jobSpec" . | nindent 6 }}
-{{- end }}
+      {{- include "elvia-job-common.jobSpec" . | nindent 6 }}

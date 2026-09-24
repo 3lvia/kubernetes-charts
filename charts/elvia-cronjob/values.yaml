@@ -1,17 +1,23 @@
-# Default values for elvia-job.
+# Default values for elvia-cronjob.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# name: demo-job
+# name: demo-cronjob
 # namespace: core
 # environment: dev|test|kptest|prod
+
+# schedule: "0 2 * * *" # required, standard cron syntax
+# suspend: false
+# concurrencyPolicy: Allow|Forbid|Replace # defaults to Forbid
+# successfulJobsHistoryLimit: 3
+# failedJobsHistoryLimit: 1
 
 # backoffLimit: 6
 # completions: 1
 # parallelism: 1
 
 # image:
-#   repository: containerregistryelvia.azurecr.io/core/demo-job
+#   repository: containerregistryelvia.azurecr.io/core/demo-cronjob
 #   tag: latest
 
 # imagePullSecret: containerregistryelvia
@@ -23,10 +29,10 @@
 #   valueFrom:
 #     configMapKeyRef:
 #       key: my_key
-#       name: demo-job
+#       name: demo-cronjob
 
 # envFrom:
-# - name: demo-job
+# - name: demo-cronjob
 
 # resources:
 #   limits:

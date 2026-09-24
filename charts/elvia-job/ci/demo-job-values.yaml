@@ -1,0 +1,13 @@
+---
+name: job-chart-testing
+namespace: core
+environment: dev
+
+image:
+  repository: mcr.microsoft.com/dotnet/samples
+  tag: aspnetapp
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi

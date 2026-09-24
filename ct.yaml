@@ -1,6 +1,9 @@
 chart-dirs:
   - .
-charts: 
-  - elvia-deployment
+charts:
+  - charts/elvia-deployment
+  - charts/elvia-statefulset
+  - charts/elvia-job
+  - charts/elvia-cronjob
 
 validate-maintainers: false

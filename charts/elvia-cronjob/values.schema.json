@@ -17,36 +17,31 @@
     "environment": {
       "$id": "#root/environment",
       "type": "string"
+    },
+    "schedule": {
+      "$id": "#root/schedule",
+      "type": "string"
+    },
+    "concurrencyPolicy": {
+      "$id": "#root/concurrencyPolicy",
+      "type": "string",
+      "pattern": "^(Allow|Forbid|Replace)$"
     }
   },
   "examples": [
     {
-      "name": "demo-job",
+      "name": "demo-cronjob",
       "namespace": "core",
       "environment": "dev",
-      "backoffLimit": 6,
-      "completions": 1,
-      "parallelism": 1,
+      "schedule": "0 2 * * *",
+      "concurrencyPolicy": "Forbid",
+      "successfulJobsHistoryLimit": 3,
+      "failedJobsHistoryLimit": 1,
       "image": {
-        "repository": "containerregistryelvia.azurecr.io/core/demo-job",
+        "repository": "containerregistryelvia.azurecr.io/core/demo-cronjob",
         "tag": "20200921.2"
       },
       "imagePullSecret": "containerregistryelvia",
-      "env": [
-        {
-          "name": "ASPNETCORE_URLS",
-          "value": "http://+:8080"
-        },
-        {
-          "name": "my_key_from_config_map",
-          "valueFrom": {
-            "configMapKeyRef": {
-              "key": "my_key",
-              "name": "demo-job"
-            }
-          }
-        }
-      ],
       "resources": {
         "limits": {
           "cpu": "100m",

@@ -1,10 +1,7 @@
-{{- /* Renders when .Values.kind is "Job" (the default) - see cronjob.yaml for the scheduled variant */ -}}
-{{- if eq (include "elvia-job.kind" .) "Job" }}
 apiVersion: batch/v1
 kind: Job
 metadata:
-  {{- include "elvia-job.metadata" . | nindent 2 }}
+  {{- include "elvia-job-common.metadata" . | nindent 2 }}
 spec:
-  {{- include "elvia-job.jobSpec" . | nindent 2 }}
-{{- end }}
+  {{- include "elvia-job-common.jobSpec" . | nindent 2 }}
 

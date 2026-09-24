@@ -1,0 +1,5 @@
+apiVersion: v2
+name: elvia-job-common
+description: Shared templates for the elvia-job and elvia-cronjob Helm charts. Not deployable on its own.
+type: library
+version: 0.1.0

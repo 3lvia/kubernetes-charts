@@ -1,0 +1,15 @@
+---
+name: cronjob-chart-testing
+namespace: core
+environment: dev
+
+schedule: "0 2 * * *"
+
+image:
+  repository: mcr.microsoft.com/dotnet/samples
+  tag: aspnetapp
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi

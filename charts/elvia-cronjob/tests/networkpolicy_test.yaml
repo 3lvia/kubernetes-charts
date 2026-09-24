@@ -1,0 +1,33 @@
+suite: test networkpolicy
+templates:
+  - networkpolicy.yaml
+tests:
+  - it: networkpolicy snapshot should match
+    set:
+      name: demo-cronjob
+      namespace: core
+      environment: dev
+      schedule: '0 2 * * *'
+      accessPolicy:
+        inbound:
+          rules:
+            - namespace: core
+              application: demo-api
+        outbound:
+          rules:
+            - namespace: core
+              application: demo-api
+    asserts:
+      - isKind:
+          of: NetworkPolicy
+      - matchSnapshot: {}
+
+  - it: is not rendered when .Values.accessPolicy is not set
+    set:
+      name: demo-cronjob
+      namespace: core
+      environment: dev
+      schedule: '0 2 * * *'
+    asserts:
+      - hasDocuments:
+          count: 0
