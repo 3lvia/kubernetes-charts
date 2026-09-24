@@ -6,6 +6,21 @@ Expand the name of the chart.
 {{- end }}
 
 {{/*
+Validates and returns .Values.kind ("Job" or "CronJob", defaults to "Job").
+CronJob additionally requires .Values.schedule to be set.
+*/}}
+{{- define "elvia-job.kind" -}}
+{{- $kind := .Values.kind | default "Job" -}}
+{{- if not (or (eq $kind "Job") (eq $kind "CronJob")) }}
+{{- fail (printf "%s is not a valid .Values.kind. Must be Job or CronJob" $kind) }}
+{{- end }}
+{{- if and (eq $kind "CronJob") (not .Values.schedule) }}
+{{- fail "Missing .Values.schedule (required when .Values.kind is CronJob)" }}
+{{- end }}
+{{- $kind -}}
+{{- end -}}
+
+{{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.

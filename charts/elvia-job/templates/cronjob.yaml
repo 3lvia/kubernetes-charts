@@ -1,5 +1,5 @@
-{{- /* Renders as a CronJob when .Values.schedule is set (see job.yaml for the one-off variant) */ -}}
-{{- if .Values.schedule }}
+{{- /* Renders when .Values.kind is "CronJob" - see job.yaml for the one-off variant (the default) */ -}}
+{{- if eq (include "elvia-job.kind" .) "CronJob" }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:

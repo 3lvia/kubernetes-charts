@@ -1,0 +1,64 @@
+job snapshot should match:
+  1: |
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: demo-job
+      namespace: core
+    spec:
+      backoffLimit: 6
+      completions: 1
+      parallelism: 1
+      template:
+        metadata:
+          annotations:
+            kubectl.kubernetes.io/default-container: demo-job
+          labels:
+            app: demo-job
+            azure.workload.identity/use: "true"
+            microservice-type: job
+        spec:
+          containers:
+            - env:
+                - name: ELVIA_APPLICATION_NAMESPACE
+                  value: core
+                - name: ELVIA_APPLICATION_NAME
+                  value: demo-job
+                - name: ELVIA_ENVIRONMENT
+                  value: dev
+                - name: ELVIA_WORKLOAD_IDENTITY_NAME
+                  value: uai-core-demo-job-dev
+                - name: OTEL_EXPORTER_OTLP_PROTOCOL
+                  value: grpc
+                - name: OTEL_EXPORTER_OTLP_ENDPOINT
+                  value: http://otel-collector.monitoring.svc.cluster.local:4317
+                - name: OTEL_SERVICE_NAME
+                  value: demo-job
+              image: containerregistryelvia.azurecr.io/core/demo-job:latest
+              imagePullPolicy: Always
+              name: demo-job
+              resources:
+                limits:
+                  cpu: 100m
+                  memory: 128Mi
+                requests:
+                  cpu: 50m
+                  memory: 100Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                runAsNonRoot: true
+          imagePullSecrets:
+            - name: containerregistryelvia
+          restartPolicy: Never
+          securityContext:
+            fsGroup: 1001
+            runAsGroup: 1001
+            runAsUser: 1001
+            seccompProfile:
+              type: RuntimeDefault
+            supplementalGroups:
+              - 1001
+          serviceAccountName: demo-job

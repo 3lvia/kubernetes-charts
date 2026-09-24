@@ -1,0 +1,68 @@
+suite: test job
+templates:
+  - job.yaml
+tests:
+  - it: job snapshot should match
+    set:
+      name: demo-job
+      namespace: core
+      environment: dev
+      image:
+        tag: latest
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+    asserts:
+      - isKind:
+          of: Job
+      - matchSnapshot: {}
+
+  - it: is not rendered when kind is CronJob
+    set:
+      name: demo-job
+      namespace: core
+      environment: dev
+      image:
+        tag: latest
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+      kind: CronJob
+      schedule: '0 2 * * *'
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: fails when kind is neither Job nor CronJob
+    set:
+      name: demo-job
+      namespace: core
+      environment: dev
+      image:
+        tag: latest
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+      kind: Deployment
+    asserts:
+      - failedTemplate:
+          errorMessage: Deployment is not a valid .Values.kind. Must be Job or CronJob
+
+  - it: fails when kind is CronJob without a schedule
+    set:
+      name: demo-job
+      namespace: core
+      environment: dev
+      image:
+        tag: latest
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+      kind: CronJob
+    asserts:
+      - failedTemplate:
+          errorMessage: Missing .Values.schedule (required when .Values.kind is CronJob)

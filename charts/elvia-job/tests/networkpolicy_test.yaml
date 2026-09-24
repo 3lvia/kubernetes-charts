@@ -1,0 +1,31 @@
+suite: test networkpolicy
+templates:
+  - networkpolicy.yaml
+tests:
+  - it: networkpolicy snapshot should match
+    set:
+      name: demo-job
+      namespace: core
+      environment: dev
+      accessPolicy:
+        inbound:
+          rules:
+            - namespace: core
+              application: demo-api
+        outbound:
+          rules:
+            - namespace: core
+              application: demo-api
+    asserts:
+      - isKind:
+          of: NetworkPolicy
+      - matchSnapshot: {}
+
+  - it: is not rendered when .Values.accessPolicy is not set
+    set:
+      name: demo-job
+      namespace: core
+      environment: dev
+    asserts:
+      - hasDocuments:
+          count: 0

@@ -1,0 +1,67 @@
+suite: test cronjob
+templates:
+  - cronjob.yaml
+tests:
+  - it: cronjob snapshot should match
+    set:
+      name: demo-job
+      namespace: core
+      environment: dev
+      image:
+        tag: latest
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+      kind: CronJob
+      schedule: '0 2 * * *'
+    asserts:
+      - isKind:
+          of: CronJob
+      - matchSnapshot: {}
+
+  - it: is not rendered when kind is Job (the default)
+    set:
+      name: demo-job
+      namespace: core
+      environment: dev
+      image:
+        tag: latest
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: honors suspend, concurrencyPolicy and job history limits when set
+    set:
+      name: demo-job
+      namespace: core
+      environment: dev
+      image:
+        tag: latest
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+      kind: CronJob
+      schedule: '0 2 * * *'
+      suspend: true
+      concurrencyPolicy: Replace
+      successfulJobsHistoryLimit: 1
+      failedJobsHistoryLimit: 2
+    asserts:
+      - equal:
+          path: spec.suspend
+          value: true
+      - equal:
+          path: spec.concurrencyPolicy
+          value: Replace
+      - equal:
+          path: spec.successfulJobsHistoryLimit
+          value: 1
+      - equal:
+          path: spec.failedJobsHistoryLimit
+          value: 2
