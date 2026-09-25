@@ -114,3 +114,116 @@ tests:
           memory: 500Mi
     asserts:
       - matchSnapshot: {}
+
+  - it: deployment should fail when microserviceType is worker and readinessProbe is defined
+    set:
+      image.tag: latest
+      name: demo-worker
+      namespace: core
+      microserviceType: worker
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      readinessProbe:
+        httpGet:
+          path: /healthz
+          port: 8080
+    asserts:
+      - failedTemplate:
+          errorMessage: readinessProbe is not allowed when microserviceType is worker
+
+  - it: deployment should fail when microserviceType is worker and livenessProbe is defined
+    set:
+      image.tag: latest
+      name: demo-worker
+      namespace: core
+      microserviceType: worker
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      livenessProbe:
+        httpGet:
+          path: /healthz
+          port: 8080
+    asserts:
+      - failedTemplate:
+          errorMessage: livenessProbe is not allowed when microserviceType is worker
+
+  - it: deployment should fail when microserviceType is worker and startupProbe is defined
+    set:
+      image.tag: latest
+      name: demo-worker
+      namespace: core
+      microserviceType: worker
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      startupProbe:
+        httpGet:
+          path: /healthz
+          port: 8080
+    asserts:
+      - failedTemplate:
+          errorMessage: startupProbe is not allowed when microserviceType is worker
+
+  - it: deployment should fail when microserviceType is worker and ingress is defined
+    set:
+      image.tag: latest
+      name: demo-worker
+      namespace: core
+      microserviceType: worker
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      ingress:
+        subdomain: core
+        path: "/demo-worker"
+    asserts:
+      - failedTemplate:
+          errorMessage: ingress is not allowed when microserviceType is worker
+
+  - it: deployment should fail when microserviceType is worker and service is defined
+    set:
+      image.tag: latest
+      name: demo-worker
+      namespace: core
+      microserviceType: worker
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      service:
+        port: 80
+        targetPort: 8080
+    asserts:
+      - failedTemplate:
+          errorMessage: service is not allowed when microserviceType is worker
