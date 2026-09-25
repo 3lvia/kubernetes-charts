@@ -22,6 +22,10 @@
       "$id": "#root/schedule",
       "type": "string"
     },
+    "timeZone": {
+      "$id": "#root/timeZone",
+      "type": "string"
+    },
     "concurrencyPolicy": {
       "$id": "#root/concurrencyPolicy",
       "type": "string",
@@ -34,6 +38,7 @@
       "namespace": "core",
       "environment": "dev",
       "schedule": "0 2 * * *",
+      "timeZone": "Europe/Oslo",
       "concurrencyPolicy": "Forbid",
       "successfulJobsHistoryLimit": 3,
       "failedJobsHistoryLimit": 1,

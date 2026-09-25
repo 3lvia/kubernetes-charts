@@ -7,6 +7,7 @@
 # environment: dev|test|kptest|prod
 
 # schedule: "0 2 * * *" # required, standard cron syntax
+# timeZone: Europe/Oslo
 # suspend: false
 # concurrencyPolicy: Allow|Forbid|Replace # defaults to Forbid
 # successfulJobsHistoryLimit: 3

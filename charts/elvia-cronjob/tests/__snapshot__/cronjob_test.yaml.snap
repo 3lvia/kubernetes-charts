@@ -69,3 +69,4 @@ cronjob snapshot should match:
       schedule: 0 2 * * *
       successfulJobsHistoryLimit: 3
       suspend: false
+      timeZone: Europe/Oslo
