@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  {{- include "elvia-job-common.metadata" . | nindent 2 }}
+spec:
+  schedule: {{ required "Missing .Values.schedule" .Values.schedule | quote }}
+  timeZone: {{ .Values.timeZone | default "Europe/Oslo" | quote }}
+  suspend: {{ .Values.suspend | default false }}
+  concurrencyPolicy: {{ .Values.concurrencyPolicy | default "Forbid" }}
+  successfulJobsHistoryLimit: {{ if hasKey .Values "successfulJobsHistoryLimit" }}{{ .Values.successfulJobsHistoryLimit }}{{ else }}3{{ end }}
+  failedJobsHistoryLimit: {{ if hasKey .Values "failedJobsHistoryLimit" }}{{ .Values.failedJobsHistoryLimit }}{{ else }}1{{ end }}
+  jobTemplate:
+    spec:
+      {{- include "elvia-job-common.jobSpec" . | nindent 6 }}

@@ -1,0 +1,94 @@
+# Default values for elvia-cronjob.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# name: demo-cronjob
+# namespace: core
+# environment: dev|test|kptest|prod
+
+# schedule: "0 2 * * *" # required, standard cron syntax
+# timeZone: Europe/Oslo
+# suspend: false
+# concurrencyPolicy: Allow|Forbid|Replace # defaults to Forbid
+# successfulJobsHistoryLimit: 3
+# failedJobsHistoryLimit: 1
+
+# backoffLimit: 6
+# completions: 1
+# parallelism: 1
+
+# image:
+#   repository: containerregistryelvia.azurecr.io/core/demo-cronjob
+#   tag: latest
+
+# imagePullSecret: containerregistryelvia
+
+# env:
+# - name: ASPNETCORE_URLS
+#   value: http://+:8080
+# - name: my_key_from_config_map
+#   valueFrom:
+#     configMapKeyRef:
+#       key: my_key
+#       name: demo-cronjob
+
+# envFrom:
+# - name: demo-cronjob
+
+# resources:
+#   limits:
+#     cpu: 100m
+#     memory: 128Mi
+#   requests:
+#     cpu: 100m
+#     memory: 128Mi
+#   # per-environment overrides, fall back to resources.limits/requests above when omitted
+#   dev:
+#     limits:
+#       cpu: 100m
+#       memory: 128Mi
+#   test:
+#     limits:
+#       cpu: 100m
+#       memory: 128Mi
+#     requests:
+#       cpu: 100m
+#       memory: 128Mi
+#   prod:
+#     limits:
+#       cpu: 100m
+#       memory: 128Mi
+#     requests:
+#       cpu: 100m
+#       memory: 128Mi
+
+# securityContext:
+#   seccompProfile:
+#     type: RuntimeDefault
+#   runAsUser: 1001
+#   runAsGroup: 1001
+#   fsGroup: 1001
+#   supplementalGroups: [1001]
+
+# labels:
+#   repositoryName: my-repo
+#   commitHash: abc1234
+#   deployedBy: github-actions
+
+# configmap:
+#   dev:
+#     my_key: my_value
+
+# secret:
+#   dev:
+#     api_key: '__API_KEY_TO_BE_REPLACED_DEV__'
+
+# accessPolicy:
+#   inbound:
+#     rules:
+#     - namespace: core
+#       application: demo-api
+#   outbound:
+#     rules:
+#     - namespace: core
+#       application: demo-api

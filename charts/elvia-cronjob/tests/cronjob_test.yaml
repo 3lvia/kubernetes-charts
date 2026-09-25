@@ -1,0 +1,93 @@
+suite: test cronjob
+templates:
+  - cronjob.yaml
+tests:
+  - it: cronjob snapshot should match
+    set:
+      name: demo-cronjob
+      namespace: core
+      environment: dev
+      schedule: '0 2 * * *'
+      image:
+        tag: latest
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+    asserts:
+      - isKind:
+          of: CronJob
+      - equal:
+          path: spec.timeZone
+          value: Europe/Oslo
+      - matchSnapshot: {}
+
+  - it: honors suspend, concurrencyPolicy and job history limits when set
+    set:
+      name: demo-cronjob
+      namespace: core
+      environment: dev
+      schedule: '0 2 * * *'
+      image:
+        tag: latest
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+      suspend: true
+      concurrencyPolicy: Replace
+      successfulJobsHistoryLimit: 1
+      failedJobsHistoryLimit: 2
+    asserts:
+      - equal:
+          path: spec.suspend
+          value: true
+      - equal:
+          path: spec.concurrencyPolicy
+          value: Replace
+      - equal:
+          path: spec.successfulJobsHistoryLimit
+          value: 1
+      - equal:
+          path: spec.failedJobsHistoryLimit
+          value: 2
+
+  - it: honors a custom time zone
+    set:
+      name: demo-cronjob
+      namespace: core
+      environment: dev
+      schedule: '0 2 * * *'
+      timeZone: UTC
+      image:
+        tag: latest
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+    asserts:
+      - equal:
+          path: spec.timeZone
+          value: UTC
+
+  - it: honors zero job history limits
+    set:
+      name: demo-cronjob
+      namespace: core
+      environment: dev
+      schedule: '0 2 * * *'
+      image:
+        tag: latest
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+      successfulJobsHistoryLimit: 0
+      failedJobsHistoryLimit: 0
+    asserts:
+      - equal:
+          path: spec.successfulJobsHistoryLimit
+          value: 0
+      - equal:
+          path: spec.failedJobsHistoryLimit
+          value: 0

@@ -44,6 +44,9 @@ jobs:
           kubectl -n core create sa pushreceiver-chart-testing
           kubectl -n core create sa webapi-chart-testing
           kubectl -n core create sa worker-chart-testing
+          kubectl -n core create sa job-chart-testing
+          kubectl -n core create sa cronjob-chart-testing
+          kubectl -n core create sa calculationworker
 
       - name: Test kubectl
         run: |

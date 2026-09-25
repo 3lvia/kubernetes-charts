@@ -1,0 +1,25 @@
+suite: test configmap
+templates:
+  - configmap.yaml
+tests:
+  - it: configmap snapshot should match
+    set:
+      name: demo-job
+      namespace: core
+      environment: dev
+      configmap:
+        dev:
+          adgroup.read: '0dd44cf4-d269-11ef-8aa0-00155d10f9e8'
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - matchSnapshot: {}
+
+  - it: is not rendered when .Values.configmap is not set
+    set:
+      name: demo-job
+      namespace: core
+      environment: dev
+    asserts:
+      - hasDocuments:
+          count: 0

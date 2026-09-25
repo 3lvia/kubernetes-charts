@@ -1,0 +1,19 @@
+suite: test job
+templates:
+  - job.yaml
+tests:
+  - it: job snapshot should match
+    set:
+      name: demo-job
+      namespace: core
+      environment: dev
+      image:
+        tag: latest
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+    asserts:
+      - isKind:
+          of: Job
+      - matchSnapshot: {}

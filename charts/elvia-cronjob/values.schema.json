@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "properties": {
+    "name": {
+      "$id": "#root/name",
+      "type": "string"
+    },
+    "namespace": {
+      "$id": "#root/namespace",
+      "type": "string"
+    },
+    "environment": {
+      "$id": "#root/environment",
+      "type": "string"
+    },
+    "schedule": {
+      "$id": "#root/schedule",
+      "type": "string"
+    },
+    "timeZone": {
+      "$id": "#root/timeZone",
+      "type": "string"
+    },
+    "concurrencyPolicy": {
+      "$id": "#root/concurrencyPolicy",
+      "type": "string",
+      "pattern": "^(Allow|Forbid|Replace)$"
+    }
+  },
+  "examples": [
+    {
+      "name": "demo-cronjob",
+      "namespace": "core",
+      "environment": "dev",
+      "schedule": "0 2 * * *",
+      "timeZone": "Europe/Oslo",
+      "concurrencyPolicy": "Forbid",
+      "successfulJobsHistoryLimit": 3,
+      "failedJobsHistoryLimit": 1,
+      "image": {
+        "repository": "containerregistryelvia.azurecr.io/core/demo-cronjob",
+        "tag": "20200921.2"
+      },
+      "imagePullSecret": "containerregistryelvia",
+      "resources": {
+        "limits": {
+          "cpu": "100m",
+          "memory": "128Mi"
+        },
+        "requests": {
+          "cpu": "100m",
+          "memory": "128Mi"
+        }
+      }
+    }
+  ]
+}
