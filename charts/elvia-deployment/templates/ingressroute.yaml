@@ -9,10 +9,18 @@ spec:
   - kind: Rule
     match: Host(`{{ include "ingress.host" . }}`) && PathPrefix(`{{ required "Missing .Values.ingress.path" .Values.ingress.path }}`)
     {{- if .Values.ingress.routemiddlewares }}
+    {{- if .Values.ingress.elviaNetworkOnly }}
+    {{- fail "ingress.elviaNetworkOnly cannot be combined with ingress.routemiddlewares. Add {name: elvia-network-only, namespace: dns} to routemiddlewares instead." }}
+    {{- end }}
     middlewares: {{- toYaml .Values.ingress.routemiddlewares | nindent 4 }}
     {{- else }}
     middlewares:
     - name: {{ required "Missing .Values.name" .Values.name }}-stripprefix
+    {{- if .Values.ingress.elviaNetworkOnly }}
+    # Shared allowlist maintained by Core in 3lvia/argocd (dns namespace).
+    - name: elvia-network-only
+      namespace: dns
+    {{- end }}
     - name: hsts-header
       namespace: dns
     - name: remove-metrics
