@@ -25,3 +25,61 @@ tests:
         path: "/demo-api"
     asserts:
       - matchSnapshot: {}
+  - it: elviaNetworkOnly adds the shared allowlist after stripprefix
+    set:
+      image.tag: latest
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      service:
+        port: 80
+        targetPort: 8080
+      ingress:
+        subdomain: core
+        path: "/demo-api"
+        elviaNetworkOnly: true
+    asserts:
+      - matchSnapshot: {}
+      - equal:
+          path: spec.routes[0].middlewares[1]
+          value:
+            name: elvia-network-only
+            namespace: dns
+        documentIndex: 0
+  - it: elviaNetworkOnly together with routemiddlewares fails
+    set:
+      image.tag: latest
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 500Mi
+      service:
+        port: 80
+        targetPort: 8080
+      ingress:
+        subdomain: core
+        path: "/demo-api"
+        elviaNetworkOnly: true
+        routemiddlewares:
+          - name: hsts-header
+            namespace: dns
+    asserts:
+      - failedTemplate:
+          errorPattern: "ingress.elviaNetworkOnly cannot be combined with ingress.routemiddlewares"
