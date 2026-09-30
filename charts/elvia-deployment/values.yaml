@@ -88,7 +88,7 @@
 #   path: "/mypath"
 #   port: 80 # 80 default
 #   enforceApiManagement: false # Enable to only allow calls coming from Api Management. If true the subdomain MUST be 'api'.
-#   elviaNetworkOnly: false # Enable to only allow calls from the Elvia office network and VPN (AKS and GKE, not the sandbox cluster). A network gate, not authentication. Cannot be combined with routemiddlewares.
+#   elviaNetworkOnly: false # Enable to only allow calls from the Elvia office network and VPN (AKS and GKE, not the sandbox cluster). A network gate, not authentication. Cannot be combined with routemiddlewares or enforceApiManagement.
 #   routemiddlewares:
 #     - name: hsts-header
 #       namespace: dns
