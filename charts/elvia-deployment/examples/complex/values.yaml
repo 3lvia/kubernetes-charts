@@ -132,7 +132,8 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
 
 
-securityContext: # If you set the securityContext, you must set all the properties
+# Custom context replaces user/group defaults; seccomp defaults to RuntimeDefault.
+securityContext:
   seccompProfile:
     type: RuntimeDefault
   runAsUser: 1001

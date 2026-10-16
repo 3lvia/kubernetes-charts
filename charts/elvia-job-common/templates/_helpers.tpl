@@ -160,7 +160,7 @@ template:
     - name: containerregistryelvia
     {{- end}}
     {{- if .Values.securityContext }}
-    securityContext: {{- toYaml .Values.securityContext | nindent 6 }}
+    securityContext: {{- toYaml (mergeOverwrite (dict "seccompProfile" (dict "type" "RuntimeDefault")) (deepCopy .Values.securityContext)) | nindent 6 }}
     {{- else }}
     securityContext:
       seccompProfile:

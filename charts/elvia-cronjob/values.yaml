@@ -62,6 +62,7 @@
 #       cpu: 100m
 #       memory: 128Mi
 
+# Custom context replaces user/group defaults; seccomp defaults to RuntimeDefault.
 # securityContext:
 #   seccompProfile:
 #     type: RuntimeDefault

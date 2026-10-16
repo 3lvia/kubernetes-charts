@@ -18,6 +18,16 @@ tests:
           cpu: 400m
           memory: 500Mi
     asserts:
+      - equal:
+          path: spec.template.spec.securityContext.seccompProfile.type
+          value: RuntimeDefault
+      - equal:
+          path: spec.template.spec.containers[0].securityContext
+          value:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
+            runAsNonRoot: true
       - matchSnapshot: {}
 
   - it: deployment snapshot should match for dev-specific image when environment is dev
@@ -114,3 +124,63 @@ tests:
           memory: 500Mi
     asserts:
       - matchSnapshot: {}
+
+  - it: applies restricted settings to sidecars
+    set: &restrictedValues
+      image.tag: latest
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: dev
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+      sidecars:
+        - name: helper
+          image:
+            repository: example/helper
+            tag: latest
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[1].securityContext
+          value:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
+            runAsNonRoot: true
+
+  - it: defaults seccomp without changing custom user and group settings
+    set:
+      <<: *restrictedValues
+      securityContext:
+        runAsUser: 2000
+        fsGroup: 3000
+    asserts:
+      - equal:
+          path: spec.template.spec.securityContext
+          value:
+            runAsUser: 2000
+            fsGroup: 3000
+            seccompProfile:
+              type: RuntimeDefault
+
+  - it: preserves an explicit localhost seccomp profile
+    set:
+      <<: *restrictedValues
+      securityContext:
+        seccompProfile:
+          type: Localhost
+          localhostProfile: profiles/custom.json
+    asserts:
+      - equal:
+          path: spec.template.spec.securityContext
+          value:
+            seccompProfile:
+              type: Localhost
+              localhostProfile: profiles/custom.json
