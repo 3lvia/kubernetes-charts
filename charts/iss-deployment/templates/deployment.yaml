@@ -61,13 +61,14 @@ spec:
     metadata:
       annotations:
         kubectl.kubernetes.io/default-container: {{ required "Missing .Values.name" .Values.name }}
-        traffic.sidecar.istio.io/excludeOutboundPorts: "9092"
       labels:
         app: {{ required "Missing .Values.name" .Values.name }}
         microservice-type: {{ required "Missing .Values.microserviceType" .Values.microserviceType }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
+      annotations:
+        traffic.sidecar.istio.io/excludeOutboundPorts: "9092"
     spec:
       serviceAccountName: {{ required "Missing .Values.name" .Values.name }}
       securityContext:
@@ -119,10 +120,6 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
-          runAsNonRoot: true
           # readOnlyRootFilesystem: true
         resources:
           {{- toYaml .Values.resources | nindent 10 }}

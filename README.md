@@ -29,10 +29,14 @@ helm show values elvia-deployment/elvia-deployment
 
 ## Pod Security Restricted
 
-All workload charts default to settings compatible with Linux Pod Security
+The Elvia workload charts default to settings compatible with Linux Pod Security
 `restricted`: `allowPrivilegeEscalation: false`, `runAsNonRoot: true`, all Linux
 capabilities dropped, and pod-level `seccompProfile.type: RuntimeDefault`.
 `readOnlyRootFilesystem` is not required by this policy and is not enabled.
+
+The legacy `iss-deployment` chart is unchanged and does not meet `restricted`
+requirements. Do not enforce this policy on its namespaces without a separate
+review and migration.
 
 For `elvia-deployment`, `elvia-job` and `elvia-cronjob`, a custom pod
 `securityContext` still replaces the default user/group settings. Seccomp defaults
@@ -47,11 +51,11 @@ Custom `volumes` must use allowed types, such as `configMap`, `secret`, `emptyDi
 
 - Upgrade chart releases before enforcing the policy on their namespaces.
 	These charts do not manage Namespace resources or their labels.
-- Deployment sidecars, StatefulSets and ISS Deployments now drop all
+- Deployment sidecars and StatefulSets now drop all
 	capabilities. Images that need capabilities (for example, to bind privileged
 	ports on some runtimes) may fail. Prefer unprivileged ports; `restricted` only
 	permits adding back `NET_BIND_SERVICE`, which these charts do not add.
-	StatefulSets and ISS Deployments already used UID 1001 and now explicitly
+	StatefulSets already used UID 1001 and now explicitly
 	require non-root execution as well.
 - Check admission-injected sidecars and init containers too. In particular,
 	Istio's iptables init container commonly requires root/`NET_ADMIN`, which is
@@ -87,7 +91,7 @@ Commit the resulting `Chart.lock` files and `charts/elvia-job-common-*.tgz` file
 Unit testing
 ```sh
 helm plugin install https://github.com/helm-unittest/helm-unittest.git
-helm unittest charts/elvia-deployment charts/elvia-statefulset charts/iss-deployment charts/elvia-job charts/elvia-cronjob
+helm unittest charts/elvia-deployment charts/elvia-statefulset charts/elvia-job charts/elvia-cronjob
 ```
 
 Local
