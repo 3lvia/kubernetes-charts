@@ -3,7 +3,7 @@ templates:
   - cronjob.yaml
 tests:
   - it: cronjob snapshot should match
-    set:
+    set: &cronjobValues
       name: demo-cronjob
       namespace: core
       environment: dev
@@ -20,6 +20,16 @@ tests:
       - equal:
           path: spec.timeZone
           value: Europe/Oslo
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.securityContext.seccompProfile.type
+          value: RuntimeDefault
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].securityContext
+          value:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
+            runAsNonRoot: true
       - matchSnapshot: {}
 
   - it: honors suspend, concurrencyPolicy and job history limits when set
@@ -91,3 +101,33 @@ tests:
       - equal:
           path: spec.failedJobsHistoryLimit
           value: 0
+
+  - it: defaults seccomp without changing custom user and group settings
+    set:
+      <<: *cronjobValues
+      securityContext:
+        runAsUser: 2000
+        fsGroup: 3000
+    asserts:
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.securityContext
+          value:
+            runAsUser: 2000
+            fsGroup: 3000
+            seccompProfile:
+              type: RuntimeDefault
+
+  - it: preserves an explicit localhost seccomp profile
+    set:
+      <<: *cronjobValues
+      securityContext:
+        seccompProfile:
+          type: Localhost
+          localhostProfile: profiles/custom.json
+    asserts:
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.securityContext
+          value:
+            seccompProfile:
+              type: Localhost
+              localhostProfile: profiles/custom.json

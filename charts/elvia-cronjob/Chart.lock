@@ -1,6 +1,6 @@
 dependencies:
 - name: elvia-job-common
   repository: file://../elvia-job-common
-  version: 0.1.0
-digest: sha256:9ffef700e3dd36009aad53dc60903dbcfe6d3f0c6147f18600aa42a6719d2de3
-generated: "2026-09-24T12:33:01.4892134+02:00"
+  version: 0.2.0
+digest: sha256:e5d49813d6a5b00fbd884ac2e74b554b00ae26ee05632c25894b2e5718efc8d6
+generated: "2026-10-16T12:35:33.6108408+02:00"

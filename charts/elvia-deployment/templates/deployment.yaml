@@ -83,7 +83,7 @@ spec:
       - name: containerregistryelvia
       {{- end}}
       {{- if .Values.securityContext }}
-      securityContext: {{- toYaml .Values.securityContext | nindent 8 }}
+      securityContext: {{- toYaml (mergeOverwrite (dict "seccompProfile" (dict "type" "RuntimeDefault")) (deepCopy .Values.securityContext)) | nindent 8 }}
       {{- else }}
       securityContext:
         seccompProfile:
@@ -291,6 +291,9 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
           runAsNonRoot: true
         resources:
          {{- if $sidecarValue.resources}}

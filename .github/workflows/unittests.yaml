@@ -24,5 +24,7 @@ jobs:
         run: |
           helm plugin install https://github.com/helm-unittest/helm-unittest.git
           helm unittest charts/elvia-deployment
+          helm unittest charts/elvia-statefulset
+          helm unittest charts/iss-deployment
           helm unittest charts/elvia-job
           helm unittest charts/elvia-cronjob

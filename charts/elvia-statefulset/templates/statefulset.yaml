@@ -107,6 +107,10 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
           # readOnlyRootFilesystem: true
         resources:
           {{- toYaml .Values.resources | nindent 10 }}

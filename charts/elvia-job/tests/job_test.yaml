@@ -3,7 +3,7 @@ templates:
   - job.yaml
 tests:
   - it: job snapshot should match
-    set:
+    set: &jobValues
       name: demo-job
       namespace: core
       environment: dev
@@ -16,4 +16,44 @@ tests:
     asserts:
       - isKind:
           of: Job
+      - equal:
+          path: spec.template.spec.securityContext.seccompProfile.type
+          value: RuntimeDefault
+      - equal:
+          path: spec.template.spec.containers[0].securityContext
+          value:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
+            runAsNonRoot: true
       - matchSnapshot: {}
+
+  - it: defaults seccomp without changing custom user and group settings
+    set:
+      <<: *jobValues
+      securityContext:
+        runAsUser: 2000
+        fsGroup: 3000
+    asserts:
+      - equal:
+          path: spec.template.spec.securityContext
+          value:
+            runAsUser: 2000
+            fsGroup: 3000
+            seccompProfile:
+              type: RuntimeDefault
+
+  - it: preserves an explicit localhost seccomp profile
+    set:
+      <<: *jobValues
+      securityContext:
+        seccompProfile:
+          type: Localhost
+          localhostProfile: profiles/custom.json
+    asserts:
+      - equal:
+          path: spec.template.spec.securityContext
+          value:
+            seccompProfile:
+              type: Localhost
+              localhostProfile: profiles/custom.json
