@@ -30,6 +30,68 @@ tests:
             runAsNonRoot: true
       - matchSnapshot: {}
 
+  - it: image is pinned by digest when image.digest is set
+    set:
+      image.tag: 1.2.3
+      image.digest: sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 200m
+          memory: 256Mi
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: containerregistryelvia.azurecr.io/core/demo-api:1.2.3@sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+
+  - it: image is pinned by environment-specific digest when image.<env>.digest is set
+    set:
+      image.test.tag: test
+      image.test.digest: sha256:fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: test
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 200m
+          memory: 256Mi
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: containerregistryelvia.azurecr.io/core/demo-api:test@sha256:fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210
+
+  - it: image is not pinned when image.digest is unset
+    set:
+      image.tag: 1.2.3
+      name: demo-api
+      namespace: core
+      microserviceType: webapi
+      environment: dev
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 200m
+          memory: 256Mi
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: containerregistryelvia.azurecr.io/core/demo-api:1.2.3
+
   - it: deployment snapshot should match for dev-specific image when environment is dev
     set:
       image.dev.tag: dev
