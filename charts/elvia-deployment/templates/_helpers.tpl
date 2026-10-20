@@ -92,33 +92,47 @@ or environment-specific:
 */}}
 {{- define "image" -}}
 {{- $imagetag := .Values.image.tag }}
+{{- $imagedigest := .Values.image.digest }}
 {{- $imagerepository := .Values.image.repository }}
 {{- if and (eq .Values.environment "sandbox") .Values.image.sandbox }}
 {{- $imagerepository = .Values.image.sandbox.repository }}
 {{- $imagetag = .Values.image.sandbox.tag }}
+{{- $imagedigest = .Values.image.sandbox.digest }}
 {{- end }}
 {{- if and (eq .Values.environment "dev") .Values.image.dev }}
 {{- $imagerepository = .Values.image.dev.repository }}
 {{- $imagetag = .Values.image.dev.tag }}
+{{- $imagedigest = .Values.image.dev.digest }}
 {{- end }}
 {{- if and (eq .Values.environment "kptest") .Values.image.kptest }}
 {{- $imagerepository = .Values.image.kptest.repository }}
 {{- $imagetag = .Values.image.kptest.tag }}
+{{- $imagedigest = .Values.image.kptest.digest }}
 {{- end }}
 {{- if and (eq .Values.environment "test") .Values.image.test }}
 {{- $imagerepository = .Values.image.test.repository }}
 {{- $imagetag = .Values.image.test.tag }}
+{{- $imagedigest = .Values.image.test.digest }}
 {{- end }}
 {{- if and (eq .Values.environment "prod") .Values.image.prod }}
 {{- $imagerepository = .Values.image.prod.repository }}
 {{- $imagetag = .Values.image.prod.tag }}
+{{- $imagedigest = .Values.image.prod.digest }}
 {{- end }}
 {{- /* only allow setting image repo if it is not on old deprecated syntax */}}
 {{- if and .Values.image.repository (ne .Values.image.repository (printf "containerregistryelvia.azurecr.io/%s-%s" .Values.namespace .Values.name)) }}
-{{- .Values.image.repository }}:{{ required (printf "Missing image.tag or image.%s.tag" .Values.environment) $imagetag }}
+{{- $imagerepository = .Values.image.repository }}
 {{- else }}
-{{- printf "containerregistryelvia.azurecr.io/%s/%s" .Values.namespace .Values.name }}:{{ required (printf "Missing image.tag or image.%s.tag" .Values.environment) $imagetag }}
+{{- $imagerepository = printf "containerregistryelvia.azurecr.io/%s/%s" .Values.namespace .Values.name }}
 {{- end }}
+{{- /*
+  With image.digest set, the image is pinned by digest (repository:tag@sha256:...). Keeping the tag in
+  front of the digest is valid and preserves readability. Pinning by digest in the Deployment template
+  matters when an admission webhook (sigstore policy-controller) resolves tags to digests on
+  ReplicaSets: a Deployment template without the digest never matches its ReplicaSets, and the
+  deployment controller creates new ReplicaSets forever.
+*/}}
+{{- $imagerepository }}:{{ required (printf "Missing image.tag or image.%s.tag" .Values.environment) $imagetag }}{{- if $imagedigest }}@{{ $imagedigest }}{{- end }}
 {{- end }}
 
 
