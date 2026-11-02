@@ -5,13 +5,14 @@
 # name: metervalues-api
 # namespace: bad
 # microserviceType: worker|webapi|pushreceiver
-# environment: dev|test|prod
+# environment: dev|test|kptest|prod
 
 # replicaCount: 1
 
 # replicaCount:
   # dev: 1
   # test: 2
+  # kptest: 2
   # prod: 2
 
 # progressDeadlineSeconds: 600
