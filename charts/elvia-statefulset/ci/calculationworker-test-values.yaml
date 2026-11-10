@@ -8,10 +8,8 @@ replicaCount: 1
 terminationGracePeriodSeconds: 35
 
 image:
-  repository: containerregistryelvia.azurecr.io/mdmx-vee-worker
-  tag: "ToBeReplacedInAzurePipeline"
-
-imagePullSecret: containerregistryelvia
+  repository: mcr.microsoft.com/dotnet/samples
+  tag: aspnetapp
 
 resources:
   requests:

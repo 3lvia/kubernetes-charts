@@ -85,8 +85,8 @@ configmap:
 readinessProbe:
   failureThreshold: 3
   httpGet:
-    path: /metrics
-    port: 2112
+    path: /
+    port: 8080
     scheme: HTTP
   initialDelaySeconds: 15
   periodSeconds: 15
@@ -96,8 +96,8 @@ readinessProbe:
 livenessProbe:
   failureThreshold: 5
   httpGet:
-    path: /metrics
-    port: 2112
+    path: /
+    port: 8080
     scheme: HTTP
   initialDelaySeconds: 15
   periodSeconds: 15
