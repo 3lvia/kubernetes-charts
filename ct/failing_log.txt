@@ -1,0 +1,1296 @@
+2026-11-10T12:57:28.8701419Z Current runner version: '2.338.2'
+2026-11-10T12:57:28.8738134Z ##[group]Runner Image Provisioner
+2026-11-10T12:57:28.8739572Z Hosted Compute Agent
+2026-11-10T12:57:28.8740581Z Version: 20261028.624
+2026-11-10T12:57:28.8741852Z Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe
+2026-11-10T12:57:28.8743390Z Build Date: 2026-10-28T21:51:42Z
+2026-11-10T12:57:28.8744686Z Worker ID: {6a65605d-3cbf-4e9d-bf0c-b1d9a7a9d60f}
+2026-11-10T12:57:28.8745988Z Region: eastus2
+2026-11-10T12:57:28.8746929Z Cloud: Azure
+2026-11-10T12:57:28.8747985Z ##[endgroup]
+2026-11-10T12:57:28.8750468Z ##[group]Operating System
+2026-11-10T12:57:28.8751604Z Ubuntu
+2026-11-10T12:57:28.8752718Z 26.04.1
+2026-11-10T12:57:28.8753705Z LTS
+2026-11-10T12:57:28.8754585Z ##[endgroup]
+2026-11-10T12:57:28.8755579Z ##[group]Runner Image
+2026-11-10T12:57:28.8756737Z Image: ubuntu-26.04
+2026-11-10T12:57:28.8757770Z Version: 20261101.186.1
+2026-11-10T12:57:28.8759889Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261101.186/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-10T12:57:28.8763037Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261101.186
+2026-11-10T12:57:28.8764771Z ##[endgroup]
+2026-11-10T12:57:28.8766914Z ##[group]GITHUB_TOKEN Permissions
+2026-11-10T12:57:28.8769566Z Contents: read
+2026-11-10T12:57:28.8770724Z Metadata: read
+2026-11-10T12:57:28.8771675Z Packages: read
+2026-11-10T12:57:28.8772929Z ##[endgroup]
+2026-11-10T12:57:28.8776602Z Secret source: Actions
+2026-11-10T12:57:28.8778280Z Cache mode: write
+2026-11-10T12:57:28.8779757Z Prepare workflow directory
+2026-11-10T12:57:28.9292615Z Prepare all required actions
+2026-11-10T12:57:28.9367072Z Getting action download info
+2026-11-10T12:57:29.1160994Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-11-10T12:57:29.3016891Z Download action repository 'helm/kind-action@1544676c07bb3570fcb70166beaa07c4528fd4aa' (SHA:1544676c07bb3570fcb70166beaa07c4528fd4aa)
+2026-11-10T12:57:29.5379821Z Complete job name: Chart testing
+2026-11-10T12:57:29.6346643Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-11-10T12:57:29.6347724Z with:
+2026-11-10T12:57:29.6348141Z   fetch-depth: 0
+2026-11-10T12:57:29.6348610Z   repository: 3lvia/kubernetes-charts
+2026-11-10T12:57:29.6352639Z   token: ***
+2026-11-10T12:57:29.6353126Z   ssh-strict: true
+2026-11-10T12:57:29.6353559Z   ssh-user: git
+2026-11-10T12:57:29.6353986Z   persist-credentials: true
+2026-11-10T12:57:29.6354462Z   clean: true
+2026-11-10T12:57:29.6354896Z   sparse-checkout-cone-mode: true
+2026-11-10T12:57:29.6355394Z   fetch-tags: false
+2026-11-10T12:57:29.6355824Z   show-progress: true
+2026-11-10T12:57:29.6356257Z   lfs: false
+2026-11-10T12:57:29.6356673Z   submodules: false
+2026-11-10T12:57:29.6357112Z   set-safe-directory: true
+2026-11-10T12:57:29.6357597Z   allow-unsafe-pr-checkout: false
+2026-11-10T12:57:29.6358372Z ##[endgroup]
+2026-11-10T12:57:30.1703802Z Syncing repository: 3lvia/kubernetes-charts
+2026-11-10T12:57:30.1706518Z ##[group]Getting Git version info
+2026-11-10T12:57:30.1707747Z Working directory is '/home/runner/work/kubernetes-charts/kubernetes-charts'
+2026-11-10T12:57:30.1709511Z [command]/usr/bin/git version
+2026-11-10T12:57:30.1719347Z git version 2.56.0
+2026-11-10T12:57:30.1742606Z ##[endgroup]
+2026-11-10T12:57:30.1754585Z Temporarily overriding HOME='/home/runner/work/_temp/9a17a4e8-2eb7-478d-b574-9f696460931e' before making global git config changes
+2026-11-10T12:57:30.1758729Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-10T12:57:30.1761857Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/kubernetes-charts/kubernetes-charts
+2026-11-10T12:57:30.1937389Z Deleting the contents of '/home/runner/work/kubernetes-charts/kubernetes-charts'
+2026-11-10T12:57:30.1941122Z ##[group]Determining repository object format
+2026-11-10T12:57:30.1943692Z ##[endgroup]
+2026-11-10T12:57:30.1945634Z ##[group]Initializing the repository
+2026-11-10T12:57:30.1948194Z [command]/usr/bin/git init /home/runner/work/kubernetes-charts/kubernetes-charts
+2026-11-10T12:57:30.2053086Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-10T12:57:30.2055648Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-10T12:57:30.2057838Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-10T12:57:30.2059768Z hint: call:
+2026-11-10T12:57:30.2060682Z hint:
+2026-11-10T12:57:30.2061866Z hint: 	git config --global init.defaultBranch <name>
+2026-11-10T12:57:30.2063670Z hint:
+2026-11-10T12:57:30.2065109Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-10T12:57:30.2067725Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-10T12:57:30.2070093Z hint:
+2026-11-10T12:57:30.2071382Z hint: 	git branch -m <name>
+2026-11-10T12:57:30.2073122Z hint:
+2026-11-10T12:57:30.2075086Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-10T12:57:30.2078277Z Initialized empty Git repository in /home/runner/work/kubernetes-charts/kubernetes-charts/.git/
+2026-11-10T12:57:30.2083867Z [command]/usr/bin/git remote add origin https://github.com/3lvia/kubernetes-charts
+2026-11-10T12:57:30.2130192Z ##[endgroup]
+2026-11-10T12:57:30.2132781Z ##[group]Disabling automatic garbage collection
+2026-11-10T12:57:30.2134430Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-10T12:57:30.2170686Z ##[endgroup]
+2026-11-10T12:57:30.2173299Z ##[group]Setting up auth
+2026-11-10T12:57:30.2174454Z Removing SSH command configuration
+2026-11-10T12:57:30.2176598Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-10T12:57:30.2215280Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-10T12:57:30.2627221Z Removing HTTP extra header
+2026-11-10T12:57:30.2633014Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-10T12:57:30.2668318Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-10T12:57:30.2947591Z Removing includeIf entries pointing to credentials config files
+2026-11-10T12:57:30.2951936Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-10T12:57:30.2988384Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-10T12:57:30.3273156Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-80b25703-d5d7-411c-8b99-6c4e6c391ba6.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-10T12:57:30.3316679Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/kubernetes-charts/kubernetes-charts/.git.path /home/runner/work/_temp/git-credentials-80b25703-d5d7-411c-8b99-6c4e6c391ba6.config
+2026-11-10T12:57:30.3353258Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/kubernetes-charts/kubernetes-charts/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-80b25703-d5d7-411c-8b99-6c4e6c391ba6.config
+2026-11-10T12:57:30.3390027Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-80b25703-d5d7-411c-8b99-6c4e6c391ba6.config
+2026-11-10T12:57:30.3423866Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-80b25703-d5d7-411c-8b99-6c4e6c391ba6.config
+2026-11-10T12:57:30.3454757Z ##[endgroup]
+2026-11-10T12:57:30.3456312Z ##[group]Fetching the repository
+2026-11-10T12:57:30.3462902Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/* +b04225c93152411c4f5255181d1cd69cda79edea:refs/remotes/pull/107/merge
+2026-11-10T12:57:30.9158584Z From https://github.com/3lvia/kubernetes-charts
+2026-11-10T12:57:30.9159424Z  * [new branch]      feat/add-ingress-exposure                -> origin/feat/add-ingress-exposure
+2026-11-10T12:57:30.9160198Z  * [new branch]      feature/add-test-values                  -> origin/feature/add-test-values
+2026-11-10T12:57:30.9160895Z  * [new branch]      feature/check-org-rule                   -> origin/feature/check-org-rule
+2026-11-10T12:57:30.9161795Z  * [new branch]      fix/use-ubuntu-latest                    -> origin/fix/use-ubuntu-latest
+2026-11-10T12:57:30.9163109Z  * [new branch]      master                                   -> origin/master
+2026-11-10T12:57:30.9164264Z  * [new branch]      renovate/helm-kind-action-1.x            -> origin/renovate/helm-kind-action-1.x
+2026-11-10T12:57:30.9165476Z  * [new tag]         elvia-cronjob-0.1.0                      -> elvia-cronjob-0.1.0
+2026-11-10T12:57:30.9166599Z  * [new tag]         elvia-cronjob-0.2.0                      -> elvia-cronjob-0.2.0
+2026-11-10T12:57:30.9167692Z  * [new tag]         elvia-deployment-0.31.0                  -> elvia-deployment-0.31.0
+2026-11-10T12:57:30.9168666Z  * [new tag]         elvia-deployment-0.32.0                  -> elvia-deployment-0.32.0
+2026-11-10T12:57:30.9169497Z  * [new tag]         elvia-deployment-0.32.1                  -> elvia-deployment-0.32.1
+2026-11-10T12:57:30.9170629Z  * [new tag]         elvia-deployment-0.32.2                  -> elvia-deployment-0.32.2
+2026-11-10T12:57:30.9171881Z  * [new tag]         elvia-deployment-0.33.0                  -> elvia-deployment-0.33.0
+2026-11-10T12:57:30.9173315Z  * [new tag]         elvia-deployment-0.34.0                  -> elvia-deployment-0.34.0
+2026-11-10T12:57:30.9174401Z  * [new tag]         elvia-job-0.3.1                          -> elvia-job-0.3.1
+2026-11-10T12:57:30.9175714Z  * [new tag]         elvia-job-0.3.2                          -> elvia-job-0.3.2
+2026-11-10T12:57:30.9176684Z  * [new tag]         elvia-job-0.4.0                          -> elvia-job-0.4.0
+2026-11-10T12:57:30.9177696Z  * [new tag]         elvia-statefulset-0.13.0                 -> elvia-statefulset-0.13.0
+2026-11-10T12:57:30.9178834Z  * [new tag]         elvia-statefulset-0.14.0                 -> elvia-statefulset-0.14.0
+2026-11-10T12:57:30.9179966Z  * [new tag]         iss-deployment-0.5.1                     -> iss-deployment-0.5.1
+2026-11-10T12:57:30.9181311Z  * [new tag]         iss-deployment-0.5.2                     -> iss-deployment-0.5.2
+2026-11-10T12:57:30.9182083Z  * [new ref]         b04225c93152411c4f5255181d1cd69cda79edea -> pull/107/merge
+2026-11-10T12:57:30.9184432Z ##[endgroup]
+2026-11-10T12:57:30.9185175Z ##[group]Determining the checkout info
+2026-11-10T12:57:30.9276324Z ##[endgroup]
+2026-11-10T12:57:30.9277808Z [command]/usr/bin/git sparse-checkout disable
+2026-11-10T12:57:30.9280297Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-10T12:57:30.9282898Z ##[group]Checking out the ref
+2026-11-10T12:57:30.9283946Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/107/merge
+2026-11-10T12:57:30.9899092Z Note: switching to 'refs/remotes/pull/107/merge'.
+2026-11-10T12:57:30.9899890Z 
+2026-11-10T12:57:30.9900533Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-11-10T12:57:30.9901904Z changes and commit them, and you can discard any commits you make in this
+2026-11-10T12:57:30.9903365Z state without impacting any branches by switching back to a branch.
+2026-11-10T12:57:30.9904033Z 
+2026-11-10T12:57:30.9904553Z If you want to create a new branch to retain commits you create, you may
+2026-11-10T12:57:30.9905696Z do so (now or later) by using -c with the switch command. Example:
+2026-11-10T12:57:30.9906337Z 
+2026-11-10T12:57:30.9906687Z   git switch -c <new-branch-name>
+2026-11-10T12:57:30.9907140Z 
+2026-11-10T12:57:30.9907472Z Or undo this operation with:
+2026-11-10T12:57:30.9908272Z 
+2026-11-10T12:57:30.9908571Z   git switch -
+2026-11-10T12:57:30.9908901Z 
+2026-11-10T12:57:30.9909244Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-11-10T12:57:30.9909683Z 
+2026-11-10T12:57:30.9910156Z HEAD is now at b04225c Merge 9ac116fc7cbd6f55ec7957b20ec198f57ae77cb7 into ae5986cb397af4a13107028662e7b2469b5aefcf
+2026-11-10T12:57:30.9913886Z ##[endgroup]
+2026-11-10T12:57:30.9964643Z [command]/usr/bin/git log -1 --format=%H
+2026-11-10T12:57:30.9993795Z b04225c93152411c4f5255181d1cd69cda79edea
+2026-11-10T12:57:31.0296011Z ##[group]Run helm/kind-action@1544676c07bb3570fcb70166beaa07c4528fd4aa
+2026-11-10T12:57:31.0296615Z with:
+2026-11-10T12:57:31.0296982Z   version: v0.33.0
+2026-11-10T12:57:31.0297366Z   cluster_name: chart-testing
+2026-11-10T12:57:31.0297772Z   wait: 60s
+2026-11-10T12:57:31.0298111Z   verbosity: 0
+2026-11-10T12:57:31.0298471Z   kubectl_version: v1.37.1
+2026-11-10T12:57:31.0298861Z   registry: false
+2026-11-10T12:57:31.0299248Z   registry_image: registry:2
+2026-11-10T12:57:31.0299655Z   registry_name: kind-registry
+2026-11-10T12:57:31.0300056Z   registry_port: 5000
+2026-11-10T12:57:31.0300441Z   registry_enable_delete: false
+2026-11-10T12:57:31.0300835Z   install_only: false
+2026-11-10T12:57:31.0301208Z   ignore_failed_clean: false
+2026-11-10T12:57:31.0301597Z   cloud_provider: false
+2026-11-10T12:57:31.0301974Z ##[endgroup]
+2026-11-10T12:57:31.0752167Z Installing kind...
+2026-11-10T12:57:31.0782189Z /opt/hostedtoolcache/kind/v0.33.0/amd64/kind/bin ~/work/kubernetes-charts/kubernetes-charts
+2026-11-10T12:57:31.2709090Z kind-linux-amd64: OK
+2026-11-10T12:57:31.2771557Z ~/work/kubernetes-charts/kubernetes-charts
+2026-11-10T12:57:31.2772563Z Adding kind directory to PATH...
+2026-11-10T12:57:31.2773272Z Installing kubectl...
+2026-11-10T12:57:31.2802692Z /opt/hostedtoolcache/kind/v0.33.0/amd64/kubectl/bin ~/work/kubernetes-charts/kubernetes-charts
+2026-11-10T12:57:31.6214360Z kubectl: OK
+2026-11-10T12:57:31.6252997Z ~/work/kubernetes-charts/kubernetes-charts
+2026-11-10T12:57:31.6253910Z Adding kubectl directory to PATH...
+2026-11-10T12:57:31.6283407Z kind v0.33.0 go1.26.7 linux/amd64
+2026-11-10T12:57:31.6878175Z Client Version: v1.37.1
+2026-11-10T12:57:31.6878747Z Kustomize Version: v5.8.1
+2026-11-10T12:57:31.6923131Z Creating kind cluster...
+2026-11-10T12:57:32.0317232Z Creating cluster "chart-testing" ...
+2026-11-10T12:57:32.0318384Z  • Ensuring node image (kindest/node:v1.37.0) 🖼️  ...
+2026-11-10T12:57:37.4859603Z  ✓ Ensuring node image (kindest/node:v1.37.0) 🖼️
+2026-11-10T12:57:37.4860793Z  • Preparing nodes 📦   ...
+2026-11-10T12:57:41.9619846Z  ✓ Preparing nodes 📦 
+2026-11-10T12:57:41.9977040Z  • Writing configuration 📜  ...
+2026-11-10T12:57:42.2088113Z  ✓ Writing configuration 📜
+2026-11-10T12:57:42.2088703Z  • Starting control-plane 🕹️  ...
+2026-11-10T12:57:50.4063860Z  ✓ Starting control-plane 🕹️
+2026-11-10T12:57:50.4064519Z  • Installing CNI 🔌  ...
+2026-11-10T12:57:50.7626534Z  ✓ Installing CNI 🔌
+2026-11-10T12:57:50.7627135Z  • Installing StorageClass 💾  ...
+2026-11-10T12:57:51.1340186Z  ✓ Installing StorageClass 💾
+2026-11-10T12:57:51.1666321Z  • Waiting ≤ 1m0s for control-plane = Ready ⏳  ...
+2026-11-10T12:58:08.6744221Z  ✓ Waiting ≤ 1m0s for control-plane = Ready ⏳
+2026-11-10T12:58:08.6745007Z  • Ready after 17s 💚
+2026-11-10T12:58:08.8399996Z Set kubectl context to "kind-chart-testing"
+2026-11-10T12:58:08.8400815Z You can now use your cluster with:
+2026-11-10T12:58:08.8401261Z 
+2026-11-10T12:58:08.8401588Z kubectl cluster-info --context kind-chart-testing
+2026-11-10T12:58:08.8401962Z 
+2026-11-10T12:58:08.8402751Z Thanks for using kind! 😊
+2026-11-10T12:58:08.8564358Z ##[group]Run helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+2026-11-10T12:58:08.8565817Z [36;1mhelm repo add prometheus-community https://prometheus-community.github.io/helm-charts[0m
+2026-11-10T12:58:08.8566748Z [36;1mhelm repo update[0m
+2026-11-10T12:58:08.8567515Z [36;1mhelm install prometheus prometheus-community/kube-prometheus-stack[0m
+2026-11-10T12:58:08.8639976Z shell: /usr/bin/bash -e {0}
+2026-11-10T12:58:08.8640273Z ##[endgroup]
+2026-11-10T12:58:12.4549028Z "prometheus-community" has been added to your repositories
+2026-11-10T12:58:12.5126780Z Hang tight while we grab the latest from your chart repositories...
+2026-11-10T12:58:13.1546670Z ...Successfully got an update from the "prometheus-community" chart repository
+2026-11-10T12:58:13.1549902Z Update Complete. ⎈Happy Helming!⎈
+2026-11-10T12:58:28.3847164Z NAME: prometheus
+2026-11-10T12:58:28.3867133Z LAST DEPLOYED: Tue Nov 10 12:58:16 2026
+2026-11-10T12:58:28.3886962Z NAMESPACE: default
+2026-11-10T12:58:28.3913097Z STATUS: deployed
+2026-11-10T12:58:28.3924903Z REVISION: 1
+2026-11-10T12:58:28.3943067Z DESCRIPTION: Install complete
+2026-11-10T12:58:28.3943742Z NOTES:
+2026-11-10T12:58:28.3944474Z kube-prometheus-stack has been installed. Check its status by running:
+2026-11-10T12:58:28.3945496Z   kubectl --namespace default get pods -l "release=prometheus"
+2026-11-10T12:58:28.3946172Z 
+2026-11-10T12:58:28.3946545Z Get Grafana 'admin' user password by running:
+2026-11-10T12:58:28.3947093Z 
+2026-11-10T12:58:28.3948018Z   kubectl --namespace default get secrets prometheus-grafana -o jsonpath="{.data.admin-password}" | base64 -d ; echo
+2026-11-10T12:58:28.3949090Z 
+2026-11-10T12:58:28.3971734Z Access Grafana local instance:
+2026-11-10T12:58:28.3972717Z 
+2026-11-10T12:58:28.3973492Z   export POD_NAME=$(kubectl --namespace default get pod -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=prometheus" -oname)
+2026-11-10T12:58:28.3974711Z   kubectl --namespace default port-forward $POD_NAME 3000
+2026-11-10T12:58:28.3975147Z 
+2026-11-10T12:58:28.3975368Z Get your grafana admin user password by running:
+2026-11-10T12:58:28.3975748Z 
+2026-11-10T12:58:28.3976611Z   kubectl get secret --namespace default -l app.kubernetes.io/component=admin-secret -o jsonpath="{.items[0].data.admin-password}" | base64 --decode ; echo
+2026-11-10T12:58:28.3977653Z 
+2026-11-10T12:58:28.3977659Z 
+2026-11-10T12:58:28.3978606Z Visit https://github.com/prometheus-operator/kube-prometheus for instructions on how to create & configure Alertmanager and Prometheus instances using the Operator.
+2026-11-10T12:58:28.4035929Z ##[group]Run helm repo add traefik https://helm.traefik.io/traefik
+2026-11-10T12:58:28.4036459Z [36;1mhelm repo add traefik https://helm.traefik.io/traefik[0m
+2026-11-10T12:58:28.4036900Z [36;1mhelm install --version '39.*' traefik traefik/traefik[0m
+2026-11-10T12:58:28.4096629Z shell: /usr/bin/bash -e {0}
+2026-11-10T12:58:28.4097030Z ##[endgroup]
+2026-11-10T12:58:28.7323549Z "traefik" has been added to your repositories
+2026-11-10T12:58:32.8546988Z NAME: traefik
+2026-11-10T12:58:32.8547507Z LAST DEPLOYED: Tue Nov 10 12:58:32 2026
+2026-11-10T12:58:32.8548025Z NAMESPACE: default
+2026-11-10T12:58:32.8548393Z STATUS: deployed
+2026-11-10T12:58:32.8548744Z REVISION: 1
+2026-11-10T12:58:32.8549110Z DESCRIPTION: Install complete
+2026-11-10T12:58:32.8549586Z TEST SUITE: None
+2026-11-10T12:58:32.8549928Z NOTES:
+2026-11-10T12:58:32.8550584Z traefik with docker.io/traefik:v3.6.15 has been deployed successfully on default namespace!
+2026-11-10T12:58:32.8703198Z ##[group]Run kubectl create namespace core
+2026-11-10T12:58:32.8703822Z [36;1mkubectl create namespace core[0m
+2026-11-10T12:58:32.8799717Z shell: /usr/bin/bash -e {0}
+2026-11-10T12:58:32.8800180Z ##[endgroup]
+2026-11-10T12:58:32.9851045Z namespace/core created
+2026-11-10T12:58:32.9937370Z ##[group]Run kubectl -n core create sa pushreceiver-chart-testing
+2026-11-10T12:58:32.9938283Z [36;1mkubectl -n core create sa pushreceiver-chart-testing[0m
+2026-11-10T12:58:32.9939047Z [36;1mkubectl -n core create sa webapi-chart-testing[0m
+2026-11-10T12:58:32.9939731Z [36;1mkubectl -n core create sa worker-chart-testing[0m
+2026-11-10T12:58:32.9940380Z [36;1mkubectl -n core create sa job-chart-testing[0m
+2026-11-10T12:58:32.9941082Z [36;1mkubectl -n core create sa cronjob-chart-testing[0m
+2026-11-10T12:58:32.9942042Z [36;1mkubectl -n core create sa calculationworker[0m
+2026-11-10T12:58:33.0027581Z shell: /usr/bin/bash -e {0}
+2026-11-10T12:58:33.0028090Z ##[endgroup]
+2026-11-10T12:58:33.1188371Z serviceaccount/pushreceiver-chart-testing created
+2026-11-10T12:58:33.2444153Z serviceaccount/webapi-chart-testing created
+2026-11-10T12:58:33.3401209Z serviceaccount/worker-chart-testing created
+2026-11-10T12:58:33.4316739Z serviceaccount/job-chart-testing created
+2026-11-10T12:58:33.5286329Z serviceaccount/cronjob-chart-testing created
+2026-11-10T12:58:33.6453284Z serviceaccount/calculationworker created
+2026-11-10T12:58:33.6566063Z ##[group]Run kubectl get namespace
+2026-11-10T12:58:33.6566631Z [36;1mkubectl get namespace[0m
+2026-11-10T12:58:33.6567164Z [36;1mkubectl get servicemonitor --all-namespaces[0m
+2026-11-10T12:58:33.6637604Z shell: /usr/bin/bash -e {0}
+2026-11-10T12:58:33.6638097Z ##[endgroup]
+2026-11-10T12:58:33.7818155Z NAME                 STATUS   AGE
+2026-11-10T12:58:33.7826142Z core                 Active   1s
+2026-11-10T12:58:33.7826660Z default              Active   46s
+2026-11-10T12:58:33.7827093Z kube-node-lease      Active   46s
+2026-11-10T12:58:33.7827525Z kube-public          Active   46s
+2026-11-10T12:58:33.7827972Z kube-system          Active   46s
+2026-11-10T12:58:33.7828442Z local-path-storage   Active   42s
+2026-11-10T12:58:33.9039482Z NAMESPACE   NAME                                                 AGE
+2026-11-10T12:58:33.9042103Z default     prometheus-grafana                                   9s
+2026-11-10T12:58:33.9045682Z default     prometheus-kube-prometheus-alertmanager              9s
+2026-11-10T12:58:33.9049545Z default     prometheus-kube-prometheus-apiserver                 9s
+2026-11-10T12:58:33.9050943Z default     prometheus-kube-prometheus-coredns                   9s
+2026-11-10T12:58:33.9059653Z default     prometheus-kube-prometheus-kube-controller-manager   9s
+2026-11-10T12:58:33.9066952Z default     prometheus-kube-prometheus-kube-etcd                 9s
+2026-11-10T12:58:33.9068214Z default     prometheus-kube-prometheus-kube-proxy                9s
+2026-11-10T12:58:33.9069340Z default     prometheus-kube-prometheus-kube-scheduler            9s
+2026-11-10T12:58:33.9071367Z default     prometheus-kube-prometheus-kubelet                   9s
+2026-11-10T12:58:33.9073431Z default     prometheus-kube-prometheus-operator                  9s
+2026-11-10T12:58:33.9080278Z default     prometheus-kube-prometheus-prometheus                9s
+2026-11-10T12:58:33.9082710Z default     prometheus-kube-state-metrics                        9s
+2026-11-10T12:58:33.9083895Z default     prometheus-prometheus-node-exporter                  9s
+2026-11-10T12:58:33.9148141Z ##[group]Run sudo apt-get update
+2026-11-10T12:58:33.9148730Z [36;1msudo apt-get update[0m
+2026-11-10T12:58:33.9149214Z [36;1msudo apt-get install yamllint -y[0m
+2026-11-10T12:58:33.9236868Z shell: /usr/bin/bash -e {0}
+2026-11-10T12:58:33.9237317Z ##[endgroup]
+2026-11-10T12:58:34.1145525Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-11-10T12:58:34.1746860Z Hit:2 http://azure.archive.ubuntu.com/ubuntu resolute InRelease
+2026-11-10T12:58:34.1804033Z Get:3 http://azure.archive.ubuntu.com/ubuntu resolute-updates InRelease [137 kB]
+2026-11-10T12:58:34.1882168Z Get:4 http://azure.archive.ubuntu.com/ubuntu resolute-backports InRelease [137 kB]
+2026-11-10T12:58:34.1956591Z Get:5 http://azure.archive.ubuntu.com/ubuntu resolute-security InRelease [137 kB]
+2026-11-10T12:58:34.1975116Z Get:6 https://packages.microsoft.com/ubuntu/26.04/prod resolute InRelease [3964 B]
+2026-11-10T12:58:34.2762207Z Get:7 http://azure.archive.ubuntu.com/ubuntu resolute-updates/main amd64v3 Packages [869 kB]
+2026-11-10T12:58:34.3524531Z Get:8 http://azure.archive.ubuntu.com/ubuntu resolute-updates/main Translation-en [195 kB]
+2026-11-10T12:58:34.3547652Z Get:9 http://azure.archive.ubuntu.com/ubuntu resolute-updates/universe amd64v3 Packages [390 kB]
+2026-11-10T12:58:34.3595096Z Get:10 http://azure.archive.ubuntu.com/ubuntu resolute-updates/universe Translation-en [122 kB]
+2026-11-10T12:58:34.3615398Z Get:11 http://azure.archive.ubuntu.com/ubuntu resolute-updates/restricted amd64v3 Packages [603 kB]
+2026-11-10T12:58:34.3618358Z Get:12 http://azure.archive.ubuntu.com/ubuntu resolute-updates/restricted Translation-en [125 kB]
+2026-11-10T12:58:34.3758000Z Get:13 https://packages.microsoft.com/ubuntu/26.04/prod resolute/main amd64 Packages [152 kB]
+2026-11-10T12:58:34.4017837Z Get:14 http://azure.archive.ubuntu.com/ubuntu resolute-security/main amd64v3 Packages [717 kB]
+2026-11-10T12:58:34.4022935Z Get:20 https://packages.microsoft.com/ubuntu/26.04/prod resolute/main arm64 Packages [138 kB]
+2026-11-10T12:58:34.4032578Z Get:15 http://azure.archive.ubuntu.com/ubuntu resolute-security/main Translation-en [157 kB]
+2026-11-10T12:58:34.4105209Z Get:16 http://azure.archive.ubuntu.com/ubuntu resolute-security/universe amd64v3 Packages [212 kB]
+2026-11-10T12:58:34.4143479Z Get:17 http://azure.archive.ubuntu.com/ubuntu resolute-security/universe Translation-en [70.7 kB]
+2026-11-10T12:58:34.4605393Z Get:18 http://azure.archive.ubuntu.com/ubuntu resolute-security/restricted amd64v3 Packages [586 kB]
+2026-11-10T12:58:34.4628487Z Get:19 http://azure.archive.ubuntu.com/ubuntu resolute-security/restricted Translation-en [121 kB]
+2026-11-10T12:58:38.3923555Z Fetched 4871 kB in 1s (6411 kB/s)
+2026-11-10T12:58:39.4957781Z Reading package lists...
+2026-11-10T12:58:39.5413866Z Reading package lists...
+2026-11-10T12:58:39.8011040Z Building dependency tree...
+2026-11-10T12:58:39.8037599Z Reading state information...
+2026-11-10T12:58:39.9439501Z Solving dependencies...
+2026-11-10T12:58:40.0678526Z The following additional packages will be installed:
+2026-11-10T12:58:40.0679822Z   python3-pathspec
+2026-11-10T12:58:40.0951774Z The following NEW packages will be installed:
+2026-11-10T12:58:40.0952522Z   python3-pathspec yamllint
+2026-11-10T12:58:40.1295404Z 0 upgraded, 2 newly installed, 0 to remove and 52 not upgraded.
+2026-11-10T12:58:40.1311554Z Need to get 77.5 kB of archives.
+2026-11-10T12:58:40.1312212Z After this operation, 401 kB of additional disk space will be used.
+2026-11-10T12:58:40.1313185Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-11-10T12:58:42.2109330Z Ign:2 http://azure.archive.ubuntu.com/ubuntu resolute/universe amd64v3 python3-pathspec all 1.0.4-1
+2026-11-10T12:58:57.2086693Z Get:3 http://azure.archive.ubuntu.com/ubuntu resolute/universe amd64v3 yamllint all 1.37.1-1 [45.8 kB]
+2026-11-10T12:58:57.7304337Z Get:2 http://azure.archive.ubuntu.com/ubuntu resolute/universe amd64v3 python3-pathspec all 1.0.4-1 [31.8 kB]
+2026-11-10T12:58:58.4253800Z Fetched 77.5 kB in 18s (4319 B/s)
+2026-11-10T12:58:58.4515475Z Selecting previously unselected package python3-pathspec.
+2026-11-10T12:58:58.4798273Z (Reading database ... 
+2026-11-10T12:58:58.4798736Z (Reading database ... 5%
+2026-11-10T12:58:58.4800207Z (Reading database ... 10%
+2026-11-10T12:58:58.4800499Z (Reading database ... 15%
+2026-11-10T12:58:58.4800731Z (Reading database ... 20%
+2026-11-10T12:58:58.4800949Z (Reading database ... 25%
+2026-11-10T12:58:58.4801196Z (Reading database ... 30%
+2026-11-10T12:58:58.4801411Z (Reading database ... 35%
+2026-11-10T12:58:58.4801629Z (Reading database ... 40%
+2026-11-10T12:58:58.4801840Z (Reading database ... 45%
+2026-11-10T12:58:58.4802589Z (Reading database ... 50%
+2026-11-10T12:58:58.5614796Z (Reading database ... 55%
+2026-11-10T12:58:58.7390439Z (Reading database ... 60%
+2026-11-10T12:58:58.9061472Z (Reading database ... 65%
+2026-11-10T12:58:59.0409569Z (Reading database ... 70%
+2026-11-10T12:58:59.2444322Z (Reading database ... 75%
+2026-11-10T12:58:59.3746220Z (Reading database ... 80%
+2026-11-10T12:58:59.4883428Z (Reading database ... 85%
+2026-11-10T12:58:59.6306063Z (Reading database ... 90%
+2026-11-10T12:58:59.7939952Z (Reading database ... 95%
+2026-11-10T12:58:59.7940443Z (Reading database ... 100%
+2026-11-10T12:58:59.7941037Z (Reading database ... 213197 files and directories currently installed.)
+2026-11-10T12:58:59.7983188Z Preparing to unpack .../python3-pathspec_1.0.4-1_all.deb ...
+2026-11-10T12:58:59.8007438Z Unpacking python3-pathspec (1.0.4-1) ...
+2026-11-10T12:58:59.8333730Z Selecting previously unselected package yamllint.
+2026-11-10T12:58:59.8464677Z Preparing to unpack .../yamllint_1.37.1-1_all.deb ...
+2026-11-10T12:58:59.8472772Z Unpacking yamllint (1.37.1-1) ...
+2026-11-10T12:58:59.9041085Z Setting up python3-pathspec (1.0.4-1) ...
+2026-11-10T12:59:00.0690467Z Setting up yamllint (1.37.1-1) ...
+2026-11-10T12:59:00.2166204Z Processing triggers for man-db (2.13.1-1build1) ...
+2026-11-10T12:59:00.2190131Z Not building database; man-db/auto-update is not 'true'.
+2026-11-10T12:59:00.9127123Z 
+2026-11-10T12:59:00.9127757Z Running kernel seems to be up-to-date.
+2026-11-10T12:59:00.9128151Z 
+2026-11-10T12:59:00.9128299Z Restarting services...
+2026-11-10T12:59:00.9223012Z 
+2026-11-10T12:59:00.9223782Z Service restarts being deferred:
+2026-11-10T12:59:00.9226308Z  systemctl restart hosted-compute-agent.service
+2026-11-10T12:59:00.9226731Z 
+2026-11-10T12:59:00.9227164Z No containers need to be restarted.
+2026-11-10T12:59:00.9227495Z 
+2026-11-10T12:59:00.9227964Z No user sessions are running outdated binaries.
+2026-11-10T12:59:00.9228340Z 
+2026-11-10T12:59:00.9228957Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-11-10T12:59:02.1763319Z ##[group]Run pipx install yamale
+2026-11-10T12:59:02.1763665Z [36;1mpipx install yamale[0m
+2026-11-10T12:59:02.1814370Z shell: /usr/bin/bash -e {0}
+2026-11-10T12:59:02.1814625Z ##[endgroup]
+2026-11-10T12:59:02.6298192Z creating virtual environment...
+2026-11-10T12:59:02.8427362Z installing yamale...
+2026-11-10T12:59:04.5679847Z done! ✨ 🌟 ✨
+2026-11-10T12:59:04.5680372Z   installed package yamale 6.1.0, installed using Python 3.14.4
+2026-11-10T12:59:04.5689265Z   These apps are now available
+2026-11-10T12:59:04.5690072Z     - yamale
+2026-11-10T12:59:04.5989743Z ##[group]Run mkdir "$HOME/.ct"
+2026-11-10T12:59:04.5990066Z [36;1mmkdir "$HOME/.ct"[0m
+2026-11-10T12:59:04.5990312Z [36;1mmv ct/etc/* "$HOME/.ct/"[0m
+2026-11-10T12:59:04.6041082Z shell: /usr/bin/bash -e {0}
+2026-11-10T12:59:04.6041344Z ##[endgroup]
+2026-11-10T12:59:04.6217333Z ##[group]Run ./ct/bin/ct lint --config ct.yaml
+2026-11-10T12:59:04.6217945Z [36;1m./ct/bin/ct lint --config ct.yaml[0m
+2026-11-10T12:59:04.6299907Z shell: /usr/bin/bash -e {0}
+2026-11-10T12:59:04.6300335Z ##[endgroup]
+2026-11-10T12:59:04.6429290Z Linting charts...
+2026-11-10T12:59:04.6432976Z Version increment checking disabled.
+2026-11-10T12:59:04.6877957Z 
+2026-11-10T12:59:04.6878875Z ------------------------------------------------------------------------------------------------------------------------
+2026-11-10T12:59:04.6879742Z  Charts to be processed:
+2026-11-10T12:59:04.6880485Z ------------------------------------------------------------------------------------------------------------------------
+2026-11-10T12:59:04.6881178Z  elvia-deployment => (version: "0.34.0", path: "charts/elvia-deployment")
+2026-11-10T12:59:04.6881844Z  elvia-statefulset => (version: "0.14.0", path: "charts/elvia-statefulset")
+2026-11-10T12:59:04.6882689Z  elvia-job => (version: "0.4.0", path: "charts/elvia-job")
+2026-11-10T12:59:04.6883241Z  elvia-cronjob => (version: "0.2.0", path: "charts/elvia-cronjob")
+2026-11-10T12:59:04.6883829Z ------------------------------------------------------------------------------------------------------------------------
+2026-11-10T12:59:04.6884248Z 
+2026-11-10T12:59:04.7501897Z Linting chart 'elvia-deployment => (version: "0.34.0", path: "charts/elvia-deployment")'
+2026-11-10T12:59:04.8205581Z Validating charts/elvia-deployment/Chart.yaml...
+2026-11-10T12:59:04.8206411Z Validation success! 👍
+2026-11-10T12:59:06.0317545Z 
+2026-11-10T12:59:06.0318895Z Linting chart with values file 'charts/elvia-deployment/ci/pushreceiver-configmap-deploy-ingress-dev-values.yaml'...
+2026-11-10T12:59:06.0320122Z 
+2026-11-10T12:59:06.1070456Z ==> Linting charts/elvia-deployment
+2026-11-10T12:59:06.1070988Z [INFO] Chart.yaml: icon is recommended
+2026-11-10T12:59:06.1071292Z 
+2026-11-10T12:59:06.1071833Z 1 chart(s) linted, 0 chart(s) failed
+2026-11-10T12:59:06.1107153Z 
+2026-11-10T12:59:06.1108067Z Linting chart with values file 'charts/elvia-deployment/ci/pushreceiver-configmap-deploy-ingress-prod-values.yaml'...
+2026-11-10T12:59:06.1108979Z 
+2026-11-10T12:59:06.1808088Z ==> Linting charts/elvia-deployment
+2026-11-10T12:59:06.1809036Z [INFO] Chart.yaml: icon is recommended
+2026-11-10T12:59:06.1809654Z 
+2026-11-10T12:59:06.1810056Z 1 chart(s) linted, 0 chart(s) failed
+2026-11-10T12:59:06.1841996Z 
+2026-11-10T12:59:06.1843513Z Linting chart with values file 'charts/elvia-deployment/ci/pushreceiver-configmap-deploy-ingress-test-values.yaml'...
+2026-11-10T12:59:06.1845783Z 
+2026-11-10T12:59:06.2554232Z ==> Linting charts/elvia-deployment
+2026-11-10T12:59:06.2554906Z [INFO] Chart.yaml: icon is recommended
+2026-11-10T12:59:06.2555212Z 
+2026-11-10T12:59:06.2555364Z 1 chart(s) linted, 0 chart(s) failed
+2026-11-10T12:59:06.2587465Z 
+2026-11-10T12:59:06.2588352Z Linting chart with values file 'charts/elvia-deployment/ci/web-api-deploy-ingress-dev-values.yaml'...
+2026-11-10T12:59:06.2589392Z 
+2026-11-10T12:59:06.3150613Z ==> Linting charts/elvia-deployment
+2026-11-10T12:59:06.3183152Z [INFO] Chart.yaml: icon is recommended
+2026-11-10T12:59:06.3191305Z 
+2026-11-10T12:59:06.3191764Z 1 chart(s) linted, 0 chart(s) failed
+2026-11-10T12:59:06.3196474Z 
+2026-11-10T12:59:06.3197226Z Linting chart with values file 'charts/elvia-deployment/ci/web-api-deploy-ingress-prod-values.yaml'...
+2026-11-10T12:59:06.3198337Z 
+2026-11-10T12:59:06.3772262Z ==> Linting charts/elvia-deployment
+2026-11-10T12:59:06.3773111Z [INFO] Chart.yaml: icon is recommended
+2026-11-10T12:59:06.3773313Z 
+2026-11-10T12:59:06.3775646Z 1 chart(s) linted, 0 chart(s) failed
+2026-11-10T12:59:06.3820801Z 
+2026-11-10T12:59:06.3821486Z Linting chart with values file 'charts/elvia-deployment/ci/web-api-deploy-ingress-test-values.yaml'...
+2026-11-10T12:59:06.3822329Z 
+2026-11-10T12:59:06.4413959Z ==> Linting charts/elvia-deployment
+2026-11-10T12:59:06.4414658Z [INFO] Chart.yaml: icon is recommended
+2026-11-10T12:59:06.4415085Z 
+2026-11-10T12:59:06.4415787Z 1 chart(s) linted, 0 chart(s) failed
+2026-11-10T12:59:06.4420437Z 
+2026-11-10T12:59:06.4421552Z Linting chart with values file 'charts/elvia-deployment/ci/worker-configmap-deploy-dev-values.yaml'...
+2026-11-10T12:59:06.4422744Z 
+2026-11-10T12:59:06.5030089Z ==> Linting charts/elvia-deployment
+2026-11-10T12:59:06.5063486Z [INFO] Chart.yaml: icon is recommended
+2026-11-10T12:59:06.5068967Z 
+2026-11-10T12:59:06.5069180Z 1 chart(s) linted, 0 chart(s) failed
+2026-11-10T12:59:06.5070987Z 
+2026-11-10T12:59:06.5071634Z Linting chart with values file 'charts/elvia-deployment/ci/worker-configmap-deploy-prod-values.yaml'...
+2026-11-10T12:59:06.5072745Z 
+2026-11-10T12:59:06.5660741Z ==> Linting charts/elvia-deployment
+2026-11-10T12:59:06.5661290Z [INFO] Chart.yaml: icon is recommended
+2026-11-10T12:59:06.5661598Z 
+2026-11-10T12:59:06.5661748Z 1 chart(s) linted, 0 chart(s) failed
+2026-11-10T12:59:06.5696337Z 
+2026-11-10T12:59:06.5697366Z Linting chart with values file 'charts/elvia-deployment/ci/worker-configmap-deploy-test-values.yaml'...
+2026-11-10T12:59:06.5698158Z 
+2026-11-10T12:59:06.6265823Z ==> Linting charts/elvia-deployment
+2026-11-10T12:59:06.6266822Z [INFO] Chart.yaml: icon is recommended
+2026-11-10T12:59:06.6267309Z 
+2026-11-10T12:59:06.6267576Z 1 chart(s) linted, 0 chart(s) failed
+2026-11-10T12:59:06.6754674Z Linting chart 'elvia-statefulset => (version: "0.14.0", path: "charts/elvia-statefulset")'
+2026-11-10T12:59:06.7429879Z Validating charts/elvia-statefulset/Chart.yaml...
+2026-11-10T12:59:06.7430952Z Validation success! 👍
+2026-11-10T12:59:07.2045744Z 
+2026-11-10T12:59:07.2046679Z Linting chart with values file 'charts/elvia-statefulset/ci/calculationworker-dev-values.yaml'...
+2026-11-10T12:59:07.2047517Z 
+2026-11-10T12:59:07.2694556Z ==> Linting charts/elvia-statefulset
+2026-11-10T12:59:07.2695110Z [INFO] Chart.yaml: icon is recommended
+2026-11-10T12:59:07.2695439Z 
+2026-11-10T12:59:07.2695592Z 1 chart(s) linted, 0 chart(s) failed
+2026-11-10T12:59:07.2720138Z 
+2026-11-10T12:59:07.2720916Z Linting chart with values file 'charts/elvia-statefulset/ci/calculationworker-prod-values.yaml'...
+2026-11-10T12:59:07.2722013Z 
+2026-11-10T12:59:07.3321332Z ==> Linting charts/elvia-statefulset
+2026-11-10T12:59:07.3333200Z [INFO] Chart.yaml: icon is recommended
+2026-11-10T12:59:07.3333433Z 
+2026-11-10T12:59:07.3333535Z 1 chart(s) linted, 0 chart(s) failed
+2026-11-10T12:59:07.3358563Z 
+2026-11-10T12:59:07.3358979Z Linting chart with values file 'charts/elvia-statefulset/ci/calculationworker-test-values.yaml'...
+2026-11-10T12:59:07.3359622Z 
+2026-11-10T12:59:07.4028696Z ==> Linting charts/elvia-statefulset
+2026-11-10T12:59:07.4029514Z [INFO] Chart.yaml: icon is recommended
+2026-11-10T12:59:07.4030186Z 
+2026-11-10T12:59:07.4030550Z 1 chart(s) linted, 0 chart(s) failed
+2026-11-10T12:59:07.4605844Z Hang tight while we grab the latest from your chart repositories...
+2026-11-10T12:59:07.6215336Z ...Successfully got an update from the "traefik" chart repository
+2026-11-10T12:59:08.2197727Z ...Successfully got an update from the "prometheus-community" chart repository
+2026-11-10T12:59:08.2198931Z Update Complete. ⎈Happy Helming!⎈
+2026-11-10T12:59:08.8885046Z Saving 1 charts
+2026-11-10T12:59:08.8895213Z Deleting outdated charts
+2026-11-10T12:59:08.9003229Z Linting chart 'elvia-job => (version: "0.4.0", path: "charts/elvia-job")'
+2026-11-10T12:59:08.9702230Z Validating charts/elvia-job/Chart.yaml...
+2026-11-10T12:59:08.9703310Z Validation success! 👍
+2026-11-10T12:59:09.2282960Z 
+2026-11-10T12:59:09.2283817Z Linting chart with values file 'charts/elvia-job/ci/demo-job-values.yaml'...
+2026-11-10T12:59:09.2284407Z 
+2026-11-10T12:59:09.2724187Z ==> Linting charts/elvia-job
+2026-11-10T12:59:09.2724721Z [INFO] Chart.yaml: icon is recommended
+2026-11-10T12:59:09.2725047Z 
+2026-11-10T12:59:09.2725205Z 1 chart(s) linted, 0 chart(s) failed
+2026-11-10T12:59:09.3152621Z Hang tight while we grab the latest from your chart repositories...
+2026-11-10T12:59:09.4684399Z ...Successfully got an update from the "traefik" chart repository
+2026-11-10T12:59:10.0157466Z ...Successfully got an update from the "prometheus-community" chart repository
+2026-11-10T12:59:10.0158946Z Update Complete. ⎈Happy Helming!⎈
+2026-11-10T12:59:10.5780104Z Saving 1 charts
+2026-11-10T12:59:10.5816527Z Deleting outdated charts
+2026-11-10T12:59:10.5916068Z Linting chart 'elvia-cronjob => (version: "0.2.0", path: "charts/elvia-cronjob")'
+2026-11-10T12:59:10.6537543Z Validating charts/elvia-cronjob/Chart.yaml...
+2026-11-10T12:59:10.6539009Z Validation success! 👍
+2026-11-10T12:59:10.9061728Z 
+2026-11-10T12:59:10.9062926Z Linting chart with values file 'charts/elvia-cronjob/ci/demo-cronjob-values.yaml'...
+2026-11-10T12:59:10.9063629Z 
+2026-11-10T12:59:10.9617509Z ==> Linting charts/elvia-cronjob
+2026-11-10T12:59:10.9617971Z [INFO] Chart.yaml: icon is recommended
+2026-11-10T12:59:10.9618392Z 
+2026-11-10T12:59:10.9618539Z 1 chart(s) linted, 0 chart(s) failed
+2026-11-10T12:59:10.9652621Z ------------------------------------------------------------------------------------------------------------------------
+2026-11-10T12:59:10.9654511Z  ✔︎ elvia-deployment => (version: "0.34.0", path: "charts/elvia-deployment")
+2026-11-10T12:59:10.9716446Z  ✔︎ elvia-statefulset => (version: "0.14.0", path: "charts/elvia-statefulset")
+2026-11-10T12:59:10.9717535Z  ✔︎ elvia-job => (version: "0.4.0", path: "charts/elvia-job")
+2026-11-10T12:59:10.9718367Z  ✔︎ elvia-cronjob => (version: "0.2.0", path: "charts/elvia-cronjob")
+2026-11-10T12:59:10.9719292Z ------------------------------------------------------------------------------------------------------------------------
+2026-11-10T12:59:10.9720092Z All charts linted successfully
+2026-11-10T12:59:10.9762882Z ##[group]Run ./ct/bin/ct install --upgrade --config ct.yaml
+2026-11-10T12:59:10.9763425Z [36;1m./ct/bin/ct install --upgrade --config ct.yaml[0m
+2026-11-10T12:59:10.9810603Z shell: /usr/bin/bash -e {0}
+2026-11-10T12:59:10.9810864Z ##[endgroup]
+2026-11-10T12:59:10.9909001Z Installing charts...
+2026-11-10T12:59:10.9912805Z Version increment checking disabled.
+2026-11-10T12:59:11.0362290Z 
+2026-11-10T12:59:11.0363457Z ------------------------------------------------------------------------------------------------------------------------
+2026-11-10T12:59:11.0364093Z  Charts to be processed:
+2026-11-10T12:59:11.0364522Z ------------------------------------------------------------------------------------------------------------------------
+2026-11-10T12:59:11.0365108Z  elvia-deployment => (version: "0.34.0", path: "charts/elvia-deployment")
+2026-11-10T12:59:11.0365613Z  elvia-statefulset => (version: "0.14.0", path: "charts/elvia-statefulset")
+2026-11-10T12:59:11.0366159Z  elvia-job => (version: "0.4.0", path: "charts/elvia-job")
+2026-11-10T12:59:11.0366571Z  elvia-cronjob => (version: "0.2.0", path: "charts/elvia-cronjob")
+2026-11-10T12:59:11.0367368Z ------------------------------------------------------------------------------------------------------------------------
+2026-11-10T12:59:11.0367767Z 
+2026-11-10T12:59:11.1073556Z HEAD is now at ae5986c iss-deployment: add kptest support for configmap, secret, and replicaCount (#105)
+2026-11-10T12:59:11.1080940Z Preparing worktree (detached HEAD ae5986c)
+2026-11-10T12:59:11.2477218Z Hang tight while we grab the latest from your chart repositories...
+2026-11-10T12:59:11.4023324Z ...Successfully got an update from the "traefik" chart repository
+2026-11-10T12:59:11.9223938Z ...Successfully got an update from the "prometheus-community" chart repository
+2026-11-10T12:59:11.9224981Z Update Complete. ⎈Happy Helming!⎈
+2026-11-10T12:59:12.4975470Z Saving 1 charts
+2026-11-10T12:59:12.4975866Z Deleting outdated charts
+2026-11-10T12:59:12.5509735Z Hang tight while we grab the latest from your chart repositories...
+2026-11-10T12:59:12.7018923Z ...Successfully got an update from the "traefik" chart repository
+2026-11-10T12:59:13.2275839Z ...Successfully got an update from the "prometheus-community" chart repository
+2026-11-10T12:59:13.2277560Z Update Complete. ⎈Happy Helming!⎈
+2026-11-10T12:59:13.8072827Z Saving 1 charts
+2026-11-10T12:59:13.8081986Z Deleting outdated charts
+2026-11-10T12:59:13.8746590Z Testing upgrades of chart 'elvia-deployment => (version: "0.34.0", path: "charts/elvia-deployment")' relative to previous revision 'elvia-deployment => (version: "0.34.0", path: "ct_previous_revision3209502266/charts/elvia-deployment")'...
+2026-11-10T12:59:13.8747666Z 
+2026-11-10T12:59:13.8748542Z Installing chart 'elvia-deployment => (version: "0.34.0", path: "ct_previous_revision3209502266/charts/elvia-deployment")' with values file 'ct_previous_revision3209502266/charts/elvia-deployment/ci/pushreceiver-configmap-deploy-ingress-dev-values.yaml'...
+2026-11-10T12:59:13.8749548Z 
+2026-11-10T12:59:13.8749691Z Creating namespace 'elvia-deployment-asv5r9w8yq'...
+2026-11-10T12:59:13.9245762Z namespace/elvia-deployment-asv5r9w8yq created
+2026-11-10T13:04:14.2969744Z I1110 12:59:14.236987   13547 warnings.go:107] "Warning: annotation \"kubernetes.io/ingress.class\" is deprecated, please use 'spec.ingressClassName' instead"
+2026-11-10T13:04:14.2971700Z Error: INSTALLATION FAILED: resource Deployment/core/pushreceiver-chart-testing not ready. status: InProgress, message: Available: 0/1
+2026-11-10T13:04:14.2972986Z context deadline exceeded
+2026-11-10T13:04:14.2984605Z Upgrade testing for release 'elvia-deployment-asv5r9w8yq' skipped because of previous revision installation error: Error waiting for process: exit status 1
+2026-11-10T13:04:14.2985815Z ========================================================================================================================
+2026-11-10T13:04:14.2987202Z ........................................................................................................................
+2026-11-10T13:04:14.2988001Z ==> Events of namespace elvia-deployment-asv5r9w8yq
+2026-11-10T13:04:14.2988764Z ........................................................................................................................
+2026-11-10T13:04:14.3550857Z No resources found in elvia-deployment-asv5r9w8yq namespace.
+2026-11-10T13:04:14.3551859Z ........................................................................................................................
+2026-11-10T13:04:14.3552988Z <== Events of namespace elvia-deployment-asv5r9w8yq
+2026-11-10T13:04:14.3553943Z ........................................................................................................................
+2026-11-10T13:04:14.4099456Z ========================================================================================================================
+2026-11-10T13:04:14.4100698Z Deleting release 'elvia-deployment-asv5r9w8yq'...
+2026-11-10T13:04:14.5670409Z release "elvia-deployment-asv5r9w8yq" uninstalled
+2026-11-10T13:04:14.5743883Z Deleting namespace 'elvia-deployment-asv5r9w8yq'...
+2026-11-10T13:04:14.6663958Z namespace "elvia-deployment-asv5r9w8yq" deleted
+2026-11-10T13:04:19.9477663Z Namespace 'elvia-deployment-asv5r9w8yq' terminated.
+2026-11-10T13:04:19.9478193Z 
+2026-11-10T13:04:19.9479839Z Installing chart 'elvia-deployment => (version: "0.34.0", path: "ct_previous_revision3209502266/charts/elvia-deployment")' with values file 'ct_previous_revision3209502266/charts/elvia-deployment/ci/pushreceiver-configmap-deploy-ingress-prod-values.yaml'...
+2026-11-10T13:04:19.9481705Z 
+2026-11-10T13:04:19.9481968Z Creating namespace 'elvia-deployment-bh90k9v762'...
+2026-11-10T13:04:19.9987740Z namespace/elvia-deployment-bh90k9v762 created
+2026-11-10T13:09:20.3295650Z I1110 13:04:20.265840   14217 warnings.go:107] "Warning: annotation \"kubernetes.io/ingress.class\" is deprecated, please use 'spec.ingressClassName' instead"
+2026-11-10T13:09:20.3306846Z Error: INSTALLATION FAILED: resource Deployment/core/pushreceiver-chart-testing not ready. status: InProgress, message: Available: 0/1
+2026-11-10T13:09:20.3310313Z context deadline exceeded
+2026-11-10T13:09:20.3311531Z Upgrade testing for release 'elvia-deployment-bh90k9v762' skipped because of previous revision installation error: Error waiting for process: exit status 1
+2026-11-10T13:09:20.3313090Z ========================================================================================================================
+2026-11-10T13:09:20.3314046Z ........................................................................................................................
+2026-11-10T13:09:20.3314899Z ==> Events of namespace elvia-deployment-bh90k9v762
+2026-11-10T13:09:20.3315681Z ........................................................................................................................
+2026-11-10T13:09:20.3870554Z No resources found in elvia-deployment-bh90k9v762 namespace.
+2026-11-10T13:09:20.3871412Z ........................................................................................................................
+2026-11-10T13:09:20.3872123Z <== Events of namespace elvia-deployment-bh90k9v762
+2026-11-10T13:09:20.3873284Z ........................................................................................................................
+2026-11-10T13:09:20.4432559Z ========================================================================================================================
+2026-11-10T13:09:20.4433626Z Deleting release 'elvia-deployment-bh90k9v762'...
+2026-11-10T13:09:20.5984690Z release "elvia-deployment-bh90k9v762" uninstalled
+2026-11-10T13:09:20.6029250Z Deleting namespace 'elvia-deployment-bh90k9v762'...
+2026-11-10T13:09:20.6968713Z namespace "elvia-deployment-bh90k9v762" deleted
+2026-11-10T13:09:26.0150061Z Namespace 'elvia-deployment-bh90k9v762' terminated.
+2026-11-10T13:09:26.0151762Z 
+2026-11-10T13:09:26.0154758Z Installing chart 'elvia-deployment => (version: "0.34.0", path: "ct_previous_revision3209502266/charts/elvia-deployment")' with values file 'ct_previous_revision3209502266/charts/elvia-deployment/ci/pushreceiver-configmap-deploy-ingress-test-values.yaml'...
+2026-11-10T13:09:26.0156732Z 
+2026-11-10T13:09:26.0156981Z Creating namespace 'elvia-deployment-4xxyj56enu'...
+2026-11-10T13:09:26.0626457Z namespace/elvia-deployment-4xxyj56enu created
+2026-11-10T13:14:26.3940255Z I1110 13:09:26.341685   14930 warnings.go:107] "Warning: annotation \"kubernetes.io/ingress.class\" is deprecated, please use 'spec.ingressClassName' instead"
+2026-11-10T13:14:26.3942173Z Error: INSTALLATION FAILED: resource Deployment/core/pushreceiver-chart-testing not ready. status: InProgress, message: Available: 0/1
+2026-11-10T13:14:26.3943348Z context deadline exceeded
+2026-11-10T13:14:26.3944183Z Upgrade testing for release 'elvia-deployment-4xxyj56enu' skipped because of previous revision installation error: Error waiting for process: exit status 1
+2026-11-10T13:14:26.3945202Z ========================================================================================================================
+2026-11-10T13:14:26.3945770Z ........................................................................................................................
+2026-11-10T13:14:26.3946362Z ==> Events of namespace elvia-deployment-4xxyj56enu
+2026-11-10T13:14:26.3946915Z ........................................................................................................................
+2026-11-10T13:14:26.4501933Z No resources found in elvia-deployment-4xxyj56enu namespace.
+2026-11-10T13:14:26.4503976Z ........................................................................................................................
+2026-11-10T13:14:26.4504590Z <== Events of namespace elvia-deployment-4xxyj56enu
+2026-11-10T13:14:26.4505572Z ........................................................................................................................
+2026-11-10T13:14:26.5056431Z ========================================================================================================================
+2026-11-10T13:14:26.5057356Z Deleting release 'elvia-deployment-4xxyj56enu'...
+2026-11-10T13:14:26.6513887Z release "elvia-deployment-4xxyj56enu" uninstalled
+2026-11-10T13:14:26.6564998Z Deleting namespace 'elvia-deployment-4xxyj56enu'...
+2026-11-10T13:14:26.7736442Z namespace "elvia-deployment-4xxyj56enu" deleted
+2026-11-10T13:14:32.0496390Z Namespace 'elvia-deployment-4xxyj56enu' terminated.
+2026-11-10T13:14:32.0498325Z 
+2026-11-10T13:14:32.0499776Z Installing chart 'elvia-deployment => (version: "0.34.0", path: "ct_previous_revision3209502266/charts/elvia-deployment")' with values file 'ct_previous_revision3209502266/charts/elvia-deployment/ci/web-api-deploy-ingress-dev-values.yaml'...
+2026-11-10T13:14:32.0500845Z 
+2026-11-10T13:14:32.0501127Z Creating namespace 'elvia-deployment-pbf8yz3umr'...
+2026-11-10T13:14:32.1014329Z namespace/elvia-deployment-pbf8yz3umr created
+2026-11-10T13:14:33.5543899Z NAME: elvia-deployment-pbf8yz3umr
+2026-11-10T13:14:33.5544495Z LAST DEPLOYED: Tue Nov 10 13:14:32 2026
+2026-11-10T13:14:33.5545003Z NAMESPACE: elvia-deployment-pbf8yz3umr
+2026-11-10T13:14:33.5545459Z STATUS: deployed
+2026-11-10T13:14:33.5545788Z REVISION: 1
+2026-11-10T13:14:33.5546121Z DESCRIPTION: Install complete
+2026-11-10T13:14:33.5546526Z TEST SUITE: None
+2026-11-10T13:14:33.5605223Z I1110 13:14:32.339484   15563 warnings.go:107] "Warning: annotation \"kubernetes.io/ingress.class\" is deprecated, please use 'spec.ingressClassName' instead"
+2026-11-10T13:14:33.6818321Z NAME: elvia-deployment-pbf8yz3umr
+2026-11-10T13:14:33.6818989Z LAST DEPLOYED: Tue Nov 10 13:14:32 2026
+2026-11-10T13:14:33.6819538Z NAMESPACE: elvia-deployment-pbf8yz3umr
+2026-11-10T13:14:33.6820043Z STATUS: deployed
+2026-11-10T13:14:33.6820418Z REVISION: 1
+2026-11-10T13:14:33.6820926Z DESCRIPTION: Install complete
+2026-11-10T13:14:33.6821377Z TEST SUITE: None
+2026-11-10T13:14:34.1232212Z Release "elvia-deployment-pbf8yz3umr" has been upgraded. Happy Helming!
+2026-11-10T13:14:34.1234042Z NAME: elvia-deployment-pbf8yz3umr
+2026-11-10T13:14:34.1235171Z LAST DEPLOYED: Tue Nov 10 13:14:33 2026
+2026-11-10T13:14:34.1236069Z NAMESPACE: elvia-deployment-pbf8yz3umr
+2026-11-10T13:14:34.1236884Z STATUS: deployed
+2026-11-10T13:14:34.1237232Z REVISION: 2
+2026-11-10T13:14:34.1237687Z DESCRIPTION: Upgrade complete
+2026-11-10T13:14:34.1238722Z TEST SUITE: None
+2026-11-10T13:14:34.2595280Z NAME: elvia-deployment-pbf8yz3umr
+2026-11-10T13:14:34.2598841Z LAST DEPLOYED: Tue Nov 10 13:14:33 2026
+2026-11-10T13:14:34.2599353Z NAMESPACE: elvia-deployment-pbf8yz3umr
+2026-11-10T13:14:34.2599791Z STATUS: deployed
+2026-11-10T13:14:34.2600006Z REVISION: 2
+2026-11-10T13:14:34.2600215Z DESCRIPTION: Upgrade complete
+2026-11-10T13:14:34.2600457Z TEST SUITE: None
+2026-11-10T13:14:34.2630179Z ========================================================================================================================
+2026-11-10T13:14:34.2631156Z ........................................................................................................................
+2026-11-10T13:14:34.2632044Z ==> Events of namespace elvia-deployment-pbf8yz3umr
+2026-11-10T13:14:34.2633002Z ........................................................................................................................
+2026-11-10T13:14:34.3236897Z No resources found in elvia-deployment-pbf8yz3umr namespace.
+2026-11-10T13:14:34.3237940Z ........................................................................................................................
+2026-11-10T13:14:34.3238835Z <== Events of namespace elvia-deployment-pbf8yz3umr
+2026-11-10T13:14:34.3239516Z ........................................................................................................................
+2026-11-10T13:14:34.3879324Z ========================================================================================================================
+2026-11-10T13:14:34.3880197Z Deleting release 'elvia-deployment-pbf8yz3umr'...
+2026-11-10T13:14:34.5424168Z release "elvia-deployment-pbf8yz3umr" uninstalled
+2026-11-10T13:14:34.5475763Z Deleting namespace 'elvia-deployment-pbf8yz3umr'...
+2026-11-10T13:14:34.6474415Z namespace "elvia-deployment-pbf8yz3umr" deleted
+2026-11-10T13:14:39.9175969Z Namespace 'elvia-deployment-pbf8yz3umr' terminated.
+2026-11-10T13:14:39.9177252Z 
+2026-11-10T13:14:39.9178200Z Installing chart 'elvia-deployment => (version: "0.34.0", path: "ct_previous_revision3209502266/charts/elvia-deployment")' with values file 'ct_previous_revision3209502266/charts/elvia-deployment/ci/web-api-deploy-ingress-prod-values.yaml'...
+2026-11-10T13:14:39.9179426Z 
+2026-11-10T13:14:39.9179579Z Creating namespace 'elvia-deployment-ag7m6bz7v9'...
+2026-11-10T13:14:39.9738952Z namespace/elvia-deployment-ag7m6bz7v9 created
+2026-11-10T13:14:41.4019355Z NAME: elvia-deployment-ag7m6bz7v9
+2026-11-10T13:14:41.4020090Z LAST DEPLOYED: Tue Nov 10 13:14:40 2026
+2026-11-10T13:14:41.4020696Z NAMESPACE: elvia-deployment-ag7m6bz7v9
+2026-11-10T13:14:41.4021279Z STATUS: deployed
+2026-11-10T13:14:41.4021878Z REVISION: 1
+2026-11-10T13:14:41.4022267Z DESCRIPTION: Install complete
+2026-11-10T13:14:41.4022884Z TEST SUITE: None
+2026-11-10T13:14:41.4063844Z I1110 13:14:40.226032   15856 warnings.go:107] "Warning: annotation \"kubernetes.io/ingress.class\" is deprecated, please use 'spec.ingressClassName' instead"
+2026-11-10T13:14:41.5251318Z NAME: elvia-deployment-ag7m6bz7v9
+2026-11-10T13:14:41.5251883Z LAST DEPLOYED: Tue Nov 10 13:14:40 2026
+2026-11-10T13:14:41.5252207Z NAMESPACE: elvia-deployment-ag7m6bz7v9
+2026-11-10T13:14:41.5252727Z STATUS: deployed
+2026-11-10T13:14:41.5252938Z REVISION: 1
+2026-11-10T13:14:41.5253145Z DESCRIPTION: Install complete
+2026-11-10T13:14:41.5253387Z TEST SUITE: None
+2026-11-10T13:14:41.9810001Z Release "elvia-deployment-ag7m6bz7v9" has been upgraded. Happy Helming!
+2026-11-10T13:14:41.9810739Z NAME: elvia-deployment-ag7m6bz7v9
+2026-11-10T13:14:41.9811192Z LAST DEPLOYED: Tue Nov 10 13:14:41 2026
+2026-11-10T13:14:41.9811661Z NAMESPACE: elvia-deployment-ag7m6bz7v9
+2026-11-10T13:14:41.9812096Z STATUS: deployed
+2026-11-10T13:14:41.9814969Z REVISION: 2
+2026-11-10T13:14:41.9815429Z DESCRIPTION: Upgrade complete
+2026-11-10T13:14:41.9815835Z TEST SUITE: None
+2026-11-10T13:14:42.1153059Z NAME: elvia-deployment-ag7m6bz7v9
+2026-11-10T13:14:42.1153422Z LAST DEPLOYED: Tue Nov 10 13:14:41 2026
+2026-11-10T13:14:42.1154292Z NAMESPACE: elvia-deployment-ag7m6bz7v9
+2026-11-10T13:14:42.1154567Z STATUS: deployed
+2026-11-10T13:14:42.1154767Z REVISION: 2
+2026-11-10T13:14:42.1154976Z DESCRIPTION: Upgrade complete
+2026-11-10T13:14:42.1155224Z TEST SUITE: None
+2026-11-10T13:14:42.1189240Z ========================================================================================================================
+2026-11-10T13:14:42.1190194Z ........................................................................................................................
+2026-11-10T13:14:42.1190977Z ==> Events of namespace elvia-deployment-ag7m6bz7v9
+2026-11-10T13:14:42.1191721Z ........................................................................................................................
+2026-11-10T13:14:42.1778709Z No resources found in elvia-deployment-ag7m6bz7v9 namespace.
+2026-11-10T13:14:42.1780207Z ........................................................................................................................
+2026-11-10T13:14:42.1780865Z <== Events of namespace elvia-deployment-ag7m6bz7v9
+2026-11-10T13:14:42.1781478Z ........................................................................................................................
+2026-11-10T13:14:42.2341589Z ========================================================================================================================
+2026-11-10T13:14:42.2342953Z Deleting release 'elvia-deployment-ag7m6bz7v9'...
+2026-11-10T13:14:42.3836378Z release "elvia-deployment-ag7m6bz7v9" uninstalled
+2026-11-10T13:14:42.3893509Z Deleting namespace 'elvia-deployment-ag7m6bz7v9'...
+2026-11-10T13:14:42.4796170Z namespace "elvia-deployment-ag7m6bz7v9" deleted
+2026-11-10T13:14:47.7418824Z Namespace 'elvia-deployment-ag7m6bz7v9' terminated.
+2026-11-10T13:14:47.7419670Z 
+2026-11-10T13:14:47.7421185Z Installing chart 'elvia-deployment => (version: "0.34.0", path: "ct_previous_revision3209502266/charts/elvia-deployment")' with values file 'ct_previous_revision3209502266/charts/elvia-deployment/ci/web-api-deploy-ingress-test-values.yaml'...
+2026-11-10T13:14:47.7422864Z 
+2026-11-10T13:14:47.7423025Z Creating namespace 'elvia-deployment-a4xefmz322'...
+2026-11-10T13:14:47.7935093Z namespace/elvia-deployment-a4xefmz322 created
+2026-11-10T13:14:49.2205099Z NAME: elvia-deployment-a4xefmz322
+2026-11-10T13:14:49.2205716Z LAST DEPLOYED: Tue Nov 10 13:14:47 2026
+2026-11-10T13:14:49.2206248Z NAMESPACE: elvia-deployment-a4xefmz322
+2026-11-10T13:14:49.2206729Z STATUS: deployed
+2026-11-10T13:14:49.2207074Z REVISION: 1
+2026-11-10T13:14:49.2207421Z DESCRIPTION: Install complete
+2026-11-10T13:14:49.2207816Z TEST SUITE: None
+2026-11-10T13:14:49.2251958Z I1110 13:14:48.037746   16149 warnings.go:107] "Warning: annotation \"kubernetes.io/ingress.class\" is deprecated, please use 'spec.ingressClassName' instead"
+2026-11-10T13:14:49.3433549Z NAME: elvia-deployment-a4xefmz322
+2026-11-10T13:14:49.3434093Z LAST DEPLOYED: Tue Nov 10 13:14:47 2026
+2026-11-10T13:14:49.3434511Z NAMESPACE: elvia-deployment-a4xefmz322
+2026-11-10T13:14:49.3434827Z STATUS: deployed
+2026-11-10T13:14:49.3435032Z REVISION: 1
+2026-11-10T13:14:49.3435235Z DESCRIPTION: Install complete
+2026-11-10T13:14:49.3435482Z TEST SUITE: None
+2026-11-10T13:14:49.8651206Z Release "elvia-deployment-a4xefmz322" has been upgraded. Happy Helming!
+2026-11-10T13:14:49.8683488Z NAME: elvia-deployment-a4xefmz322
+2026-11-10T13:14:49.8705451Z LAST DEPLOYED: Tue Nov 10 13:14:49 2026
+2026-11-10T13:14:49.8708399Z NAMESPACE: elvia-deployment-a4xefmz322
+2026-11-10T13:14:49.8709644Z STATUS: deployed
+2026-11-10T13:14:49.8710174Z REVISION: 2
+2026-11-10T13:14:49.8710673Z DESCRIPTION: Upgrade complete
+2026-11-10T13:14:49.8711236Z TEST SUITE: None
+2026-11-10T13:14:50.0154906Z NAME: elvia-deployment-a4xefmz322
+2026-11-10T13:14:50.0163787Z LAST DEPLOYED: Tue Nov 10 13:14:49 2026
+2026-11-10T13:14:50.0164165Z NAMESPACE: elvia-deployment-a4xefmz322
+2026-11-10T13:14:50.0164450Z STATUS: deployed
+2026-11-10T13:14:50.0164649Z REVISION: 2
+2026-11-10T13:14:50.0164853Z DESCRIPTION: Upgrade complete
+2026-11-10T13:14:50.0165285Z TEST SUITE: None
+2026-11-10T13:14:50.0194571Z ========================================================================================================================
+2026-11-10T13:14:50.0195470Z ........................................................................................................................
+2026-11-10T13:14:50.0196246Z ==> Events of namespace elvia-deployment-a4xefmz322
+2026-11-10T13:14:50.0196861Z ........................................................................................................................
+2026-11-10T13:14:50.0819371Z ........................................................................................................................
+2026-11-10T13:14:50.0820306Z <== Events of namespace elvia-deployment-a4xefmz322
+2026-11-10T13:14:50.0821115Z ........................................................................................................................
+2026-11-10T13:14:50.1403820Z ========================================================================================================================
+2026-11-10T13:14:50.1404684Z Deleting release 'elvia-deployment-a4xefmz322'...
+2026-11-10T13:14:50.2812827Z release "elvia-deployment-a4xefmz322" uninstalled
+2026-11-10T13:14:50.2868773Z Deleting namespace 'elvia-deployment-a4xefmz322'...
+2026-11-10T13:14:50.3794600Z namespace "elvia-deployment-a4xefmz322" deleted
+2026-11-10T13:14:55.6813174Z Namespace 'elvia-deployment-a4xefmz322' terminated.
+2026-11-10T13:14:55.6813724Z 
+2026-11-10T13:14:55.6815137Z Installing chart 'elvia-deployment => (version: "0.34.0", path: "ct_previous_revision3209502266/charts/elvia-deployment")' with values file 'ct_previous_revision3209502266/charts/elvia-deployment/ci/worker-configmap-deploy-dev-values.yaml'...
+2026-11-10T13:14:55.6816848Z 
+2026-11-10T13:14:55.6817086Z Creating namespace 'elvia-deployment-e11llwba5s'...
+2026-11-10T13:14:55.7422760Z namespace/elvia-deployment-e11llwba5s created
+2026-11-10T13:19:56.0527014Z Error: INSTALLATION FAILED: resource Deployment/core/worker-chart-testing not ready. status: InProgress, message: Available: 0/1
+2026-11-10T13:19:56.0530044Z context deadline exceeded
+2026-11-10T13:19:56.0531189Z Upgrade testing for release 'elvia-deployment-e11llwba5s' skipped because of previous revision installation error: Error waiting for process: exit status 1
+2026-11-10T13:19:56.0532793Z ========================================================================================================================
+2026-11-10T13:19:56.0533690Z ........................................................................................................................
+2026-11-10T13:19:56.0534779Z ==> Events of namespace elvia-deployment-e11llwba5s
+2026-11-10T13:19:56.0535967Z ........................................................................................................................
+2026-11-10T13:19:56.1274697Z No resources found in elvia-deployment-e11llwba5s namespace.
+2026-11-10T13:19:56.1277948Z ........................................................................................................................
+2026-11-10T13:19:56.1278630Z <== Events of namespace elvia-deployment-e11llwba5s
+2026-11-10T13:19:56.1279325Z ........................................................................................................................
+2026-11-10T13:19:56.2121213Z ========================================================================================================================
+2026-11-10T13:19:56.2126500Z Deleting release 'elvia-deployment-e11llwba5s'...
+2026-11-10T13:19:56.3573664Z release "elvia-deployment-e11llwba5s" uninstalled
+2026-11-10T13:19:56.3641503Z Deleting namespace 'elvia-deployment-e11llwba5s'...
+2026-11-10T13:19:56.4854985Z namespace "elvia-deployment-e11llwba5s" deleted
+2026-11-10T13:20:01.7504880Z Namespace 'elvia-deployment-e11llwba5s' terminated.
+2026-11-10T13:20:01.7505421Z 
+2026-11-10T13:20:01.7506755Z Installing chart 'elvia-deployment => (version: "0.34.0", path: "ct_previous_revision3209502266/charts/elvia-deployment")' with values file 'ct_previous_revision3209502266/charts/elvia-deployment/ci/worker-configmap-deploy-prod-values.yaml'...
+2026-11-10T13:20:01.7508410Z 
+2026-11-10T13:20:01.7508674Z Creating namespace 'elvia-deployment-blxey2mz6i'...
+2026-11-10T13:20:01.8027365Z namespace/elvia-deployment-blxey2mz6i created
+2026-11-10T13:25:02.0857581Z Error: INSTALLATION FAILED: resource Deployment/core/worker-chart-testing not ready. status: InProgress, message: Available: 0/1
+2026-11-10T13:25:02.0858753Z context deadline exceeded
+2026-11-10T13:25:02.0860692Z Upgrade testing for release 'elvia-deployment-blxey2mz6i' skipped because of previous revision installation error: Error waiting for process: exit status 1
+2026-11-10T13:25:02.0861789Z ========================================================================================================================
+2026-11-10T13:25:02.0862295Z ........................................................................................................................
+2026-11-10T13:25:02.0863426Z ==> Events of namespace elvia-deployment-blxey2mz6i
+2026-11-10T13:25:02.0864042Z ........................................................................................................................
+2026-11-10T13:25:02.1419765Z No resources found in elvia-deployment-blxey2mz6i namespace.
+2026-11-10T13:25:02.1423500Z ........................................................................................................................
+2026-11-10T13:25:02.1424316Z <== Events of namespace elvia-deployment-blxey2mz6i
+2026-11-10T13:25:02.1424917Z ........................................................................................................................
+2026-11-10T13:25:02.1988869Z ========================================================================================================================
+2026-11-10T13:25:02.1989447Z Deleting release 'elvia-deployment-blxey2mz6i'...
+2026-11-10T13:25:02.3108091Z release "elvia-deployment-blxey2mz6i" uninstalled
+2026-11-10T13:25:02.3150971Z Deleting namespace 'elvia-deployment-blxey2mz6i'...
+2026-11-10T13:25:02.4141242Z namespace "elvia-deployment-blxey2mz6i" deleted
+2026-11-10T13:25:07.6786328Z Namespace 'elvia-deployment-blxey2mz6i' terminated.
+2026-11-10T13:25:07.6787152Z 
+2026-11-10T13:25:07.6788991Z Installing chart 'elvia-deployment => (version: "0.34.0", path: "ct_previous_revision3209502266/charts/elvia-deployment")' with values file 'ct_previous_revision3209502266/charts/elvia-deployment/ci/worker-configmap-deploy-test-values.yaml'...
+2026-11-10T13:25:07.6790494Z 
+2026-11-10T13:25:07.6790749Z Creating namespace 'elvia-deployment-1qifk53hql'...
+2026-11-10T13:25:07.7288539Z namespace/elvia-deployment-1qifk53hql created
+2026-11-10T13:30:07.9852287Z Error: INSTALLATION FAILED: resource Deployment/core/worker-chart-testing not ready. status: InProgress, message: Available: 0/1
+2026-11-10T13:30:07.9856553Z context deadline exceeded
+2026-11-10T13:30:07.9858008Z Upgrade testing for release 'elvia-deployment-1qifk53hql' skipped because of previous revision installation error: Error waiting for process: exit status 1
+2026-11-10T13:30:07.9859596Z ========================================================================================================================
+2026-11-10T13:30:07.9860482Z ........................................................................................................................
+2026-11-10T13:30:07.9861317Z ==> Events of namespace elvia-deployment-1qifk53hql
+2026-11-10T13:30:07.9862091Z ........................................................................................................................
+2026-11-10T13:30:08.0413374Z No resources found in elvia-deployment-1qifk53hql namespace.
+2026-11-10T13:30:08.0414734Z ........................................................................................................................
+2026-11-10T13:30:08.0415467Z <== Events of namespace elvia-deployment-1qifk53hql
+2026-11-10T13:30:08.0416076Z ........................................................................................................................
+2026-11-10T13:30:08.0975837Z ========================================================================================================================
+2026-11-10T13:30:08.0979101Z Deleting release 'elvia-deployment-1qifk53hql'...
+2026-11-10T13:30:08.2110485Z release "elvia-deployment-1qifk53hql" uninstalled
+2026-11-10T13:30:08.2156890Z Deleting namespace 'elvia-deployment-1qifk53hql'...
+2026-11-10T13:30:08.3117853Z namespace "elvia-deployment-1qifk53hql" deleted
+2026-11-10T13:30:13.6762558Z Namespace 'elvia-deployment-1qifk53hql' terminated.
+2026-11-10T13:30:13.6764404Z Testing upgrades of chart 'elvia-deployment => (version: "0.34.0", path: "charts/elvia-deployment")' relative to previous revision 'elvia-deployment => (version: "0.34.0", path: "charts/elvia-deployment")'...
+2026-11-10T13:30:13.6765765Z 
+2026-11-10T13:30:13.6767178Z Installing chart 'elvia-deployment => (version: "0.34.0", path: "charts/elvia-deployment")' with values file 'charts/elvia-deployment/ci/pushreceiver-configmap-deploy-ingress-dev-values.yaml'...
+2026-11-10T13:30:13.6768543Z 
+2026-11-10T13:30:13.6768793Z Creating namespace 'elvia-deployment-rh5wyrxbwy'...
+2026-11-10T13:30:13.7269308Z namespace/elvia-deployment-rh5wyrxbwy created
+2026-11-10T13:35:14.0733815Z I1110 13:30:14.007346   17617 warnings.go:107] "Warning: annotation \"kubernetes.io/ingress.class\" is deprecated, please use 'spec.ingressClassName' instead"
+2026-11-10T13:35:14.0739055Z Error: INSTALLATION FAILED: resource Deployment/core/pushreceiver-chart-testing not ready. status: InProgress, message: Available: 0/1
+2026-11-10T13:35:14.0740180Z context deadline exceeded
+2026-11-10T13:35:14.0740762Z ========================================================================================================================
+2026-11-10T13:35:14.0741650Z ........................................................................................................................
+2026-11-10T13:35:14.0742918Z ==> Events of namespace elvia-deployment-rh5wyrxbwy
+2026-11-10T13:35:14.0743888Z ........................................................................................................................
+2026-11-10T13:35:14.1329875Z No resources found in elvia-deployment-rh5wyrxbwy namespace.
+2026-11-10T13:35:14.1330603Z ........................................................................................................................
+2026-11-10T13:35:14.1331082Z <== Events of namespace elvia-deployment-rh5wyrxbwy
+2026-11-10T13:35:14.1331532Z ........................................................................................................................
+2026-11-10T13:35:14.1891297Z ========================================================================================================================
+2026-11-10T13:35:14.1892080Z Deleting release 'elvia-deployment-rh5wyrxbwy'...
+2026-11-10T13:35:14.3444686Z release "elvia-deployment-rh5wyrxbwy" uninstalled
+2026-11-10T13:35:14.3486200Z Deleting namespace 'elvia-deployment-rh5wyrxbwy'...
+2026-11-10T13:35:14.4429994Z namespace "elvia-deployment-rh5wyrxbwy" deleted
+2026-11-10T13:35:19.7042798Z Namespace 'elvia-deployment-rh5wyrxbwy' terminated.
+2026-11-10T13:35:19.7570445Z Testing upgrades of chart 'elvia-statefulset => (version: "0.14.0", path: "charts/elvia-statefulset")' relative to previous revision 'elvia-statefulset => (version: "0.14.0", path: "ct_previous_revision3209502266/charts/elvia-statefulset")'...
+2026-11-10T13:35:19.7571928Z 
+2026-11-10T13:35:19.7573912Z Installing chart 'elvia-statefulset => (version: "0.14.0", path: "ct_previous_revision3209502266/charts/elvia-statefulset")' with values file 'ct_previous_revision3209502266/charts/elvia-statefulset/ci/calculationworker-dev-values.yaml'...
+2026-11-10T13:35:19.7575534Z 
+2026-11-10T13:35:19.7575795Z Creating namespace 'elvia-statefulset-6msbmn899r'...
+2026-11-10T13:35:19.8061589Z namespace/elvia-statefulset-6msbmn899r created
+2026-11-10T13:40:20.0374959Z Error: INSTALLATION FAILED: resource StatefulSet/core/calculationworker not ready. status: InProgress, message: Ready: 0/1
+2026-11-10T13:40:20.0376950Z context deadline exceeded
+2026-11-10T13:40:20.0378020Z Upgrade testing for release 'elvia-statefulset-6msbmn899r' skipped because of previous revision installation error: Error waiting for process: exit status 1
+2026-11-10T13:40:20.0379384Z ========================================================================================================================
+2026-11-10T13:40:20.0380032Z ........................................................................................................................
+2026-11-10T13:40:20.0380497Z ==> Events of namespace elvia-statefulset-6msbmn899r
+2026-11-10T13:40:20.0380969Z ........................................................................................................................
+2026-11-10T13:40:20.0946053Z No resources found in elvia-statefulset-6msbmn899r namespace.
+2026-11-10T13:40:20.0947245Z ........................................................................................................................
+2026-11-10T13:40:20.0948123Z <== Events of namespace elvia-statefulset-6msbmn899r
+2026-11-10T13:40:20.0948916Z ........................................................................................................................
+2026-11-10T13:40:20.1515370Z ========================================================================================================================
+2026-11-10T13:40:20.1516443Z Deleting release 'elvia-statefulset-6msbmn899r'...
+2026-11-10T13:40:20.2503821Z release "elvia-statefulset-6msbmn899r" uninstalled
+2026-11-10T13:40:20.2540623Z Deleting namespace 'elvia-statefulset-6msbmn899r'...
+2026-11-10T13:40:20.3477304Z namespace "elvia-statefulset-6msbmn899r" deleted
+2026-11-10T13:40:25.6092835Z Namespace 'elvia-statefulset-6msbmn899r' terminated.
+2026-11-10T13:40:25.6093454Z 
+2026-11-10T13:40:25.6094541Z Installing chart 'elvia-statefulset => (version: "0.14.0", path: "ct_previous_revision3209502266/charts/elvia-statefulset")' with values file 'ct_previous_revision3209502266/charts/elvia-statefulset/ci/calculationworker-prod-values.yaml'...
+2026-11-10T13:40:25.6098238Z 
+2026-11-10T13:40:25.6098492Z Creating namespace 'elvia-statefulset-ysxkxbpqq1'...
+2026-11-10T13:40:25.6580947Z namespace/elvia-statefulset-ysxkxbpqq1 created
+2026-11-10T13:45:25.8777617Z Error: INSTALLATION FAILED: resource StatefulSet/core/calculationworker not ready. status: InProgress, message: Ready: 0/1
+2026-11-10T13:45:25.8778892Z context deadline exceeded
+2026-11-10T13:45:25.8780149Z Upgrade testing for release 'elvia-statefulset-ysxkxbpqq1' skipped because of previous revision installation error: Error waiting for process: exit status 1
+2026-11-10T13:45:25.8781822Z ========================================================================================================================
+2026-11-10T13:45:25.8783155Z ........................................................................................................................
+2026-11-10T13:45:25.8783792Z ==> Events of namespace elvia-statefulset-ysxkxbpqq1
+2026-11-10T13:45:25.8784329Z ........................................................................................................................
+2026-11-10T13:45:25.9328349Z No resources found in elvia-statefulset-ysxkxbpqq1 namespace.
+2026-11-10T13:45:25.9329482Z ........................................................................................................................
+2026-11-10T13:45:25.9330216Z <== Events of namespace elvia-statefulset-ysxkxbpqq1
+2026-11-10T13:45:25.9330664Z ........................................................................................................................
+2026-11-10T13:45:25.9954815Z ========================================================================================================================
+2026-11-10T13:45:25.9955654Z Deleting release 'elvia-statefulset-ysxkxbpqq1'...
+2026-11-10T13:45:26.0943939Z release "elvia-statefulset-ysxkxbpqq1" uninstalled
+2026-11-10T13:45:26.0994331Z Deleting namespace 'elvia-statefulset-ysxkxbpqq1'...
+2026-11-10T13:45:26.1973934Z namespace "elvia-statefulset-ysxkxbpqq1" deleted
+2026-11-10T13:45:31.4871392Z Namespace 'elvia-statefulset-ysxkxbpqq1' terminated.
+2026-11-10T13:45:31.4871893Z 
+2026-11-10T13:45:31.4873290Z Installing chart 'elvia-statefulset => (version: "0.14.0", path: "ct_previous_revision3209502266/charts/elvia-statefulset")' with values file 'ct_previous_revision3209502266/charts/elvia-statefulset/ci/calculationworker-test-values.yaml'...
+2026-11-10T13:45:31.4874485Z 
+2026-11-10T13:45:31.4874645Z Creating namespace 'elvia-statefulset-6uarr7x5e9'...
+2026-11-10T13:45:31.5356049Z namespace/elvia-statefulset-6uarr7x5e9 created
+2026-11-10T13:50:31.7543721Z Error: INSTALLATION FAILED: resource StatefulSet/core/calculationworker not ready. status: InProgress, message: Ready: 0/1
+2026-11-10T13:50:31.7545036Z context deadline exceeded
+2026-11-10T13:50:31.7546137Z Upgrade testing for release 'elvia-statefulset-6uarr7x5e9' skipped because of previous revision installation error: Error waiting for process: exit status 1
+2026-11-10T13:50:31.7547493Z ========================================================================================================================
+2026-11-10T13:50:31.7549748Z ........................................................................................................................
+2026-11-10T13:50:31.7550672Z ==> Events of namespace elvia-statefulset-6uarr7x5e9
+2026-11-10T13:50:31.7551265Z ........................................................................................................................
+2026-11-10T13:50:31.8121179Z No resources found in elvia-statefulset-6uarr7x5e9 namespace.
+2026-11-10T13:50:31.8122804Z ........................................................................................................................
+2026-11-10T13:50:31.8123636Z <== Events of namespace elvia-statefulset-6uarr7x5e9
+2026-11-10T13:50:31.8124125Z ........................................................................................................................
+2026-11-10T13:50:31.8695386Z ========================================================================================================================
+2026-11-10T13:50:31.8696240Z Deleting release 'elvia-statefulset-6uarr7x5e9'...
+2026-11-10T13:50:31.9858182Z release "elvia-statefulset-6uarr7x5e9" uninstalled
+2026-11-10T13:50:31.9894396Z Deleting namespace 'elvia-statefulset-6uarr7x5e9'...
+2026-11-10T13:50:32.0837583Z namespace "elvia-statefulset-6uarr7x5e9" deleted
+2026-11-10T13:50:37.4184397Z Namespace 'elvia-statefulset-6uarr7x5e9' terminated.
+2026-11-10T13:50:37.4185685Z Testing upgrades of chart 'elvia-statefulset => (version: "0.14.0", path: "charts/elvia-statefulset")' relative to previous revision 'elvia-statefulset => (version: "0.14.0", path: "charts/elvia-statefulset")'...
+2026-11-10T13:50:37.4186831Z 
+2026-11-10T13:50:37.4187574Z Installing chart 'elvia-statefulset => (version: "0.14.0", path: "charts/elvia-statefulset")' with values file 'charts/elvia-statefulset/ci/calculationworker-dev-values.yaml'...
+2026-11-10T13:50:37.4188258Z 
+2026-11-10T13:50:37.4188411Z Creating namespace 'elvia-statefulset-7ohzwfs2r0'...
+2026-11-10T13:50:37.4717373Z namespace/elvia-statefulset-7ohzwfs2r0 created
+2026-11-10T13:55:37.6821017Z Error: INSTALLATION FAILED: resource StatefulSet/core/calculationworker not ready. status: InProgress, message: Ready: 0/1
+2026-11-10T13:55:37.6821848Z context deadline exceeded
+2026-11-10T13:55:37.6822641Z ========================================================================================================================
+2026-11-10T13:55:37.6823611Z ........................................................................................................................
+2026-11-10T13:55:37.6824350Z ==> Events of namespace elvia-statefulset-7ohzwfs2r0
+2026-11-10T13:55:37.6825038Z ........................................................................................................................
+2026-11-10T13:55:37.7386094Z No resources found in elvia-statefulset-7ohzwfs2r0 namespace.
+2026-11-10T13:55:37.7387686Z ........................................................................................................................
+2026-11-10T13:55:37.7388838Z <== Events of namespace elvia-statefulset-7ohzwfs2r0
+2026-11-10T13:55:37.7389805Z ........................................................................................................................
+2026-11-10T13:55:37.7930499Z ========================================================================================================================
+2026-11-10T13:55:37.7931233Z Deleting release 'elvia-statefulset-7ohzwfs2r0'...
+2026-11-10T13:55:37.8889882Z release "elvia-statefulset-7ohzwfs2r0" uninstalled
+2026-11-10T13:55:37.8954478Z Deleting namespace 'elvia-statefulset-7ohzwfs2r0'...
+2026-11-10T13:55:38.0031865Z namespace "elvia-statefulset-7ohzwfs2r0" deleted
+2026-11-10T13:55:43.2880183Z Namespace 'elvia-statefulset-7ohzwfs2r0' terminated.
+2026-11-10T13:55:43.3295967Z Hang tight while we grab the latest from your chart repositories...
+2026-11-10T13:55:43.4839789Z ...Successfully got an update from the "traefik" chart repository
+2026-11-10T13:55:44.0005975Z ...Successfully got an update from the "prometheus-community" chart repository
+2026-11-10T13:55:44.0007002Z Update Complete. ⎈Happy Helming!⎈
+2026-11-10T13:55:44.5693416Z Saving 1 charts
+2026-11-10T13:55:44.5703844Z Deleting outdated charts
+2026-11-10T13:55:44.5885535Z Testing upgrades of chart 'elvia-job => (version: "0.4.0", path: "charts/elvia-job")' relative to previous revision 'elvia-job => (version: "0.4.0", path: "ct_previous_revision3209502266/charts/elvia-job")'...
+2026-11-10T13:55:44.5887009Z 
+2026-11-10T13:55:44.5888595Z Installing chart 'elvia-job => (version: "0.4.0", path: "ct_previous_revision3209502266/charts/elvia-job")' with values file 'ct_previous_revision3209502266/charts/elvia-job/ci/demo-job-values.yaml'...
+2026-11-10T13:55:44.5889367Z 
+2026-11-10T13:55:44.5889496Z Creating namespace 'elvia-job-480obkxyb8'...
+2026-11-10T13:55:44.6397483Z namespace/elvia-job-480obkxyb8 created
+2026-11-10T13:55:44.7711197Z NAME: elvia-job-480obkxyb8
+2026-11-10T13:55:44.7721777Z LAST DEPLOYED: Tue Nov 10 13:55:44 2026
+2026-11-10T13:55:44.7722184Z NAMESPACE: elvia-job-480obkxyb8
+2026-11-10T13:55:44.7722825Z STATUS: deployed
+2026-11-10T13:55:44.7723273Z REVISION: 1
+2026-11-10T13:55:44.7723773Z DESCRIPTION: Install complete
+2026-11-10T13:55:44.7725432Z TEST SUITE: None
+2026-11-10T13:55:44.8847930Z NAME: elvia-job-480obkxyb8
+2026-11-10T13:55:44.8848408Z LAST DEPLOYED: Tue Nov 10 13:55:44 2026
+2026-11-10T13:55:44.8848861Z NAMESPACE: elvia-job-480obkxyb8
+2026-11-10T13:55:44.8849250Z STATUS: deployed
+2026-11-10T13:55:44.8849551Z REVISION: 1
+2026-11-10T13:55:44.8849887Z DESCRIPTION: Install complete
+2026-11-10T13:55:44.8850415Z TEST SUITE: None
+2026-11-10T13:55:45.0275497Z Release "elvia-job-480obkxyb8" has been upgraded. Happy Helming!
+2026-11-10T13:55:45.0276321Z NAME: elvia-job-480obkxyb8
+2026-11-10T13:55:45.0277020Z LAST DEPLOYED: Tue Nov 10 13:55:44 2026
+2026-11-10T13:55:45.0277562Z NAMESPACE: elvia-job-480obkxyb8
+2026-11-10T13:55:45.0277955Z STATUS: deployed
+2026-11-10T13:55:45.0278265Z REVISION: 2
+2026-11-10T13:55:45.0278587Z DESCRIPTION: Upgrade complete
+2026-11-10T13:55:45.0278965Z TEST SUITE: None
+2026-11-10T13:55:45.1670953Z NAME: elvia-job-480obkxyb8
+2026-11-10T13:55:45.1671900Z LAST DEPLOYED: Tue Nov 10 13:55:44 2026
+2026-11-10T13:55:45.1673238Z NAMESPACE: elvia-job-480obkxyb8
+2026-11-10T13:55:45.1674073Z STATUS: deployed
+2026-11-10T13:55:45.1674630Z REVISION: 2
+2026-11-10T13:55:45.1675360Z DESCRIPTION: Upgrade complete
+2026-11-10T13:55:45.1676133Z TEST SUITE: None
+2026-11-10T13:55:45.1705602Z ========================================================================================================================
+2026-11-10T13:55:45.1706370Z ........................................................................................................................
+2026-11-10T13:55:45.1706846Z ==> Events of namespace elvia-job-480obkxyb8
+2026-11-10T13:55:45.1707520Z ........................................................................................................................
+2026-11-10T13:55:45.2309010Z No resources found in elvia-job-480obkxyb8 namespace.
+2026-11-10T13:55:45.2313201Z ........................................................................................................................
+2026-11-10T13:55:45.2314036Z <== Events of namespace elvia-job-480obkxyb8
+2026-11-10T13:55:45.2314866Z ........................................................................................................................
+2026-11-10T13:55:45.2877061Z ========================================================================================================================
+2026-11-10T13:55:45.2877794Z Deleting release 'elvia-job-480obkxyb8'...
+2026-11-10T13:55:45.3700006Z release "elvia-job-480obkxyb8" uninstalled
+2026-11-10T13:55:45.3747285Z Deleting namespace 'elvia-job-480obkxyb8'...
+2026-11-10T13:55:45.4489775Z namespace "elvia-job-480obkxyb8" deleted
+2026-11-10T13:55:50.7551653Z Namespace 'elvia-job-480obkxyb8' terminated.
+2026-11-10T13:55:50.7553220Z Testing upgrades of chart 'elvia-job => (version: "0.4.0", path: "charts/elvia-job")' relative to previous revision 'elvia-job => (version: "0.4.0", path: "charts/elvia-job")'...
+2026-11-10T13:55:50.7554318Z 
+2026-11-10T13:55:50.7554800Z Installing chart 'elvia-job => (version: "0.4.0", path: "charts/elvia-job")' with values file 'charts/elvia-job/ci/demo-job-values.yaml'...
+2026-11-10T13:55:50.7555320Z 
+2026-11-10T13:55:50.7555473Z Creating namespace 'elvia-job-p26et9evrk'...
+2026-11-10T13:55:50.8053520Z namespace/elvia-job-p26et9evrk created
+2026-11-10T13:55:50.9449655Z NAME: elvia-job-p26et9evrk
+2026-11-10T13:55:50.9450212Z LAST DEPLOYED: Tue Nov 10 13:55:50 2026
+2026-11-10T13:55:50.9450699Z NAMESPACE: elvia-job-p26et9evrk
+2026-11-10T13:55:50.9451145Z STATUS: deployed
+2026-11-10T13:55:50.9451485Z REVISION: 1
+2026-11-10T13:55:50.9451736Z DESCRIPTION: Install complete
+2026-11-10T13:55:50.9452193Z TEST SUITE: None
+2026-11-10T13:55:51.0600408Z NAME: elvia-job-p26et9evrk
+2026-11-10T13:55:51.0600921Z LAST DEPLOYED: Tue Nov 10 13:55:50 2026
+2026-11-10T13:55:51.0601400Z NAMESPACE: elvia-job-p26et9evrk
+2026-11-10T13:55:51.0601818Z STATUS: deployed
+2026-11-10T13:55:51.0602156Z REVISION: 1
+2026-11-10T13:55:51.0602722Z DESCRIPTION: Install complete
+2026-11-10T13:55:51.0603126Z TEST SUITE: None
+2026-11-10T13:55:51.2019255Z Release "elvia-job-p26et9evrk" has been upgraded. Happy Helming!
+2026-11-10T13:55:51.2019907Z NAME: elvia-job-p26et9evrk
+2026-11-10T13:55:51.2020316Z LAST DEPLOYED: Tue Nov 10 13:55:51 2026
+2026-11-10T13:55:51.2020771Z NAMESPACE: elvia-job-p26et9evrk
+2026-11-10T13:55:51.2021164Z STATUS: deployed
+2026-11-10T13:55:51.2021509Z REVISION: 2
+2026-11-10T13:55:51.2021820Z DESCRIPTION: Upgrade complete
+2026-11-10T13:55:51.2022211Z TEST SUITE: None
+2026-11-10T13:55:51.3363415Z NAME: elvia-job-p26et9evrk
+2026-11-10T13:55:51.3364237Z LAST DEPLOYED: Tue Nov 10 13:55:51 2026
+2026-11-10T13:55:51.3365061Z NAMESPACE: elvia-job-p26et9evrk
+2026-11-10T13:55:51.3365606Z STATUS: deployed
+2026-11-10T13:55:51.3365969Z REVISION: 2
+2026-11-10T13:55:51.3366334Z DESCRIPTION: Upgrade complete
+2026-11-10T13:55:51.3366728Z TEST SUITE: None
+2026-11-10T13:55:51.3397871Z ========================================================================================================================
+2026-11-10T13:55:51.3398824Z ........................................................................................................................
+2026-11-10T13:55:51.3399687Z ==> Events of namespace elvia-job-p26et9evrk
+2026-11-10T13:55:51.3400854Z ........................................................................................................................
+2026-11-10T13:55:51.3987862Z No resources found in elvia-job-p26et9evrk namespace.
+2026-11-10T13:55:51.3989198Z ........................................................................................................................
+2026-11-10T13:55:51.3990426Z <== Events of namespace elvia-job-p26et9evrk
+2026-11-10T13:55:51.3997637Z ........................................................................................................................
+2026-11-10T13:55:51.4615911Z ========================================================================================================================
+2026-11-10T13:55:51.4616726Z Deleting release 'elvia-job-p26et9evrk'...
+2026-11-10T13:55:51.5463097Z release "elvia-job-p26et9evrk" uninstalled
+2026-11-10T13:55:51.5507261Z Deleting namespace 'elvia-job-p26et9evrk'...
+2026-11-10T13:55:51.6077134Z namespace "elvia-job-p26et9evrk" deleted
+2026-11-10T13:55:56.8873999Z Namespace 'elvia-job-p26et9evrk' terminated.
+2026-11-10T13:55:56.8874817Z Installing chart 'elvia-job => (version: "0.4.0", path: "charts/elvia-job")'...
+2026-11-10T13:55:56.8875382Z 
+2026-11-10T13:55:56.8875793Z Installing chart with values file 'charts/elvia-job/ci/demo-job-values.yaml'...
+2026-11-10T13:55:56.8876365Z 
+2026-11-10T13:55:56.8876561Z Creating namespace 'elvia-job-v9zur3utpo'...
+2026-11-10T13:55:56.9400862Z namespace/elvia-job-v9zur3utpo created
+2026-11-10T13:55:57.0642222Z NAME: elvia-job-v9zur3utpo
+2026-11-10T13:55:57.0643736Z LAST DEPLOYED: Tue Nov 10 13:55:57 2026
+2026-11-10T13:55:57.0644411Z NAMESPACE: elvia-job-v9zur3utpo
+2026-11-10T13:55:57.0644980Z STATUS: deployed
+2026-11-10T13:55:57.0645457Z REVISION: 1
+2026-11-10T13:55:57.0645934Z DESCRIPTION: Install complete
+2026-11-10T13:55:57.0646474Z TEST SUITE: None
+2026-11-10T13:55:57.1817476Z NAME: elvia-job-v9zur3utpo
+2026-11-10T13:55:57.1818063Z LAST DEPLOYED: Tue Nov 10 13:55:57 2026
+2026-11-10T13:55:57.1818655Z NAMESPACE: elvia-job-v9zur3utpo
+2026-11-10T13:55:57.1818965Z STATUS: deployed
+2026-11-10T13:55:57.1819218Z REVISION: 1
+2026-11-10T13:55:57.1819472Z DESCRIPTION: Install complete
+2026-11-10T13:55:57.1819761Z TEST SUITE: None
+2026-11-10T13:55:57.1854145Z ========================================================================================================================
+2026-11-10T13:55:57.1855094Z ........................................................................................................................
+2026-11-10T13:55:57.1855725Z ==> Events of namespace elvia-job-v9zur3utpo
+2026-11-10T13:55:57.1856155Z ........................................................................................................................
+2026-11-10T13:55:57.2437928Z No resources found in elvia-job-v9zur3utpo namespace.
+2026-11-10T13:55:57.2438985Z ........................................................................................................................
+2026-11-10T13:55:57.2439882Z <== Events of namespace elvia-job-v9zur3utpo
+2026-11-10T13:55:57.2440980Z ........................................................................................................................
+2026-11-10T13:55:57.3001279Z ========================================================================================================================
+2026-11-10T13:55:57.3002192Z Deleting release 'elvia-job-v9zur3utpo'...
+2026-11-10T13:55:57.3729098Z release "elvia-job-v9zur3utpo" uninstalled
+2026-11-10T13:55:57.3771862Z Deleting namespace 'elvia-job-v9zur3utpo'...
+2026-11-10T13:55:57.4599110Z namespace "elvia-job-v9zur3utpo" deleted
+2026-11-10T13:56:02.7260927Z Namespace 'elvia-job-v9zur3utpo' terminated.
+2026-11-10T13:56:02.7677961Z Hang tight while we grab the latest from your chart repositories...
+2026-11-10T13:56:02.9083037Z ...Successfully got an update from the "traefik" chart repository
+2026-11-10T13:56:03.4438862Z ...Successfully got an update from the "prometheus-community" chart repository
+2026-11-10T13:56:03.4440152Z Update Complete. ⎈Happy Helming!⎈
+2026-11-10T13:56:04.0158523Z Saving 1 charts
+2026-11-10T13:56:04.0170488Z Deleting outdated charts
+2026-11-10T13:56:04.0333075Z Testing upgrades of chart 'elvia-cronjob => (version: "0.2.0", path: "charts/elvia-cronjob")' relative to previous revision 'elvia-cronjob => (version: "0.2.0", path: "ct_previous_revision3209502266/charts/elvia-cronjob")'...
+2026-11-10T13:56:04.0335007Z 
+2026-11-10T13:56:04.0336006Z Installing chart 'elvia-cronjob => (version: "0.2.0", path: "ct_previous_revision3209502266/charts/elvia-cronjob")' with values file 'ct_previous_revision3209502266/charts/elvia-cronjob/ci/demo-cronjob-values.yaml'...
+2026-11-10T13:56:04.0337147Z 
+2026-11-10T13:56:04.0337301Z Creating namespace 'elvia-cronjob-wy1wz97uja'...
+2026-11-10T13:56:04.0831174Z namespace/elvia-cronjob-wy1wz97uja created
+2026-11-10T13:56:04.2010531Z NAME: elvia-cronjob-wy1wz97uja
+2026-11-10T13:56:04.2011628Z LAST DEPLOYED: Tue Nov 10 13:56:04 2026
+2026-11-10T13:56:04.2012127Z NAMESPACE: elvia-cronjob-wy1wz97uja
+2026-11-10T13:56:04.2012757Z STATUS: deployed
+2026-11-10T13:56:04.2012973Z REVISION: 1
+2026-11-10T13:56:04.2013204Z DESCRIPTION: Install complete
+2026-11-10T13:56:04.2013450Z TEST SUITE: None
+2026-11-10T13:56:04.3103883Z NAME: elvia-cronjob-wy1wz97uja
+2026-11-10T13:56:04.3104232Z LAST DEPLOYED: Tue Nov 10 13:56:04 2026
+2026-11-10T13:56:04.3104538Z NAMESPACE: elvia-cronjob-wy1wz97uja
+2026-11-10T13:56:04.3104835Z STATUS: deployed
+2026-11-10T13:56:04.3105032Z REVISION: 1
+2026-11-10T13:56:04.3105232Z DESCRIPTION: Install complete
+2026-11-10T13:56:04.3105477Z TEST SUITE: None
+2026-11-10T13:56:04.4506097Z Release "elvia-cronjob-wy1wz97uja" has been upgraded. Happy Helming!
+2026-11-10T13:56:04.4506750Z NAME: elvia-cronjob-wy1wz97uja
+2026-11-10T13:56:04.4507132Z LAST DEPLOYED: Tue Nov 10 13:56:04 2026
+2026-11-10T13:56:04.4507626Z NAMESPACE: elvia-cronjob-wy1wz97uja
+2026-11-10T13:56:04.4508060Z STATUS: deployed
+2026-11-10T13:56:04.4508382Z REVISION: 2
+2026-11-10T13:56:04.4508705Z DESCRIPTION: Upgrade complete
+2026-11-10T13:56:04.4509097Z TEST SUITE: None
+2026-11-10T13:56:04.5639228Z NAME: elvia-cronjob-wy1wz97uja
+2026-11-10T13:56:04.5639818Z LAST DEPLOYED: Tue Nov 10 13:56:04 2026
+2026-11-10T13:56:04.5640316Z NAMESPACE: elvia-cronjob-wy1wz97uja
+2026-11-10T13:56:04.5640755Z STATUS: deployed
+2026-11-10T13:56:04.5641085Z REVISION: 2
+2026-11-10T13:56:04.5641420Z DESCRIPTION: Upgrade complete
+2026-11-10T13:56:04.5641835Z TEST SUITE: None
+2026-11-10T13:56:04.5674187Z ========================================================================================================================
+2026-11-10T13:56:04.5675028Z ........................................................................................................................
+2026-11-10T13:56:04.5675653Z ==> Events of namespace elvia-cronjob-wy1wz97uja
+2026-11-10T13:56:04.5676273Z ........................................................................................................................
+2026-11-10T13:56:04.6234262Z No resources found in elvia-cronjob-wy1wz97uja namespace.
+2026-11-10T13:56:04.6235427Z ........................................................................................................................
+2026-11-10T13:56:04.6236551Z <== Events of namespace elvia-cronjob-wy1wz97uja
+2026-11-10T13:56:04.6237630Z ........................................................................................................................
+2026-11-10T13:56:04.6867955Z ========================================================================================================================
+2026-11-10T13:56:04.6868744Z Deleting release 'elvia-cronjob-wy1wz97uja'...
+2026-11-10T13:56:04.7626364Z release "elvia-cronjob-wy1wz97uja" uninstalled
+2026-11-10T13:56:04.7661859Z Deleting namespace 'elvia-cronjob-wy1wz97uja'...
+2026-11-10T13:56:04.8194185Z namespace "elvia-cronjob-wy1wz97uja" deleted
+2026-11-10T13:56:10.0939901Z Namespace 'elvia-cronjob-wy1wz97uja' terminated.
+2026-11-10T13:56:10.0941906Z Testing upgrades of chart 'elvia-cronjob => (version: "0.2.0", path: "charts/elvia-cronjob")' relative to previous revision 'elvia-cronjob => (version: "0.2.0", path: "charts/elvia-cronjob")'...
+2026-11-10T13:56:10.0943252Z 
+2026-11-10T13:56:10.0944473Z Installing chart 'elvia-cronjob => (version: "0.2.0", path: "charts/elvia-cronjob")' with values file 'charts/elvia-cronjob/ci/demo-cronjob-values.yaml'...
+2026-11-10T13:56:10.0945477Z 
+2026-11-10T13:56:10.0946007Z Creating namespace 'elvia-cronjob-wzbcdq44b3'...
+2026-11-10T13:56:10.1453805Z namespace/elvia-cronjob-wzbcdq44b3 created
+2026-11-10T13:56:10.2593922Z NAME: elvia-cronjob-wzbcdq44b3
+2026-11-10T13:56:10.2594492Z LAST DEPLOYED: Tue Nov 10 13:56:10 2026
+2026-11-10T13:56:10.2594986Z NAMESPACE: elvia-cronjob-wzbcdq44b3
+2026-11-10T13:56:10.2595429Z STATUS: deployed
+2026-11-10T13:56:10.2595766Z REVISION: 1
+2026-11-10T13:56:10.2596100Z DESCRIPTION: Install complete
+2026-11-10T13:56:10.2596522Z TEST SUITE: None
+2026-11-10T13:56:10.3734506Z NAME: elvia-cronjob-wzbcdq44b3
+2026-11-10T13:56:10.3735007Z LAST DEPLOYED: Tue Nov 10 13:56:10 2026
+2026-11-10T13:56:10.3735481Z NAMESPACE: elvia-cronjob-wzbcdq44b3
+2026-11-10T13:56:10.3735934Z STATUS: deployed
+2026-11-10T13:56:10.3736254Z REVISION: 1
+2026-11-10T13:56:10.3736571Z DESCRIPTION: Install complete
+2026-11-10T13:56:10.3736948Z TEST SUITE: None
+2026-11-10T13:56:10.5190347Z Release "elvia-cronjob-wzbcdq44b3" has been upgraded. Happy Helming!
+2026-11-10T13:56:10.5191103Z NAME: elvia-cronjob-wzbcdq44b3
+2026-11-10T13:56:10.5191401Z LAST DEPLOYED: Tue Nov 10 13:56:10 2026
+2026-11-10T13:56:10.5191707Z NAMESPACE: elvia-cronjob-wzbcdq44b3
+2026-11-10T13:56:10.5191972Z STATUS: deployed
+2026-11-10T13:56:10.5192177Z REVISION: 2
+2026-11-10T13:56:10.5192650Z DESCRIPTION: Upgrade complete
+2026-11-10T13:56:10.5192908Z TEST SUITE: None
+2026-11-10T13:56:10.6334798Z NAME: elvia-cronjob-wzbcdq44b3
+2026-11-10T13:56:10.6335335Z LAST DEPLOYED: Tue Nov 10 13:56:10 2026
+2026-11-10T13:56:10.6335826Z NAMESPACE: elvia-cronjob-wzbcdq44b3
+2026-11-10T13:56:10.6336265Z STATUS: deployed
+2026-11-10T13:56:10.6336598Z REVISION: 2
+2026-11-10T13:56:10.6336941Z DESCRIPTION: Upgrade complete
+2026-11-10T13:56:10.6337375Z TEST SUITE: None
+2026-11-10T13:56:10.6363105Z ========================================================================================================================
+2026-11-10T13:56:10.6364397Z ........................................................................................................................
+2026-11-10T13:56:10.6365416Z ==> Events of namespace elvia-cronjob-wzbcdq44b3
+2026-11-10T13:56:10.6366087Z ........................................................................................................................
+2026-11-10T13:56:10.6923594Z No resources found in elvia-cronjob-wzbcdq44b3 namespace.
+2026-11-10T13:56:10.6924716Z ........................................................................................................................
+2026-11-10T13:56:10.6925566Z <== Events of namespace elvia-cronjob-wzbcdq44b3
+2026-11-10T13:56:10.6926046Z ........................................................................................................................
+2026-11-10T13:56:10.7504717Z ========================================================================================================================
+2026-11-10T13:56:10.7506055Z Deleting release 'elvia-cronjob-wzbcdq44b3'...
+2026-11-10T13:56:10.8227100Z release "elvia-cronjob-wzbcdq44b3" uninstalled
+2026-11-10T13:56:10.8263267Z Deleting namespace 'elvia-cronjob-wzbcdq44b3'...
+2026-11-10T13:56:10.8809149Z namespace "elvia-cronjob-wzbcdq44b3" deleted
+2026-11-10T13:56:16.2997478Z Namespace 'elvia-cronjob-wzbcdq44b3' terminated.
+2026-11-10T13:56:16.2998380Z Installing chart 'elvia-cronjob => (version: "0.2.0", path: "charts/elvia-cronjob")'...
+2026-11-10T13:56:16.2999000Z 
+2026-11-10T13:56:16.2999431Z Installing chart with values file 'charts/elvia-cronjob/ci/demo-cronjob-values.yaml'...
+2026-11-10T13:56:16.2999796Z 
+2026-11-10T13:56:16.2999943Z Creating namespace 'elvia-cronjob-02c05us8dx'...
+2026-11-10T13:56:16.3492651Z namespace/elvia-cronjob-02c05us8dx created
+2026-11-10T13:56:16.4650707Z NAME: elvia-cronjob-02c05us8dx
+2026-11-10T13:56:16.4663888Z LAST DEPLOYED: Tue Nov 10 13:56:16 2026
+2026-11-10T13:56:16.4666899Z NAMESPACE: elvia-cronjob-02c05us8dx
+2026-11-10T13:56:16.4667490Z STATUS: deployed
+2026-11-10T13:56:16.4667932Z REVISION: 1
+2026-11-10T13:56:16.4668394Z DESCRIPTION: Install complete
+2026-11-10T13:56:16.4669357Z TEST SUITE: None
+2026-11-10T13:56:16.5796480Z NAME: elvia-cronjob-02c05us8dx
+2026-11-10T13:56:16.5797001Z LAST DEPLOYED: Tue Nov 10 13:56:16 2026
+2026-11-10T13:56:16.5797466Z NAMESPACE: elvia-cronjob-02c05us8dx
+2026-11-10T13:56:16.5797869Z STATUS: deployed
+2026-11-10T13:56:16.5798176Z REVISION: 1
+2026-11-10T13:56:16.5798509Z DESCRIPTION: Install complete
+2026-11-10T13:56:16.5798882Z TEST SUITE: None
+2026-11-10T13:56:16.5832768Z ========================================================================================================================
+2026-11-10T13:56:16.5834656Z ........................................................................................................................
+2026-11-10T13:56:16.5835738Z ==> Events of namespace elvia-cronjob-02c05us8dx
+2026-11-10T13:56:16.5836382Z ........................................................................................................................
+2026-11-10T13:56:16.6409161Z No resources found in elvia-cronjob-02c05us8dx namespace.
+2026-11-10T13:56:16.6410058Z ........................................................................................................................
+2026-11-10T13:56:16.6410863Z <== Events of namespace elvia-cronjob-02c05us8dx
+2026-11-10T13:56:16.6411618Z ........................................................................................................................
+2026-11-10T13:56:16.6986309Z ========================================================================================================================
+2026-11-10T13:56:16.6987076Z Deleting release 'elvia-cronjob-02c05us8dx'...
+2026-11-10T13:56:16.7856699Z release "elvia-cronjob-02c05us8dx" uninstalled
+2026-11-10T13:56:16.7897888Z Deleting namespace 'elvia-cronjob-02c05us8dx'...
+2026-11-10T13:56:16.8435823Z namespace "elvia-cronjob-02c05us8dx" deleted
+2026-11-10T13:56:22.1141678Z Namespace 'elvia-cronjob-02c05us8dx' terminated.
+2026-11-10T13:56:22.1979614Z fatal: './ct_previous_revision3209502266' contains modified or untracked files, use --force to delete it
+2026-11-10T13:56:22.1980709Z Error: Error installing charts: Error processing charts
+2026-11-10T13:56:22.1981224Z ------------------------------------------------------------------------------------------------------------------------
+2026-11-10T13:56:22.1982329Z  ✖︎ elvia-deployment => (version: "0.34.0", path: "charts/elvia-deployment") > Error waiting for process: exit status 1
+2026-11-10T13:56:22.1983967Z  ✖︎ elvia-statefulset => (version: "0.14.0", path: "charts/elvia-statefulset") > Error waiting for process: exit status 1
+2026-11-10T13:56:22.1985098Z  ✔︎ elvia-job => (version: "0.4.0", path: "charts/elvia-job")
+2026-11-10T13:56:22.1985927Z  ✔︎ elvia-cronjob => (version: "0.2.0", path: "charts/elvia-cronjob")
+2026-11-10T13:56:22.1986845Z ------------------------------------------------------------------------------------------------------------------------
+2026-11-10T13:56:22.1987696Z Error installing charts: Error processing charts
+2026-11-10T13:56:22.2014723Z ##[error]Process completed with exit code 1.
+2026-11-10T13:56:22.2194123Z Post job cleanup.
+2026-11-10T13:56:22.2741142Z Error response from daemon: No such container: kind-registry
+2026-11-10T13:56:22.2950448Z Deleting cluster "chart-testing" ...
+2026-11-10T13:56:25.8464109Z Deleted nodes: ["chart-testing-control-plane"]
+2026-11-10T13:56:25.8590578Z Post job cleanup.
+2026-11-10T13:56:25.9448389Z [command]/usr/bin/git version
+2026-11-10T13:56:25.9491951Z git version 2.56.0
+2026-11-10T13:56:25.9529433Z Temporarily overriding HOME='/home/runner/work/_temp/8d384f9f-48dc-47fd-9c5c-818e5b65f03a' before making global git config changes
+2026-11-10T13:56:25.9530771Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-10T13:56:25.9535335Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/kubernetes-charts/kubernetes-charts
+2026-11-10T13:56:25.9573185Z Removing SSH command configuration
+2026-11-10T13:56:25.9581329Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-10T13:56:25.9624518Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-10T13:56:25.9935037Z Removing HTTP extra header
+2026-11-10T13:56:25.9936045Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-10T13:56:25.9965881Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-10T13:56:26.0248038Z Removing includeIf entries pointing to credentials config files
+2026-11-10T13:56:26.0255615Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-10T13:56:26.0283725Z includeif.gitdir:/home/runner/work/kubernetes-charts/kubernetes-charts/.git.path
+2026-11-10T13:56:26.0284925Z includeif.gitdir:/home/runner/work/kubernetes-charts/kubernetes-charts/.git/worktrees/*.path
+2026-11-10T13:56:26.0285863Z includeif.gitdir:/github/workspace/.git.path
+2026-11-10T13:56:26.0286518Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-10T13:56:26.0293790Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/kubernetes-charts/kubernetes-charts/.git.path
+2026-11-10T13:56:26.0317448Z /home/runner/work/_temp/git-credentials-80b25703-d5d7-411c-8b99-6c4e6c391ba6.config
+2026-11-10T13:56:26.0338345Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/kubernetes-charts/kubernetes-charts/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-80b25703\-d5d7\-411c\-8b99\-6c4e6c391ba6\.config
+2026-11-10T13:56:26.0367917Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/kubernetes-charts/kubernetes-charts/.git/worktrees/*.path
+2026-11-10T13:56:26.0400056Z /home/runner/work/_temp/git-credentials-80b25703-d5d7-411c-8b99-6c4e6c391ba6.config
+2026-11-10T13:56:26.0409143Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/kubernetes-charts/kubernetes-charts/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-80b25703\-d5d7\-411c\-8b99\-6c4e6c391ba6\.config
+2026-11-10T13:56:26.0445008Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-10T13:56:26.0468481Z /github/runner_temp/git-credentials-80b25703-d5d7-411c-8b99-6c4e6c391ba6.config
+2026-11-10T13:56:26.0477704Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-80b25703\-d5d7\-411c\-8b99\-6c4e6c391ba6\.config
+2026-11-10T13:56:26.0513699Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-10T13:56:26.0539081Z /github/runner_temp/git-credentials-80b25703-d5d7-411c-8b99-6c4e6c391ba6.config
+2026-11-10T13:56:26.0547272Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-80b25703\-d5d7\-411c\-8b99\-6c4e6c391ba6\.config
+2026-11-10T13:56:26.0583351Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-10T13:56:26.0856545Z Removing credentials config '/home/runner/work/_temp/git-credentials-80b25703-d5d7-411c-8b99-6c4e6c391ba6.config'
+2026-11-10T13:56:26.1014512Z Cleaning up orphan processes
